@@ -1,0 +1,34 @@
+@import '../assets/scss/colors';
+
+.login {
+    display: flex;
+    height: 100vh;
+    background-color: $yellow;
+    justify-content: center;
+    align-items: center;
+    &__window {
+        padding: 30px;
+        position: absolute;
+        width: 30%;
+        margin: auto;
+        background-color: #ffffff;
+    }
+    &__heading {
+        color: $red;
+    }
+    &__form-control {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 14px;
+    }
+    &__label {
+        color: $red;
+        margin-bottom: 10px;
+    }
+    &__text {
+        color: $red;
+    }
+    &__mode {
+        color: $greeen;
+    }
+}

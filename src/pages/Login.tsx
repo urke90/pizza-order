@@ -1,4 +1,7 @@
 import { useState } from 'react';
+
+import Button from 'shared/form/Button';
+
 import './Login.scss';
 
 type LoginProps = {};
@@ -7,6 +10,10 @@ const Login: React.FC<LoginProps> = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
 
     const toggleAuthMode = () => setSignUpMode(!isSignUpMode);
+
+    const handleSubmit = () => {
+        console.log('dasdasdas');
+    };
 
     return (
         <div className="login">
@@ -31,7 +38,15 @@ const Login: React.FC<LoginProps> = () => {
                             placeholder="password"
                         />
                     </div>
-                    <button>submit</button>
+                    <Button
+                        onClick={handleSubmit}
+                        type="submit"
+                        width={100}
+                        height={30}
+                        bgColor="dark"
+                    >
+                        {isSignUpMode ? 'SIGN UP' : 'SIGN IN'}
+                    </Button>
                     <p className="login__text">
                         Already have an account?{' '}
                         <span className="login__mode" onClick={toggleAuthMode}>

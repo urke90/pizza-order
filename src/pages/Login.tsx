@@ -59,16 +59,15 @@ const Login: React.FC<LoginProps> = () => {
                             placeholder="password"
                         />
                     </div>
-                    {/* <Button
+                    <Button
                         onClick={handleSubmit}
                         type="submit"
-                        width={100}
-                        height={30}
-                        bgColor="dark"
+                        secondary
+                        width={200}
                     >
-                        {isSignUpMode ? 'SIGN UP' : 'SIGN IN'}
-                    </Button> */}
-                    <GoogleButton onClick={handleGoogleSignIn} />
+                        {isSignUpMode ? 'sign up' : 'sign in'}
+                    </Button>
+                    {/* <GoogleButton onClick={handleGoogleSignIn} /> */}
                     <p className="login__text">
                         Already have an account?{' '}
                         <span className="login__mode" onClick={toggleAuthMode}>
@@ -77,15 +76,24 @@ const Login: React.FC<LoginProps> = () => {
                                 : 'Sign up instead'}
                         </span>
                     </p>
-                    {/* <Button
-                        type="button"
-                        width={100}
-                        height={30}
-                        bgColor="red"
-                        onClick={fake}
-                    >
-                        sign in with google <FcGoogle />
-                    </Button> */}
+                    <div className="login__btn-wrapper">
+                        <Button type="button" onClick={fake}>
+                            <div
+                                style={{
+                                    display: 'flex'
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        marginRight: '10px'
+                                    }}
+                                >
+                                    sign in with google
+                                </span>
+                                <FcGoogle />
+                            </div>
+                        </Button>
+                    </div>
                 </form>
             </div>
         </div>

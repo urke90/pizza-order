@@ -1,6 +1,13 @@
+@import '../../assets/scss/colors';
+
 button {
-    padding: 4px 5px;
+    background-color: $red-fs;
+    color: $white;
+    padding: 10px 20px;
     border-radius: 5px;
-    border: 1px;
+    border: 3px solid transparent;
     outline: none;
+    text-transform: uppercase;
+    // display: flex;
+    // align-items: center;
 }

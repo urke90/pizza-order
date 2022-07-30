@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './Button.scss';
 
 interface IButtonProps {
@@ -7,13 +5,12 @@ interface IButtonProps {
     disabled?: boolean;
     onClick: () => void;
     children: React.ReactNode;
-    width: number;
-    height: number;
-    bgColor: 'red' | 'dark' | 'green' | 'yellow' | 'orange';
-    // textColor: 'red' | 'dark' | 'green' | 'yellow' | 'orange';
-    // outlined?: boolean;
+    width?: number;
+    // bgColor?: 'red' | 'dark' | 'green' | 'yellow' | 'orange'; // TODO delete this one probably
+    secondary?: boolean;
 }
 
+// TODO see what i am going to do with this
 const BUTTON_COLOR = {
     red: '#d61c4e',
     dark: '#293462',
@@ -29,23 +26,18 @@ const Button: React.FC<IButtonProps> = ({
     children,
     onClick,
     width,
-    height,
-    bgColor
-    // outlined
+    secondary
 }) => {
-    const btnBGcolor = BUTTON_COLOR[bgColor];
-
-    // console.log('btnBGcolor', btnBGcolor);
-
     return (
         <button
             type={type}
             disabled={disabled}
             onClick={onClick}
             style={{
-                width,
-                height,
-                backgroundColor: BUTTON_COLOR[bgColor]
+                backgroundColor: secondary ? '#feb139' : '',
+                borderColor: secondary ? '#feb139' : '',
+                color: secondary ? '#001e28' : '',
+                width
             }}
         >
             {children}

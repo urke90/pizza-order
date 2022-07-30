@@ -12,6 +12,7 @@
         width: 30%;
         margin: auto;
         background-color: #ffffff;
+        // background-color: $dark;
     }
     &__heading {
         color: $red;
@@ -30,5 +31,8 @@
     }
     &__mode {
         color: $green;
+    }
+    &__btn-wrapper {
+        margin: 0 auto;
     }
 }

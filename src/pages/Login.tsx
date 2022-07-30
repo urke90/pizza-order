@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import GoogleButton from 'react-google-button';
+import { useNavigate } from 'react-router-dom';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
+import { FcGoogle } from 'react-icons/fc';
 
 import Button from 'shared/form/Button';
 
@@ -8,11 +13,27 @@ type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
-
     const toggleAuthMode = () => setSignUpMode(!isSignUpMode);
 
+    const navigate = useNavigate();
+
     const handleSubmit = () => {
-        console.log('dasdasdas');
+        // TODO handle login with EMAIL and PW
+    };
+
+    const handleGoogleSignIn = async () => {
+        const provider = new GoogleAuthProvider();
+
+        try {
+            await signInWithPopup(auth, provider);
+            navigate('/', { replace: true });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const fake = () => {
+        console.log('radi button');
     };
 
     return (
@@ -38,7 +59,7 @@ const Login: React.FC<LoginProps> = () => {
                             placeholder="password"
                         />
                     </div>
-                    <Button
+                    {/* <Button
                         onClick={handleSubmit}
                         type="submit"
                         width={100}
@@ -46,7 +67,8 @@ const Login: React.FC<LoginProps> = () => {
                         bgColor="dark"
                     >
                         {isSignUpMode ? 'SIGN UP' : 'SIGN IN'}
-                    </Button>
+                    </Button> */}
+                    <GoogleButton onClick={handleGoogleSignIn} />
                     <p className="login__text">
                         Already have an account?{' '}
                         <span className="login__mode" onClick={toggleAuthMode}>
@@ -55,6 +77,15 @@ const Login: React.FC<LoginProps> = () => {
                                 : 'Sign up instead'}
                         </span>
                     </p>
+                    {/* <Button
+                        type="button"
+                        width={100}
+                        height={30}
+                        bgColor="red"
+                        onClick={fake}
+                    >
+                        sign in with google <FcGoogle />
+                    </Button> */}
                 </form>
             </div>
         </div>

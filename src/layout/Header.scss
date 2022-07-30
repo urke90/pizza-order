@@ -1,0 +1,30 @@
+@import '../assets/scss/colors';
+
+.header {
+    display: flex;
+    color: white;
+    background-color: $dark;
+    padding: 10px;
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1260px;
+    }
+    &__logo a {
+        border: none;
+    }
+    &__navigation {
+        display: flex;
+    }
+    &__navigation-list {
+        display: flex;
+        margin-right: 10px;
+    }
+    &__item {
+        margin: 0 5px;
+        display: flex;
+        align-items: center;
+    }
+}

@@ -6,6 +6,7 @@ import { HiMenu } from 'react-icons/hi';
 import NavDesktop from 'shared/navigation/NavDesktop';
 import NavMobile from 'shared/navigation/NavMobile';
 import Button from 'shared/form/Button';
+import { useLogin } from 'hooks/useLogin';
 
 import './Header.scss';
 
@@ -13,11 +14,12 @@ type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
     const [openedMenu, setOpenedMenu] = useState(false);
+    const { handleUserLogout } = useLogin();
 
     const handleOpenMenu = () => setOpenedMenu(!openedMenu);
 
     return (
-        <div className="header">
+        <header className="header">
             <div className="header__container">
                 <div className="header__logo">
                     <Link to="/">
@@ -27,7 +29,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <nav className="header__navigation">
                     <NavDesktop />
                     <div className="header__btn--logout">
-                        <Button type="button" onClick={() => {}}>
+                        <Button type="button" onClick={handleUserLogout}>
                             logout
                         </Button>
                     </div>
@@ -40,7 +42,7 @@ const Header: React.FC<HeaderProps> = () => {
                     {openedMenu && <NavMobile />}
                 </nav>
             </div>
-        </div>
+        </header>
     );
 };
 

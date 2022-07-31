@@ -4,9 +4,10 @@
     display: flex;
     color: white;
     background-color: $dark;
-    padding: 10px;
+    padding: 10px 16px;
     &__container {
         display: flex;
+        margin: auto;
         justify-content: space-between;
         align-items: center;
         width: 100%;

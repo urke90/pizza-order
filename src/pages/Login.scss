@@ -16,11 +16,13 @@
     }
     &__heading {
         color: $red;
+        margin-bottom: 20px;
+        text-align: center;
     }
     &__form-control {
         display: flex;
         flex-direction: column;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
     }
     &__label {
         color: $red;
@@ -28,6 +30,8 @@
     }
     &__text {
         color: $red;
+        margin: 16px 0;
+        text-align: center;
     }
     &__mode {
         color: $green;

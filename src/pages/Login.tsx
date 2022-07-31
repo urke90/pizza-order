@@ -63,7 +63,7 @@ const Login: React.FC<LoginProps> = () => {
                         onClick={handleSubmit}
                         type="submit"
                         secondary
-                        width={200}
+                        width="100%"
                     >
                         {isSignUpMode ? 'sign up' : 'sign in'}
                     </Button>
@@ -76,11 +76,14 @@ const Login: React.FC<LoginProps> = () => {
                                 : 'Sign up instead'}
                         </span>
                     </p>
+
                     <div className="login__btn-wrapper">
-                        <Button type="button" onClick={fake}>
+                        <Button type="button" onClick={fake} width="100%">
                             <div
                                 style={{
-                                    display: 'flex'
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignContent: 'center'
                                 }}
                             >
                                 <span
@@ -90,7 +93,7 @@ const Login: React.FC<LoginProps> = () => {
                                 >
                                     sign in with google
                                 </span>
-                                <FcGoogle />
+                                <FcGoogle size={18} />
                             </div>
                         </Button>
                     </div>

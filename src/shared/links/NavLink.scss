@@ -1,0 +1,10 @@
+@import '../../assets/scss/colors';
+
+a {
+    display: block;
+    text-decoration: none;
+    color: $orange;
+    // padding: 6px 10px;
+    // border: 2px solid $orange;
+    text-transform: uppercase;
+}

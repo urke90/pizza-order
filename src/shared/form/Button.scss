@@ -1,13 +1,14 @@
 @import '../../assets/scss/colors';
 
 button {
-    background-color: $red-fs;
+    background-color: $red;
     color: $white;
     padding: 10px 20px;
     border-radius: 5px;
     border: 3px solid transparent;
     outline: none;
     text-transform: uppercase;
+    font-size: 16px;
     // display: flex;
     // align-items: center;
 }

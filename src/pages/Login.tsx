@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+    GoogleAuthProvider,
+    signInWithPopup,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { FcGoogle } from 'react-icons/fc';
+import { useLogin } from 'hooks/useLogin';
 
 import Button from 'shared/form/Button';
 
@@ -13,27 +19,44 @@ type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
-    const toggleAuthMode = () => setSignUpMode(!isSignUpMode);
-
+    const { handleGoogleSignIn } = useLogin();
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        // TODO handle login with EMAIL and PW
+    const toggleAuthMode = () => setSignUpMode(!isSignUpMode);
+
+    const signupUsers = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const res = await createUserWithEmailAndPassword(
+                auth,
+                'test@gmail.com',
+                '123123'
+            );
+            navigate('/', { replace: true });
+            console.log('res', res);
+        } catch (error) {
+            console.log('error with creacte', error);
+        }
     };
 
-    const handleGoogleSignIn = async () => {
-        const provider = new GoogleAuthProvider();
-
+    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            await signInWithPopup(auth, provider);
+            const res = await signInWithEmailAndPassword(
+                auth,
+                'test@gmail.com',
+                '123123'
+            );
+            console.log('res', res);
+
             navigate('/', { replace: true });
         } catch (error) {
             console.log(error);
         }
     };
 
-    const fake = () => {
-        console.log('radi button');
+    const handleSubmit = () => {
+        // TODO handle login with EMAIL and PW
     };
 
     return (
@@ -42,7 +65,7 @@ const Login: React.FC<LoginProps> = () => {
                 <h1 className="login__heading">
                     {isSignUpMode ? 'Sign up' : 'Sign in'}
                 </h1>
-                <form action="" className="login__form">
+                <form onSubmit={signupUsers} className="login__form">
                     <div className="login__form-control">
                         <label className="login__label" htmlFor="email">
                             Email
@@ -60,7 +83,7 @@ const Login: React.FC<LoginProps> = () => {
                         />
                     </div>
                     <Button
-                        onClick={handleSubmit}
+                        onClick={() => {}}
                         type="submit"
                         secondary
                         width="100%"
@@ -78,7 +101,11 @@ const Login: React.FC<LoginProps> = () => {
                     </p>
 
                     <div className="login__btn-wrapper">
-                        <Button type="button" onClick={fake} width="100%">
+                        <Button
+                            type="button"
+                            onClick={handleGoogleSignIn}
+                            width="100%"
+                        >
                             <div
                                 style={{
                                     display: 'flex',

@@ -1,5 +1,6 @@
 import Button from 'shared/form/Button';
 import NavLinkCustom from 'shared/links/NavLink';
+import { useLogin } from 'hooks/useLogin';
 
 import './NavMobile.scss';
 
@@ -8,6 +9,8 @@ import { NAVLINKS_CONFIG } from 'util/navlinks';
 type NavMobileProps = {};
 
 const NavMobile: React.FC<NavMobileProps> = () => {
+    const { handleUserLogout } = useLogin();
+
     return (
         <ul className="header__navigation-list--mobile">
             {NAVLINKS_CONFIG.map((navLink) => {
@@ -19,7 +22,7 @@ const NavMobile: React.FC<NavMobileProps> = () => {
                 );
             })}
             <li className="header__item--mobile">
-                <Button type="button" width={160} onClick={() => {}}>
+                <Button type="button" width={160} onClick={handleUserLogout}>
                     logout
                 </Button>
             </li>

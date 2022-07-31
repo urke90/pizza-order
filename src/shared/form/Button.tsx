@@ -5,7 +5,7 @@ interface IButtonProps {
     disabled?: boolean;
     onClick: () => void;
     children: React.ReactNode;
-    width?: number;
+    width?: number | string;
     // bgColor?: 'red' | 'dark' | 'green' | 'yellow' | 'orange'; // TODO delete this one probably
     secondary?: boolean;
 }

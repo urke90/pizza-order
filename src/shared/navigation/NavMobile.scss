@@ -1,0 +1,20 @@
+@import '../../assets/scss/colors';
+
+.header {
+    &__navigation-list--mobile {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        background-color: $dark;
+        // padding: 5px;
+        width: 160px;
+        top: 64px;
+        right: 15px;
+    }
+    &__item--mobile {
+        text-align: center;
+        a {
+            padding: 10px 10px !important;
+        }
+    }
+}

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
+import { auth } from '../firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import Button from 'shared/form/Button';
 
@@ -24,6 +26,19 @@ const Login: React.FC<LoginProps> = () => {
     const handleSubmit = isSignUpMode
         ? handleSignUpWithCredentials
         : handleSignInWithCredentials;
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log('user SIGN IN', user);
+
+            // user is logged in
+            // console.log('user imaaaa', user);
+        } else {
+            // user is signed out
+
+            console.log('signed out', user);
+        }
+    });
 
     return (
         <div className="login">

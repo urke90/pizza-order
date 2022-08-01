@@ -3,7 +3,7 @@
 .login {
     display: flex;
     height: 100vh;
-    background-color: $yellow;
+    background-color: $dark;
     justify-content: center;
     align-items: center;
     &__window {
@@ -12,7 +12,7 @@
         width: 30%;
         margin: auto;
         background-color: #ffffff;
-        // background-color: $dark;
+        border-radius: 25px;
     }
     &__heading {
         color: $red;

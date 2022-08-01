@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import GoogleButton from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
-import {
-    GoogleAuthProvider,
-    signInWithPopup,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
-} from 'firebase/auth';
-import { auth } from '../firebase/firebase';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
 
@@ -19,45 +11,19 @@ type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
-    const { handleGoogleSignIn } = useLogin();
-    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const {
+        handleGoogleSignIn,
+        handleSignInWithCredentials,
+        handleSignUpWithCredentials
+    } = useLogin();
 
-    const toggleAuthMode = () => setSignUpMode(!isSignUpMode);
+    const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
 
-    const signupUsers = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const res = await createUserWithEmailAndPassword(
-                auth,
-                'test@gmail.com',
-                '123123'
-            );
-            navigate('/', { replace: true });
-            console.log('res', res);
-        } catch (error) {
-            console.log('error with creacte', error);
-        }
-    };
-
-    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const res = await signInWithEmailAndPassword(
-                auth,
-                'test@gmail.com',
-                '123123'
-            );
-            console.log('res', res);
-
-            navigate('/', { replace: true });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleSubmit = () => {
-        // TODO handle login with EMAIL and PW
-    };
+    const handleSubmit = isSignUpMode
+        ? handleSignUpWithCredentials
+        : handleSignInWithCredentials;
 
     return (
         <div className="login">
@@ -65,12 +31,20 @@ const Login: React.FC<LoginProps> = () => {
                 <h1 className="login__heading">
                     {isSignUpMode ? 'Sign up' : 'Sign in'}
                 </h1>
-                <form onSubmit={signupUsers} className="login__form">
+                <form
+                    onSubmit={(e) => handleSubmit(e, email, password)}
+                    className="login__form"
+                >
                     <div className="login__form-control">
                         <label className="login__label" htmlFor="email">
                             Email
                         </label>
-                        <input type="email" id="email" placeholder="Email" />
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
                     <div className="login__form-control">
                         <label className="login__label" htmlFor="password">
@@ -80,6 +54,7 @@ const Login: React.FC<LoginProps> = () => {
                             type="password"
                             id="password"
                             placeholder="password"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <Button
@@ -90,7 +65,6 @@ const Login: React.FC<LoginProps> = () => {
                     >
                         {isSignUpMode ? 'sign up' : 'sign in'}
                     </Button>
-                    {/* <GoogleButton onClick={handleGoogleSignIn} /> */}
                     <p className="login__text">
                         Already have an account?{' '}
                         <span className="login__mode" onClick={toggleAuthMode}>
@@ -129,4 +103,5 @@ const Login: React.FC<LoginProps> = () => {
         </div>
     );
 };
+
 export default Login;

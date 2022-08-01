@@ -1,8 +1,29 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import {
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+} from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 
-export const useLogin = () => {
+interface IUseLogin {
+    handleGoogleSignIn: () => Promise<void>;
+    handleUserLogout: () => Promise<void>;
+    handleSignInWithCredentials: (
+        e: React.FormEvent<HTMLFormElement>,
+        email: string,
+        password: string
+    ) => Promise<void>;
+    handleSignUpWithCredentials: (
+        e: React.FormEvent<HTMLFormElement>,
+        email: string,
+        password: string
+    ) => Promise<void>;
+}
+
+export const useLogin = (): IUseLogin => {
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async () => {
@@ -16,7 +37,7 @@ export const useLogin = () => {
         }
     };
 
-    const handleUserLogout = async () => {
+    const handleUserLogout = async (): Promise<void> => {
         try {
             await signOut(auth);
             navigate('/login', { replace: true });
@@ -25,8 +46,51 @@ export const useLogin = () => {
         }
     };
 
+    const handleSignInWithCredentials = async (
+        e: React.FormEvent<HTMLFormElement>,
+        email: string,
+        password: string
+    ): Promise<void> => {
+        e.preventDefault();
+
+        try {
+            const response = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            console.log('SIGN IN WITH EMAIL AND PW', response);
+
+            navigate('/', { replace: true });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSignUpWithCredentials = async (
+        e: React.FormEvent<HTMLFormElement>,
+        email: string,
+        password: string
+    ): Promise<void> => {
+        e.preventDefault();
+
+        try {
+            const response = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            navigate('/', { replace: true });
+            console.log('CREATE USER WITH EMAIL AND PW', response);
+        } catch (error) {
+            console.log('error with creacte', error);
+        }
+    };
+
     return {
         handleGoogleSignIn,
-        handleUserLogout
+        handleUserLogout,
+        handleSignInWithCredentials,
+        handleSignUpWithCredentials
     };
 };

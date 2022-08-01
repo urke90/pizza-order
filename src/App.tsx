@@ -1,7 +1,7 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import Main from 'pages/Main';
-import Login from 'pages/Login';
+import RoutesComponent from 'router/Routes';
+
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
 import Header from 'layout/Header';
@@ -23,12 +23,12 @@ function App() {
     return (
         <div>
             {pathname !== '/login' && <Header />}
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="login" element={<Login />} />
-            </Routes>
+
+            <RoutesComponent />
         </div>
     );
 }
+
+//https://forkify-api.herokuapp.com/
 
 export default App;

@@ -2,8 +2,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Main from 'pages/Main';
 import Login from 'pages/Login';
-import { getAuth } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase';
 import Header from 'layout/Header';
 
 import './App.scss';
@@ -11,7 +11,6 @@ import './App.scss';
 function App() {
     const { pathname } = useLocation();
 
-    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
             // user is logged in

@@ -3,6 +3,7 @@ import { useAxios } from 'hooks/useAxios';
 import { API_ENDPOINTS } from 'api/endpoints';
 
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
+import PizzaItem from 'components/main/PizzaItem';
 
 import './Main.scss';
 
@@ -133,41 +134,9 @@ const Main: React.FC<MainProps> = () => {
                 <div className="main__content">
                     <div className="main__pizza-menu">
                         <ul className="main__pizza-list">
-                            <li className="main__pizza-item">
-                                <div className="main__pizza-img">
-                                    <img
-                                        src={DUMMY_PIZZA.image_url}
-                                        alt="pizza"
-                                        width={150}
-                                    />
-                                </div>
-                                <div className="main__pizza-title">
-                                    <h3>{DUMMY_PIZZA.title}</h3>
-                                </div>
-                            </li>
-                            <li className="main__pizza-item">
-                                <div className="main__pizza-img">
-                                    <img
-                                        src={DUMMY_PIZZA.image_url}
-                                        alt="pizza"
-                                        width={150}
-                                    />
-                                </div>
-                                <div className="main__pizza-title">
-                                    <h3>{DUMMY_PIZZA.title}</h3>
-                                </div>
-                            </li>
-                            <li className="main__pizza-item">
-                                <div className="main__pizza-img">
-                                    <img
-                                        src={DUMMY_PIZZA.image_url}
-                                        alt="pizza"
-                                    />
-                                </div>
-                                <div className="main__pizza-title">
-                                    <h3>{DUMMY_PIZZA.title}</h3>
-                                </div>
-                            </li>
+                            <PizzaItem />
+                            <PizzaItem />
+                            <PizzaItem />
                         </ul>
                     </div>
                     {/* <main className="main__recipe b">present recepies</main>

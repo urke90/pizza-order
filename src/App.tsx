@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
-
-import RoutesComponent from 'router/Routes';
-
 import { onAuthStateChanged } from 'firebase/auth';
+
 import { auth } from './firebase/firebase';
-import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { useAppDispatch } from 'hooks/useRedux';
+import { saveUser, removeUser } from 'redux/reducers/authReducer';
+import RoutesComponent from 'router/Routes';
 
 import Header from 'layout/Header';
 
@@ -12,28 +12,27 @@ import './App.scss';
 
 function App() {
     const { pathname } = useLocation();
-
-    const bla = useAppSelector((store) => {
-        console.log('store', store);
-    });
+    const dispatch = useAppDispatch();
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log('user SIGN IN', user);
-
             // user is logged in
-            // console.log('user imaaaa', user);
+
+            dispatch(
+                saveUser({
+                    uid: user.uid,
+                    isAuth: true
+                })
+            );
         } else {
             // user is signed out
-
-            console.log('signed out', user);
+            dispatch(removeUser());
         }
     });
 
     return (
         <div>
             {pathname !== '/login' && <Header />}
-
             <RoutesComponent />
         </div>
     );

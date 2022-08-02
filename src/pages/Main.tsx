@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAxios } from 'hooks/useAxios';
+
+import { API_ENDPOINTS } from 'api/endpoints';
 
 import './Main.scss';
 
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
+    const { sendRequest } = useAxios();
+    const [recId, setRecId] = useState();
+
+    useEffect(() => {
+        const fetchPizzas = async () => {
+            const url = API_ENDPOINTS.pizza;
+
+            const response = await sendRequest({ url, method: 'GET' });
+            setRecId(response?.data.recipes);
+            console.log('response', response);
+        };
+
+        fetchPizzas();
+    }, []);
+
+    useEffect(() => {
+        const fetchPizzas = async () => {
+            const url = API_ENDPOINTS.pizza;
+
+            const response = await sendRequest({
+                url: 'https://forkify-api.herokuapp.com/api/get?rId=35477',
+                method: 'GET'
+            });
+            console.log('response RECIPE', response);
+        };
+
+        fetchPizzas();
+    }, []);
+
     return (
         <section className="main">
             <div className="main__container">

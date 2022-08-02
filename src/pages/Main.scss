@@ -12,7 +12,14 @@
         margin-bottom: 10px;
     }
     &__content {
-        display: flex;
+        // display: flex;
+        // flex-direction: column;
         border: 1px solid red;
+    }
+    &__recipe {
+        display: none;
+    }
+    &__ingredients {
+        display: none;
     }
 }

@@ -1,29 +1,3 @@
-@import '../assets/scss/colors';
-
-.main {
-    padding: 10px 16px;
-    background-color: $black;
-    color: $orange;
-    &__heading-wrapper {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    &__heading {
-        margin-bottom: 10px;
-    }
-    // &__content {
-    // display: flex;
-    // flex-direction: column;
-    // border: 1px solid red;
-    // }
-    &__recipe {
-        display: none;
-    }
-    &__ingredients {
-        display: none;
-    }
-}
-
 .main {
     &__pizza-list {
         // display: flex;

@@ -8,6 +8,90 @@ import './Main.scss';
 
 type MainProps = {};
 
+const DUMMY_PIZZA = {
+    image_url:
+        'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+    publisher: '101 Cookbooks',
+    publisher_url: 'http://www.101cookbooks.com',
+    recipe_id: '47746',
+    social_rank: 100,
+    source_url: 'http://www.101cookbooks.com/archives/001199.html',
+    title: 'Best Pizza Dough Ever'
+};
+
+const DUMMY_PIZZA_ARR = [
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    },
+    {
+        image_url:
+            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
+        publisher: '101 Cookbooks',
+        publisher_url: 'http://www.101cookbooks.com',
+        recipe_id: '47746',
+        social_rank: 100,
+        source_url: 'http://www.101cookbooks.com/archives/001199.html',
+        title: 'Best Pizza Dough Ever'
+    }
+];
+
 const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const [recId, setRecId] = useState();
@@ -47,9 +131,47 @@ const Main: React.FC<MainProps> = () => {
                     <p>Pick your favorite pizza</p>
                 </div>
                 <div className="main__content">
-                    <div className="main__pizza-menu a">menu here</div>
-                    <main className="main__recipe b">present recepies</main>
-                    <div className="main__ingredients  c">ingredients here</div>
+                    <div className="main__pizza-menu">
+                        <ul className="main__pizza-list">
+                            <li className="main__pizza-item">
+                                <div className="main__pizza-img">
+                                    <img
+                                        src={DUMMY_PIZZA.image_url}
+                                        alt="pizza"
+                                        width={150}
+                                    />
+                                </div>
+                                <div className="main__pizza-title">
+                                    <h3>{DUMMY_PIZZA.title}</h3>
+                                </div>
+                            </li>
+                            <li className="main__pizza-item">
+                                <div className="main__pizza-img">
+                                    <img
+                                        src={DUMMY_PIZZA.image_url}
+                                        alt="pizza"
+                                        width={150}
+                                    />
+                                </div>
+                                <div className="main__pizza-title">
+                                    <h3>{DUMMY_PIZZA.title}</h3>
+                                </div>
+                            </li>
+                            <li className="main__pizza-item">
+                                <div className="main__pizza-img">
+                                    <img
+                                        src={DUMMY_PIZZA.image_url}
+                                        alt="pizza"
+                                    />
+                                </div>
+                                <div className="main__pizza-title">
+                                    <h3>{DUMMY_PIZZA.title}</h3>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {/* <main className="main__recipe b">present recepies</main>
+                    <div className="main__ingredients  c">ingredients here</div> */}
                 </div>
             </div>
         </section>

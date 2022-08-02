@@ -23,15 +23,10 @@ const authSlice = createSlice({
             const { uid, isAuth } = action.payload;
             state.isAuth = isAuth;
             state.uid = uid;
-
-            console.log('state', state);
-            console.log('action', action);
         },
         removeUser(state) {
             state.isAuth = false;
             state.uid = '';
-
-            console.log('state on remove user', state);
         }
     }
 });

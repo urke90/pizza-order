@@ -4,6 +4,10 @@
     padding: 10px 16px;
     background-color: $black;
     color: $orange;
+    &__container {
+        max-width: 1260px;
+        margin: auto;
+    }
     &__heading-wrapper {
         text-align: center;
         margin-bottom: 30px;
@@ -11,15 +15,32 @@
     &__heading {
         margin-bottom: 10px;
     }
-    &__content {
-        // display: flex;
-        // flex-direction: column;
-        border: 1px solid red;
-    }
+    // &__content {
+    // display: flex;
+    // flex-direction: column;
+    // border: 1px solid red;
+    // }
     &__recipe {
         display: none;
     }
     &__ingredients {
         display: none;
+    }
+    &__pizzas-list {
+        max-width: 200px;
+        padding: 20px;
+        margin: auto;
+    }
+    @media screen and (min-width: 768px) {
+        &__menu {
+            display: none;
+        }
+        &__pizzas-list {
+            display: flex;
+            max-width: none;
+            // width: 100%;
+            border: 1px solid red;
+            justify-content: space-around;
+        }
     }
 }

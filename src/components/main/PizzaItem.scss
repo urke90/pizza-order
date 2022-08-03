@@ -1,0 +1,17 @@
+.pizza {
+    &__item {
+        max-width: 200px;
+        margin: 0 10px 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+    &__img {
+        img {
+            border-radius: 30px;
+        }
+    }
+    &__title {
+        margin-top: 10px;
+        text-align: center;
+    }
+}

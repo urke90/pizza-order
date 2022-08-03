@@ -17,11 +17,11 @@ const DUMMY_PIZZA = {
 
 const PizzaItem: React.FC<PizzaItemProps> = () => {
     return (
-        <li className="main__pizza-item">
-            <div className="main__pizza-img">
+        <li className="pizza__item">
+            <div className="pizza__img">
                 <img src={DUMMY_PIZZA.image_url} alt="pizza" width={150} />
             </div>
-            <div className="main__pizza-title">
+            <div className="pizza__title">
                 <h3>{DUMMY_PIZZA.title}</h3>
             </div>
         </li>

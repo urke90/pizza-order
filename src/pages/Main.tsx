@@ -125,22 +125,22 @@ const Main: React.FC<MainProps> = () => {
 
     return (
         <section className="main">
-            {isLoading && !error && <LoadingSpinner asOverlay />}
+            {/* {isLoading && !error && <LoadingSpinner asOverlay />} */}
             <div className="main__container">
                 <div className="main__heading-wrapper">
                     <h2 className="main__heading">Main Pizza Page</h2>
                     <p>Pick your favorite pizza</p>
                 </div>
                 <div className="main__content">
-                    <div className="main__pizza-menu">
-                        <ul className="main__pizza-list">
-                            <PizzaItem />
-                            <PizzaItem />
-                            <PizzaItem />
-                        </ul>
-                    </div>
-                    {/* <main className="main__recipe b">present recepies</main>
-                    <div className="main__ingredients  c">ingredients here</div> */}
+                    <ul className="main__pizzas-list">
+                        <PizzaItem />
+                        <PizzaItem />
+                        <PizzaItem />
+                        <PizzaItem />
+                    </ul>
+
+                    {/* <main className="main__recipe">present recepies</main>
+                    <div className="main__ingredients">ingredients here</div> */}
                 </div>
             </div>
         </section>

@@ -1,15 +1,16 @@
-.main {
-    &__pizza-item {
+.pizza {
+    &__item {
         max-width: 200px;
+        margin: 0 10px 20px;
         margin-bottom: 20px;
         cursor: pointer;
     }
-    &__pizza-img {
+    &__img {
         img {
             border-radius: 30px;
         }
     }
-    &__pizza-title {
+    &__title {
         margin-top: 10px;
         text-align: center;
     }

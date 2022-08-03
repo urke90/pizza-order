@@ -8,18 +8,11 @@ import {
 
 import './Pagination.scss';
 
-type TArrowPageChangeType = 'increment' | 'decrement';
-
 interface PaginationProps {
     itemsCount: number;
-    onArrowPageChange: (type: TArrowPageChangeType) => void;
-    onNumberPageChange?: (pageNum: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-    itemsCount,
-    onArrowPageChange
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ itemsCount }) => {
     const itemsPerPage = useAppSelector(
         (state) => state.paginationReducer.itemsPerPage
     );
@@ -34,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({
     const handleIncrementPage = () => dispatch(incrementPaginationPage());
     const handleDecrementPage = () => dispatch(decrementPaginationPage());
     const handlePageChange = (numBtn: number) =>
-        dispatch({ selectedPage: numBtn });
+        dispatch(selectPaginationPage({ selectedPage: numBtn }));
 
     return (
         <div className="pagination">
@@ -51,7 +44,12 @@ const Pagination: React.FC<PaginationProps> = ({
                     {numberButtons.map((numBtn) => (
                         <li
                             key={numBtn}
-                            className="pagination__numbers-item"
+                            // className="pagination__numbers-item"
+                            className={`pagination__numbers-item ${
+                                numBtn === currentPage
+                                    ? 'pagination__numbers-item--active'
+                                    : ''
+                            }`}
                             onClick={() => handlePageChange(numBtn)}
                         >
                             {numBtn}

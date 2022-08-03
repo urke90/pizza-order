@@ -7,6 +7,7 @@ import { API_ENDPOINTS } from 'api/endpoints';
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzaItem from 'components/main/PizzaItem';
+import { getPizzasToRender } from 'util/pagination';
 
 import './Main.scss';
 
@@ -16,27 +17,20 @@ const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
     const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
-    const bla = useAppSelector((state) => {
-        console.log(
-            'currentPage FROM PAGINATION REDUCER',
-            state.paginationReducer.currentPage
-        );
-    });
+    const currentPage = useAppSelector(
+        (state) => state.paginationReducer.currentPage
+    );
+    const itemsPerPage = useAppSelector(
+        (state) => state.paginationReducer.itemsPerPage
+    );
 
+    // selecting pizza ID so we could fetch specific recipe
+    // TODO CONTINUE FINISHING RENDERING RECIPE
     const selectPizzaRecipe = (pizzaId: string) => {
         console.log('pizzaID', pizzaId);
     };
 
-    const handlePizzaPageChange = () => {};
-
-    const currentPage = 1;
-    const totalItems = 4;
-    const startSlice = (currentPage - 1) * totalItems;
-    const endSlice = (currentPage - 1) * totalItems + totalItems;
-
-    const slicedPizzas = pizzas.slice(startSlice, endSlice);
-
-    // console.log('slicedPizzas', slicedPizzas);
+    const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     useEffect(() => {
         const fetchPizzas = async () => {
@@ -53,7 +47,7 @@ const Main: React.FC<MainProps> = () => {
         };
 
         fetchPizzas();
-    }, []);
+    }, [sendRequest, dispatch]);
 
     // useEffect(() => {
     //     const fetchPizzas = async () => {
@@ -74,7 +68,7 @@ const Main: React.FC<MainProps> = () => {
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">
-                    <h2 className="main__heading">Main Pizza Page</h2>
+                    <h1 className="main__heading">Main Pizza Page</h1>
                     <p>Pick your favorite pizza</p>
                 </div>
                 <div className="main__content">
@@ -82,7 +76,7 @@ const Main: React.FC<MainProps> = () => {
                         {!isLoading &&
                             !error &&
                             pizzas.length &&
-                            slicedPizzas.map(
+                            pizzasToRender.map(
                                 ({ recipe_id, title, image_url }) => (
                                     <PizzaItem
                                         key={recipe_id}
@@ -94,10 +88,7 @@ const Main: React.FC<MainProps> = () => {
                                 )
                             )}
                     </ul>
-                    <Pagination
-                        onArrowPageChange={handlePizzaPageChange}
-                        itemsCount={pizzas.length}
-                    />
+                    <Pagination itemsCount={pizzas.length} />
                     {/* <main className="main__recipe">present recepies</main>
                     <div className="main__ingredients">ingredients here</div> */}
                 </div>

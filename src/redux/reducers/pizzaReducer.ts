@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-interface IPizzas {
-    image_url: string;
-    publisher: string;
-    publisher_url: string;
-    recipe_id: string;
-    social_rank: number;
-    source_url: string;
-    title: string;
-}
+import { IPizzas } from '../../ts/pizzas';
 
 interface ISelectedPizza {
     image_url: string;

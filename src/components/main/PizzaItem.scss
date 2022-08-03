@@ -1,17 +1,24 @@
 .pizza {
     &__item {
-        max-width: 200px;
         margin: 0 10px 20px;
-        margin-bottom: 20px;
         cursor: pointer;
     }
     &__img {
         img {
             border-radius: 30px;
+            width: 160px;
+            height: 160px;
         }
     }
     &__title {
         margin-top: 10px;
         text-align: center;
     }
+    // @media screen and (min-width: 768px) {
+    //     &__img {
+    //         img {
+    //             max-height: none;
+    //         }
+    //     }
+    // }
 }

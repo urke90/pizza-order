@@ -16,19 +16,34 @@ const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
     const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
-
-    const slicedPizzas = pizzas.slice(0, 4);
+    const bla = useAppSelector((state) => {
+        console.log(
+            'currentPage FROM PAGINATION REDUCER',
+            state.paginationReducer.currentPage
+        );
+    });
 
     const selectPizzaRecipe = (pizzaId: string) => {
         console.log('pizzaID', pizzaId);
     };
+
+    const handlePizzaPageChange = () => {};
+
+    const currentPage = 1;
+    const totalItems = 4;
+    const startSlice = (currentPage - 1) * totalItems;
+    const endSlice = (currentPage - 1) * totalItems + totalItems;
+
+    const slicedPizzas = pizzas.slice(startSlice, endSlice);
+
+    // console.log('slicedPizzas', slicedPizzas);
 
     useEffect(() => {
         const fetchPizzas = async () => {
             const url = API_ENDPOINTS.pizzas;
 
             const response = await sendRequest({ url, method: 'GET' });
-            // console.log('response', response);
+            // console.log('response', response!.data.recipes);
 
             if (response?.status !== 200) {
                 return;
@@ -79,7 +94,10 @@ const Main: React.FC<MainProps> = () => {
                                 )
                             )}
                     </ul>
-                    <Pagination itemsCount={pizzas.length} />
+                    <Pagination
+                        onArrowPageChange={handlePizzaPageChange}
+                        itemsCount={pizzas.length}
+                    />
                     {/* <main className="main__recipe">present recepies</main>
                     <div className="main__ingredients">ingredients here</div> */}
                 </div>

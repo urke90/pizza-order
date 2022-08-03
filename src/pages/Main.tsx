@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAxios } from 'hooks/useAxios';
+import { useAppDispatch } from 'hooks/useRedux';
 import { API_ENDPOINTS } from 'api/endpoints';
 
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzaItem from 'components/main/PizzaItem';
+import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 
 import './Main.scss';
 
@@ -95,15 +97,22 @@ const DUMMY_PIZZA_ARR = [
 
 const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
-    const [recId, setRecId] = useState();
+    // const [recId, setRecId] = useState();
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const fetchPizzas = async () => {
-            const url = API_ENDPOINTS.pizza;
+            const url = API_ENDPOINTS.pizzas;
 
             const response = await sendRequest({ url, method: 'GET' });
-            setRecId(response?.data.recipes);
-            console.log('response', response);
+            // console.log('response', response);
+
+            if (response?.status !== 200) {
+                return;
+            }
+
+            dispatch(saveFetchedPizzas({ pizzas: response.data.recipes }));
         };
 
         fetchPizzas();
@@ -125,7 +134,7 @@ const Main: React.FC<MainProps> = () => {
 
     return (
         <section className="main">
-            {/* {isLoading && !error && <LoadingSpinner asOverlay />} */}
+            {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">
                     <h2 className="main__heading">Main Pizza Page</h2>

@@ -3,5 +3,5 @@ interface IAPI_Endpoints {
 }
 
 export const API_ENDPOINTS: IAPI_Endpoints = {
-    pizza: 'https://forkify-api.herokuapp.com/api/search?q=pizza'
+    pizzas: 'https://forkify-api.herokuapp.com/api/search?q=pizza'
 };

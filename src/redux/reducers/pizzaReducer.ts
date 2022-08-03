@@ -42,11 +42,25 @@ const initialState: IInitialState = {
     }
 };
 
+type TPizzaActions = {
+    type: string;
+    payload: {
+        pizzas: IPizzas[];
+    };
+};
+
 const pizzaSlice = createSlice({
     name: 'pizza',
     initialState,
-    reducers: {}
+    reducers: {
+        saveFetchedPizzas(state, action: TPizzaActions) {
+            const { pizzas } = action.payload;
+            state.pizzas = pizzas;
+        }
+    }
 });
+
+export const { saveFetchedPizzas } = pizzaSlice.actions;
 
 const pizzaReducer = pizzaSlice.reducer;
 

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 
+import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzaItem from 'components/main/PizzaItem';
 
@@ -16,7 +17,7 @@ const Main: React.FC<MainProps> = () => {
     const dispatch = useAppDispatch();
     const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
 
-    const slicedPizzas = pizzas.slice(0, 3);
+    const slicedPizzas = pizzas.slice(0, 4);
 
     const selectPizzaRecipe = (pizzaId: string) => {
         console.log('pizzaID', pizzaId);
@@ -66,17 +67,19 @@ const Main: React.FC<MainProps> = () => {
                         {!isLoading &&
                             !error &&
                             pizzas.length &&
-                            pizzas.map(({ recipe_id, title, image_url }) => (
-                                <PizzaItem
-                                    key={recipe_id}
-                                    recipe_id={recipe_id}
-                                    title={title}
-                                    image_url={image_url}
-                                    onGetRecipeId={selectPizzaRecipe}
-                                />
-                            ))}
+                            slicedPizzas.map(
+                                ({ recipe_id, title, image_url }) => (
+                                    <PizzaItem
+                                        key={recipe_id}
+                                        recipe_id={recipe_id}
+                                        title={title}
+                                        image_url={image_url}
+                                        onGetRecipeId={selectPizzaRecipe}
+                                    />
+                                )
+                            )}
                     </ul>
-
+                    <Pagination itemsCount={pizzas.length} />
                     {/* <main className="main__recipe">present recepies</main>
                     <div className="main__ingredients">ingredients here</div> */}
                 </div>

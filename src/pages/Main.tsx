@@ -1,105 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useAxios } from 'hooks/useAxios';
-import { useAppDispatch } from 'hooks/useRedux';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 
+import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzaItem from 'components/main/PizzaItem';
-import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 
 import './Main.scss';
 
 type MainProps = {};
 
-const DUMMY_PIZZA = {
-    image_url:
-        'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-    publisher: '101 Cookbooks',
-    publisher_url: 'http://www.101cookbooks.com',
-    recipe_id: '47746',
-    social_rank: 100,
-    source_url: 'http://www.101cookbooks.com/archives/001199.html',
-    title: 'Best Pizza Dough Ever'
-};
-
-const DUMMY_PIZZA_ARR = [
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    },
-    {
-        image_url:
-            'http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg',
-        publisher: '101 Cookbooks',
-        publisher_url: 'http://www.101cookbooks.com',
-        recipe_id: '47746',
-        social_rank: 100,
-        source_url: 'http://www.101cookbooks.com/archives/001199.html',
-        title: 'Best Pizza Dough Ever'
-    }
-];
-
 const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
-    // const [recId, setRecId] = useState();
-
     const dispatch = useAppDispatch();
+    const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
+
+    const slicedPizzas = pizzas.slice(0, 4);
+
+    const selectPizzaRecipe = (pizzaId: string) => {
+        console.log('pizzaID', pizzaId);
+    };
 
     useEffect(() => {
         const fetchPizzas = async () => {
@@ -142,12 +64,22 @@ const Main: React.FC<MainProps> = () => {
                 </div>
                 <div className="main__content">
                     <ul className="main__pizzas-list">
-                        <PizzaItem />
-                        <PizzaItem />
-                        <PizzaItem />
-                        <PizzaItem />
+                        {!isLoading &&
+                            !error &&
+                            pizzas.length &&
+                            slicedPizzas.map(
+                                ({ recipe_id, title, image_url }) => (
+                                    <PizzaItem
+                                        key={recipe_id}
+                                        recipe_id={recipe_id}
+                                        title={title}
+                                        image_url={image_url}
+                                        onGetRecipeId={selectPizzaRecipe}
+                                    />
+                                )
+                            )}
                     </ul>
-
+                    <Pagination itemsCount={pizzas.length} />
                     {/* <main className="main__recipe">present recepies</main>
                     <div className="main__ingredients">ingredients here</div> */}
                 </div>

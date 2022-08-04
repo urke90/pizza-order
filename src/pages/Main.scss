@@ -43,5 +43,10 @@
             justify-content: space-around;
             min-height: 300px;
         }
+        &__content--column {
+            display: flex;
+            // flex-direction: column;
+            border: 1px solid red;
+        }
     }
 }

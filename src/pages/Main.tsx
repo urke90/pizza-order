@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
+import {
+    saveFetchedPizzas,
+    savePizzaRecipe
+} from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 
 import Pagination from 'components/pagination/Pagination';
@@ -28,35 +31,6 @@ const Main: React.FC<MainProps> = () => {
     const selectedPizzaId = useAppSelector(
         (state) => state.pizzaReducer.pizzaId
     );
-
-    useEffect(() => {
-        const fetchPizzaRecipe = async () => {
-            console.log('USE EFFECT SELECTED PIZZA ID', selectedPizzaId);
-
-            const pizzaIdURL = API_ENDPOINTS.pizzaId;
-            let response: AxiosResponse<any, any> | undefined;
-
-            try {
-                response = await sendRequest({
-                    url: pizzaIdURL + selectedPizzaId,
-                    method: 'GET'
-                });
-
-                console.log('response FETCHING SPECIFIC PIZZA', response);
-            } catch (error) {
-                console.log('error fetching specific pizza', error);
-            }
-
-            if (response?.status !== 200) {
-                return;
-            }
-        };
-
-        if (selectedPizzaId) {
-            fetchPizzaRecipe();
-        }
-    }, [selectedPizzaId]);
-
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     useEffect(() => {
@@ -83,6 +57,34 @@ const Main: React.FC<MainProps> = () => {
         fetchPizzas();
     }, [sendRequest, dispatch]);
 
+    useEffect(() => {
+        const fetchPizzaRecipe = async () => {
+            const pizzaIdURL = API_ENDPOINTS.pizzaId;
+            let response: AxiosResponse<any, any> | undefined;
+
+            try {
+                response = await sendRequest({
+                    url: pizzaIdURL + selectedPizzaId,
+                    method: 'GET'
+                });
+
+                console.log('response FETCHING SPECIFIC PIZZA', response);
+            } catch (error) {
+                console.log('error fetching specific pizza', error);
+            }
+
+            if (response?.status !== 200) {
+                return;
+            }
+
+            dispatch(savePizzaRecipe({ selectedPizza: response.data.recipe }));
+        };
+
+        if (selectedPizzaId) {
+            fetchPizzaRecipe();
+        }
+    }, [selectedPizzaId]);
+
     return (
         <section className="main">
             {isLoading && !error && <LoadingSpinner asOverlay />}
@@ -91,7 +93,10 @@ const Main: React.FC<MainProps> = () => {
                     <h1 className="main__heading">Main Pizza Page</h1>
                     <p>Pick your favorite pizza</p>
                 </div>
-                <div className="main__content">
+                <div
+                    className="main__content"
+                    // className={`main__content ${}`}
+                >
                     <ul className="main__pizzas-list">
                         {!isLoading &&
                             !error &&

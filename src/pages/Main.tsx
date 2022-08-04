@@ -32,6 +32,9 @@ const Main: React.FC<MainProps> = () => {
         (state) => state.pizzaReducer.pizzaId
     );
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
+    const selectedPizza = useAppSelector(
+        (state) => state.pizzaReducer.selectedPizza
+    );
 
     useEffect(() => {
         const fetchPizzas = async () => {
@@ -94,30 +97,80 @@ const Main: React.FC<MainProps> = () => {
                     <p>Pick your favorite pizza</p>
                 </div>
                 <div
-                    className="main__content"
-                    // className={`main__content ${}`}
+                    className={`main__content ${
+                        selectedPizza.recipe_id !== ''
+                            ? 'main__content--inline'
+                            : ''
+                    }`}
                 >
-                    <ul className="main__pizzas-list">
-                        {!isLoading &&
-                            !error &&
-                            pizzas.length > 0 &&
-                            pizzasToRender.map(
-                                ({ recipe_id, title, image_url }) => (
-                                    <PizzaItem
-                                        key={recipe_id}
-                                        recipe_id={recipe_id}
-                                        title={title}
-                                        image_url={image_url}
-                                    />
-                                )
-                            )}
-                    </ul>
-                    <Pagination itemsCount={pizzas.length} />
-                    <main className="main__recipe">present recepies</main>
-                    <div className="main__ingredients">ingredients here</div>
+                    <div className="main__pizzas-list-wrapper">
+                        <ul
+                            className={`main__pizzas-list ${
+                                selectedPizza.recipe_id !== ''
+                                    ? 'main__pizzas-list--column'
+                                    : ''
+                            }`}
+                        >
+                            {!isLoading &&
+                                !error &&
+                                pizzas.length > 0 &&
+                                pizzasToRender.map(
+                                    ({ recipe_id, title, image_url }) => (
+                                        <PizzaItem
+                                            key={recipe_id}
+                                            recipe_id={recipe_id}
+                                            title={title}
+                                            image_url={image_url}
+                                        />
+                                    )
+                                )}
+                        </ul>
+                        <Pagination itemsCount={pizzas.length} />
+                    </div>
+                    <main
+                        className={`main__recipe ${
+                            selectedPizza.recipe_id !== ''
+                                ? 'main__recipe--display-block'
+                                : ''
+                        }`}
+                    >
+                        present recepies
+                    </main>
+                    <div
+                        className={`main__ingredients ${
+                            selectedPizza.recipe_id !== ''
+                                ? 'main__ingredients--display-block'
+                                : ''
+                        }`}
+                    >
+                        ingredients here
+                    </div>
                 </div>
             </div>
         </section>
     );
 };
 export default Main;
+
+// let obj = {
+//     image_url: '',
+//     ingredients: [],
+//     publisher: '',
+//     publisher_url: '',
+//     recipe_id: '',
+//     social_rank: 0,
+//     source_url: '',
+//     title: ''
+// };
+
+// console.log('DEFAULT OBJ', obj);
+
+// let objKeys = Object.keys(obj);
+
+// console.log('OBJ KEYS', objKeys);
+
+// let objValues = Object.values(obj);
+
+// console.log('OBJ VALUES', objValues);
+
+// console.log('OBJ VALUES TTTT', objValues);

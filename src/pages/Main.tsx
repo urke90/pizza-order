@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { AxiosResponse } from 'axios';
 import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
@@ -24,14 +25,53 @@ const Main: React.FC<MainProps> = () => {
         (state) => state.paginationReducer.itemsPerPage
     );
 
+    const selectedPizzaId = useAppSelector(
+        (state) => state.pizzaReducer.pizzaId
+    );
+
+    useEffect(() => {
+        const fetchPizzaRecipe = async () => {
+            console.log('USE EFFECT SELECTED PIZZA ID', selectedPizzaId);
+
+            const pizzaIdURL = API_ENDPOINTS.pizzaId;
+            let response: AxiosResponse<any, any> | undefined;
+
+            try {
+                response = await sendRequest({
+                    url: pizzaIdURL + selectedPizzaId,
+                    method: 'GET'
+                });
+
+                console.log('response FETCHING SPECIFIC PIZZA', response);
+            } catch (error) {
+                console.log('error fetching specific pizza', error);
+            }
+
+            if (response?.status !== 200) {
+                return;
+            }
+        };
+
+        if (selectedPizzaId) {
+            fetchPizzaRecipe();
+        }
+    }, [selectedPizzaId]);
+
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     useEffect(() => {
         const fetchPizzas = async () => {
-            const url = API_ENDPOINTS.pizzas;
+            const pizzasURL = API_ENDPOINTS.pizzas;
+            let response: AxiosResponse<any, any> | undefined;
 
-            const response = await sendRequest({ url, method: 'GET' });
-            // console.log('response', response!.data.recipes);
+            try {
+                response = await sendRequest({
+                    url: pizzasURL,
+                    method: 'GET'
+                });
+            } catch (error) {
+                console.log('error fetching all pizzas', error);
+            }
 
             if (response?.status !== 200) {
                 return;
@@ -42,20 +82,6 @@ const Main: React.FC<MainProps> = () => {
 
         fetchPizzas();
     }, [sendRequest, dispatch]);
-
-    // useEffect(() => {
-    //     const fetchPizzas = async () => {
-    //         const url = API_ENDPOINTS.pizza;
-
-    //         const response = await sendRequest({
-    //             url: 'https://forkify-api.herokuapp.com/api/get?rId=35477',
-    //             method: 'GET'
-    //         });
-    //         console.log('response RECIPE', response);
-    //     };
-
-    //     fetchPizzas();
-    // }, []);
 
     return (
         <section className="main">
@@ -69,7 +95,7 @@ const Main: React.FC<MainProps> = () => {
                     <ul className="main__pizzas-list">
                         {!isLoading &&
                             !error &&
-                            pizzas.length &&
+                            pizzas.length > 0 &&
                             pizzasToRender.map(
                                 ({ recipe_id, title, image_url }) => (
                                     <PizzaItem
@@ -82,8 +108,8 @@ const Main: React.FC<MainProps> = () => {
                             )}
                     </ul>
                     <Pagination itemsCount={pizzas.length} />
-                    {/* <main className="main__recipe">present recepies</main>
-                    <div className="main__ingredients">ingredients here</div> */}
+                    <main className="main__recipe">present recepies</main>
+                    <div className="main__ingredients">ingredients here</div>
                 </div>
             </div>
         </section>

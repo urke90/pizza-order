@@ -8,11 +8,11 @@ import {
 
 import './Pagination.scss';
 
-interface PaginationProps {
+interface IPaginationProps {
     itemsCount: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ itemsCount }) => {
+const Pagination: React.FC<IPaginationProps> = ({ itemsCount }) => {
     const itemsPerPage = useAppSelector(
         (state) => state.paginationReducer.itemsPerPage
     );

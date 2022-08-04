@@ -14,6 +14,7 @@
     &__numbers-item {
         cursor: pointer;
         margin: 0 8px;
+        border-bottom: 3px solid transparent;
     }
     &__numbers-item--active {
         cursor: pointer;

@@ -24,12 +24,6 @@ const Main: React.FC<MainProps> = () => {
         (state) => state.paginationReducer.itemsPerPage
     );
 
-    // selecting pizza ID so we could fetch specific recipe
-    // TODO CONTINUE FINISHING RENDERING RECIPE
-    const selectPizzaRecipe = (pizzaId: string) => {
-        console.log('pizzaID', pizzaId);
-    };
-
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     useEffect(() => {
@@ -83,7 +77,6 @@ const Main: React.FC<MainProps> = () => {
                                         recipe_id={recipe_id}
                                         title={title}
                                         image_url={image_url}
-                                        onGetRecipeId={selectPizzaRecipe}
                                     />
                                 )
                             )}

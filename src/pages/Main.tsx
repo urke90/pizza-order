@@ -7,6 +7,7 @@ import { API_ENDPOINTS } from 'api/endpoints';
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzaItem from 'components/main/PizzaItem';
+import { getPizzasToRender } from 'util/pagination';
 
 import './Main.scss';
 
@@ -16,19 +17,21 @@ const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
     const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
+    const currentPage = useAppSelector(
+        (state) => state.paginationReducer.currentPage
+    );
+    const itemsPerPage = useAppSelector(
+        (state) => state.paginationReducer.itemsPerPage
+    );
 
-    const slicedPizzas = pizzas.slice(0, 4);
-
-    const selectPizzaRecipe = (pizzaId: string) => {
-        console.log('pizzaID', pizzaId);
-    };
+    const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     useEffect(() => {
         const fetchPizzas = async () => {
             const url = API_ENDPOINTS.pizzas;
 
             const response = await sendRequest({ url, method: 'GET' });
-            // console.log('response', response);
+            // console.log('response', response!.data.recipes);
 
             if (response?.status !== 200) {
                 return;
@@ -38,7 +41,7 @@ const Main: React.FC<MainProps> = () => {
         };
 
         fetchPizzas();
-    }, []);
+    }, [sendRequest, dispatch]);
 
     // useEffect(() => {
     //     const fetchPizzas = async () => {
@@ -59,7 +62,7 @@ const Main: React.FC<MainProps> = () => {
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">
-                    <h2 className="main__heading">Main Pizza Page</h2>
+                    <h1 className="main__heading">Main Pizza Page</h1>
                     <p>Pick your favorite pizza</p>
                 </div>
                 <div className="main__content">
@@ -67,14 +70,13 @@ const Main: React.FC<MainProps> = () => {
                         {!isLoading &&
                             !error &&
                             pizzas.length &&
-                            slicedPizzas.map(
+                            pizzasToRender.map(
                                 ({ recipe_id, title, image_url }) => (
                                     <PizzaItem
                                         key={recipe_id}
                                         recipe_id={recipe_id}
                                         title={title}
                                         image_url={image_url}
-                                        onGetRecipeId={selectPizzaRecipe}
                                     />
                                 )
                             )}

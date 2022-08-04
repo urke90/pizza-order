@@ -13,13 +13,17 @@
     }
     &__numbers-item {
         cursor: pointer;
-        color: $red;
         margin: 0 8px;
+        border-bottom: 3px solid transparent;
+    }
+    &__numbers-item--active {
+        cursor: pointer;
+        margin: 0 8px;
+        border-bottom: 3px solid $orange;
     }
     &__button-arrow {
         cursor: pointer;
     }
-
     @media screen and (min-width: 768px) {
         &__numbers-item {
             margin: 0 10px;

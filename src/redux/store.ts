@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/authReducer';
 import pizzaReducer from './reducers/pizzaReducer';
+import paginationReducer from './reducers/paginationReducer';
 
 export const store = configureStore({
     reducer: {
         authReducer,
-        pizzaReducer
+        pizzaReducer,
+        paginationReducer
     }
 });
 

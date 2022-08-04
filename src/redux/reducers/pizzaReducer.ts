@@ -1,14 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-interface IPizzas {
-    image_url: string;
-    publisher: string;
-    publisher_url: string;
-    recipe_id: string;
-    social_rank: number;
-    source_url: string;
-    title: string;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IPizzas } from '../../ts/pizzas';
 
 interface ISelectedPizza {
     image_url: string;
@@ -42,25 +33,22 @@ const initialState: IInitialState = {
     }
 };
 
-type TPizzaActions = {
-    type: string;
-    payload: {
-        pizzas: IPizzas[];
-    };
-};
-
 const pizzaSlice = createSlice({
     name: 'pizza',
     initialState,
     reducers: {
-        saveFetchedPizzas(state, action: TPizzaActions) {
+        saveFetchedPizzas(state, action: PayloadAction<{ pizzas: IPizzas[] }>) {
             const { pizzas } = action.payload;
             state.pizzas = pizzas;
+        },
+        savePizzaId(state, action: PayloadAction<{ pizzaId: string }>) {
+            const { pizzaId } = action.payload;
+            state.pizzaId = pizzaId;
         }
     }
 });
 
-export const { saveFetchedPizzas } = pizzaSlice.actions;
+export const { saveFetchedPizzas, savePizzaId } = pizzaSlice.actions;
 
 const pizzaReducer = pizzaSlice.reducer;
 

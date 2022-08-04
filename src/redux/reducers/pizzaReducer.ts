@@ -44,11 +44,19 @@ const pizzaSlice = createSlice({
         savePizzaId(state, action: PayloadAction<{ pizzaId: string }>) {
             const { pizzaId } = action.payload;
             state.pizzaId = pizzaId;
+        },
+        savePizzaRecipe(
+            state,
+            action: PayloadAction<{ selectedPizza: ISelectedPizza }>
+        ) {
+            const { selectedPizza } = action.payload;
+            state.selectedPizza = selectedPizza;
         }
     }
 });
 
-export const { saveFetchedPizzas, savePizzaId } = pizzaSlice.actions;
+export const { saveFetchedPizzas, savePizzaId, savePizzaRecipe } =
+    pizzaSlice.actions;
 
 const pizzaReducer = pizzaSlice.reducer;
 

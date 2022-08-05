@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import {
-    saveFetchedPizzas,
-    savePizzaRecipe
-} from 'redux/reducers/pizzaReducer';
+import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 
 import Pagination from 'components/pagination/Pagination';

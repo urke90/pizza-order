@@ -1,5 +1,7 @@
 import { useAppSelector } from 'hooks/useRedux';
 
+import { IoFastFood } from 'react-icons/io5';
+
 import './PizzaRecipe.scss';
 
 type PizzaRecipeProps = {};
@@ -9,7 +11,7 @@ const PizzaRecipe: React.FC<PizzaRecipeProps> = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
-    const { title, image_url, source_url } = pizzaToRender;
+    const { title, image_url, source_url, ingredients } = pizzaToRender;
 
     console.log('pizzaToRender', pizzaToRender);
 
@@ -21,6 +23,16 @@ const PizzaRecipe: React.FC<PizzaRecipeProps> = () => {
             <div className="recipe__image">
                 <img src={image_url} alt={title} />
             </div>
+            <ul className="recipe__ingredients-list">
+                {ingredients.map((ingredient) => (
+                    <li className="recipe__ingredient-item">
+                        <span className="recipe__ingredient-icon">
+                            <IoFastFood color="#c80037" />
+                        </span>{' '}
+                        {ingredient}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };

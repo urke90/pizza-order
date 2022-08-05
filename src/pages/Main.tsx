@@ -10,8 +10,7 @@ import { API_ENDPOINTS } from 'api/endpoints';
 
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
-import PizzaItem from 'components/pizza/PizzaItem';
-import { getPizzasToRender } from 'util/pagination';
+import PizzasList from 'components/pizza/PizzasList';
 
 import './Main.scss';
 
@@ -21,26 +20,10 @@ const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
 
-    // all fetched pizzas from API which we will use to slice later
-    const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
-
-    // current page of pagination
-    const currentPage = useAppSelector(
-        (state) => state.paginationReducer.currentPage
-    );
-
-    // how many pizzas per page we will show in pagination
-    const itemsPerPage = useAppSelector(
-        (state) => state.paginationReducer.itemsPerPage
-    );
-
     // pizzaId we should fetch when user choose any
     const selectedPizzaId = useAppSelector(
         (state) => state.pizzaReducer.pizzaId
     );
-
-    // slice fetched pizzas so we could should specific number of pizzas on UI
-    const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
 
     // fetched pizza with specific ID user has selected
     const selectedPizza = useAppSelector(
@@ -115,28 +98,8 @@ const Main: React.FC<MainProps> = () => {
                     }`}
                 >
                     <div className="main__pizzas-list-wrapper">
-                        <ul
-                            className={`main__pizzas-list ${
-                                selectedPizza.recipe_id !== ''
-                                    ? 'main__pizzas-list--column'
-                                    : ''
-                            }`}
-                        >
-                            {!isLoading &&
-                                !error &&
-                                pizzas.length > 0 &&
-                                pizzasToRender.map(
-                                    ({ recipe_id, title, image_url }) => (
-                                        <PizzaItem
-                                            key={recipe_id}
-                                            recipe_id={recipe_id}
-                                            title={title}
-                                            image_url={image_url}
-                                        />
-                                    )
-                                )}
-                        </ul>
-                        <Pagination itemsCount={pizzas.length} />
+                        <PizzasList />
+                        <Pagination />
                     </div>
                     <main
                         className={`main__recipe ${

@@ -14,6 +14,8 @@ const PizzasList: React.FC = () => {
     const { isLoading, error, sendRequest } = useAxios();
     const dispatch = useAppDispatch();
 
+    console.log('isLoading IN PIZZA LIST', isLoading);
+
     // current page of pagination
     const currentPage = useAppSelector(
         (state) => state.paginationReducer.currentPage
@@ -59,26 +61,41 @@ const PizzasList: React.FC = () => {
         fetchPizzas();
     }, [sendRequest, dispatch]);
 
+    // TODO FIGURE OUT A BEST WAY TO SHOW FALLBACK CONTENT IN REACT
+
+    const fallbackContent = (
+        <h2 style={{ textAlign: 'center' }}>
+            Sorry there are no pizzas we can offer at the moment :(
+        </h2>
+    );
+
     return (
-        <ul
-            className={`main__pizzas-list ${
-                selectedPizza.recipe_id !== ''
-                    ? 'main__pizzas-list--column'
-                    : ''
-            }`}
-        >
+        <>
+            <ul
+                className={`main__pizzas-list ${
+                    selectedPizza.recipe_id !== ''
+                        ? 'main__pizzas-list--column'
+                        : ''
+                }`}
+            >
+                {!isLoading &&
+                    !error &&
+                    pizzasToRender.length > 0 &&
+                    pizzasToRender.map(({ recipe_id, title, image_url }) => (
+                        <PizzaItem
+                            key={recipe_id}
+                            recipe_id={recipe_id}
+                            title={title}
+                            image_url={image_url}
+                        />
+                    ))}
+            </ul>
             {!isLoading &&
                 !error &&
-                pizzasToRender.length > 0 &&
-                pizzasToRender.map(({ recipe_id, title, image_url }) => (
-                    <PizzaItem
-                        key={recipe_id}
-                        recipe_id={recipe_id}
-                        title={title}
-                        image_url={image_url}
-                    />
-                ))}
-        </ul>
+                pizzas.length === 0 &&
+                pizzasToRender.length === 0 &&
+                fallbackContent}
+        </>
     );
 };
 export default PizzasList;

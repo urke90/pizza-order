@@ -16,9 +16,9 @@
         margin-bottom: 10px;
     }
     // &__content {
-    // display: flex;
-    // flex-direction: column;
-    // border: 1px solid red;
+    //     display: flex;
+    //     // flex-direction: column;
+    //     border: 1px solid red;
     // }
     &__pizzas-list {
         max-width: 200px;
@@ -27,17 +27,19 @@
     }
     &__recipe {
         display: none;
-        border: 1px solid salmon;
     }
     &__recipe--display-block {
-        display: block;
+        display: flex;
+        flex-grow: 1;
     }
     &__ingredients {
         display: none;
         border: 1px solid blue;
+        padding: 40px;
     }
     &__ingredients--display-block {
-        display: block;
+        display: flex;
+        // min-width: 300px;
     }
     @media screen and (min-width: 768px) {
         &__menu {
@@ -51,7 +53,7 @@
         }
         &__content--inline {
             display: flex;
-            border: 1px solid red;
+            // border: 1px solid red;
         }
         &__pizzas-list--column {
             display: flex;

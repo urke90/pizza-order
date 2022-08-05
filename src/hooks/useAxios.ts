@@ -22,7 +22,7 @@ export const useAxios = (): IUseAxios => {
             try {
                 setIsLoading(true);
 
-                const response = axios.request(config);
+                const response = await axios.request(config);
                 setIsLoading(false);
                 return response;
             } catch (error) {

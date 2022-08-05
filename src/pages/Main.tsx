@@ -11,6 +11,7 @@ import { API_ENDPOINTS } from 'api/endpoints';
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
+import PizzaRecipe from 'components/recipe/PizzaRecipe';
 
 import './Main.scss';
 
@@ -29,30 +30,6 @@ const Main: React.FC<MainProps> = () => {
     const selectedPizza = useAppSelector(
         (state) => state.pizzaReducer.selectedPizza
     );
-
-    useEffect(() => {
-        const fetchPizzas = async () => {
-            const pizzasURL = API_ENDPOINTS.pizzas;
-            let response: AxiosResponse<any, any> | undefined;
-
-            try {
-                response = await sendRequest({
-                    url: pizzasURL,
-                    method: 'GET'
-                });
-            } catch (error) {
-                console.log('error fetching all pizzas', error);
-            }
-
-            if (response?.status !== 200) {
-                return;
-            }
-
-            dispatch(saveFetchedPizzas({ pizzas: response.data.recipes }));
-        };
-
-        fetchPizzas();
-    }, [sendRequest, dispatch]);
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -108,7 +85,7 @@ const Main: React.FC<MainProps> = () => {
                                 : ''
                         }`}
                     >
-                        present recepies
+                        <PizzaRecipe />
                     </main>
                     <div
                         className={`main__ingredients ${

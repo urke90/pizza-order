@@ -10,7 +10,7 @@ import { API_ENDPOINTS } from 'api/endpoints';
 
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
-import PizzaItem from 'components/main/PizzaItem';
+import PizzaItem from 'components/pizza/PizzaItem';
 import { getPizzasToRender } from 'util/pagination';
 
 import './Main.scss';
@@ -86,7 +86,7 @@ const Main: React.FC<MainProps> = () => {
         if (selectedPizzaId) {
             fetchPizzaRecipe();
         }
-    }, [selectedPizzaId]);
+    }, [selectedPizzaId, sendRequest, dispatch]);
 
     return (
         <section className="main">

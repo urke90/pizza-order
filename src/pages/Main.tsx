@@ -20,18 +20,29 @@ type MainProps = {};
 const Main: React.FC<MainProps> = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
+
+    // all fetched pizzas from API which we will use to slice later
     const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
+
+    // current page of pagination
     const currentPage = useAppSelector(
         (state) => state.paginationReducer.currentPage
     );
+
+    // how many pizzas per page we will show in pagination
     const itemsPerPage = useAppSelector(
         (state) => state.paginationReducer.itemsPerPage
     );
 
+    // pizzaId we should fetch when user choose any
     const selectedPizzaId = useAppSelector(
         (state) => state.pizzaReducer.pizzaId
     );
+
+    // slice fetched pizzas so we could should specific number of pizzas on UI
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
+
+    // fetched pizza with specific ID user has selected
     const selectedPizza = useAppSelector(
         (state) => state.pizzaReducer.selectedPizza
     );
@@ -151,26 +162,3 @@ const Main: React.FC<MainProps> = () => {
     );
 };
 export default Main;
-
-// let obj = {
-//     image_url: '',
-//     ingredients: [],
-//     publisher: '',
-//     publisher_url: '',
-//     recipe_id: '',
-//     social_rank: 0,
-//     source_url: '',
-//     title: ''
-// };
-
-// console.log('DEFAULT OBJ', obj);
-
-// let objKeys = Object.keys(obj);
-
-// console.log('OBJ KEYS', objKeys);
-
-// let objValues = Object.values(obj);
-
-// console.log('OBJ VALUES', objValues);
-
-// console.log('OBJ VALUES TTTT', objValues);

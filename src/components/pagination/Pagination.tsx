@@ -8,18 +8,23 @@ import {
 
 import './Pagination.scss';
 
-interface IPaginationProps {
-    itemsCount: number;
-}
-
-const Pagination: React.FC<IPaginationProps> = ({ itemsCount }) => {
+const Pagination: React.FC = () => {
+    // total pizzas fetched
+    const itemsCount = useAppSelector(
+        (state) => state.pizzaReducer.pizzas.length
+    );
+    // number of pizzas shown per page
     const itemsPerPage = useAppSelector(
         (state) => state.paginationReducer.itemsPerPage
     );
+    // current page in pagination
     const currentPage = useAppSelector(
         (state) => state.paginationReducer.currentPage
     );
+    //total number of pages
     const totalPages = Math.ceil(itemsCount / itemsPerPage);
+
+    // number of pages button needs to be rendered
     const numberButtons = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     const dispatch = useAppDispatch();

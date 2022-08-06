@@ -4,7 +4,7 @@ import './Input.scss';
 
 interface IInputProps {
     type: 'email' | 'hidden' | 'number' | 'password';
-    elName: string;
+    name: string;
     id: string;
     labelText: string;
     placeholder: string;
@@ -17,7 +17,7 @@ const Input: React.FC<IInputProps> = ({
     type,
     id,
     labelText,
-    elName,
+    name,
     placeholder,
     textarea = false,
     rows = 3,
@@ -25,11 +25,14 @@ const Input: React.FC<IInputProps> = ({
 }) => {
     if (textarea) {
         return (
-            <div>
-                <label htmlFor={id}>{labelText}</label>
+            <div className="input">
+                <label className="input__label" htmlFor={id}>
+                    {labelText}
+                </label>
                 <textarea
+                    className="input__textarea input__element"
                     id={id}
-                    name={elName}
+                    name={name}
                     cols={cols}
                     rows={rows}
                     placeholder={placeholder}
@@ -39,9 +42,11 @@ const Input: React.FC<IInputProps> = ({
     }
 
     return (
-        <div>
-            <label htmlFor={id}>{labelText}</label>
-            <input type={type} id={id} name={elName} />
+        <div className="input">
+            <label className="input__label" htmlFor={id}>
+                {labelText}
+            </label>
+            <input className="input__element" type={type} id={id} name={name} />
         </div>
     );
 };

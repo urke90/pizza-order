@@ -1,0 +1,23 @@
+@import '../../assets/scss/colors';
+
+.input {
+    display: flex;
+    flex-direction: column;
+    &__label {
+        color: $red;
+        margin-bottom: 10px;
+    }
+    &__element {
+        color: $dark;
+        padding: 8px;
+        // border-color: $orange;
+        // border-color: $red;
+        border: none;
+        border-radius: 5px;
+        // outline: 3px solid $yellow;
+        &:focus {
+            outline: 2px solid $red;
+            border: none;
+        }
+    }
+}

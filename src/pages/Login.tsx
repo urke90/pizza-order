@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
 import { auth } from '../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
+import Input from 'shared/form/Input';
 import Button from 'shared/form/Button';
 
 import './Login.scss';
@@ -51,25 +51,21 @@ const Login: React.FC<LoginProps> = () => {
                     className="login__form"
                 >
                     <div className="login__form-control">
-                        <label className="login__label" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            type="email"
+                        <Input
                             id="email"
+                            type="email"
+                            name="email"
+                            labelText="Email"
                             placeholder="Email"
-                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="login__form-control">
-                        <label className="login__label" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
+                        <Input
                             id="password"
-                            placeholder="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            name="password"
+                            labelText="Password"
+                            placeholder="Password"
                         />
                     </div>
                     <Button

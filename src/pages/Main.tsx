@@ -67,11 +67,20 @@ const Main: React.FC<MainProps> = () => {
                 <div
                     className={`main__content ${
                         selectedPizza.recipe_id !== ''
-                            ? 'main__content--inline'
+                            ? 'main__content--flex'
                             : ''
                     }`}
                 >
-                    <div className="main__pizzas-list-wrapper">
+                    <div
+                        style={{
+                            width: selectedPizza.recipe_id === '' ? '100%' : ''
+                        }}
+                        className={`main__pizzas-list-wrapper ${
+                            selectedPizza.recipe_id !== ''
+                                ? 'main__pizzas-list-wrapper--column'
+                                : ''
+                        } `}
+                    >
                         <PizzasList />
                         <Pagination />
                     </div>

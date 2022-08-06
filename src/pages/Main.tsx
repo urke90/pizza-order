@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import {
-    saveFetchedPizzas,
-    savePizzaRecipe
-} from 'redux/reducers/pizzaReducer';
+import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 
 import Pagination from 'components/pagination/Pagination';
@@ -70,11 +67,20 @@ const Main: React.FC<MainProps> = () => {
                 <div
                     className={`main__content ${
                         selectedPizza.recipe_id !== ''
-                            ? 'main__content--inline'
+                            ? 'main__content--flex'
                             : ''
                     }`}
                 >
-                    <div className="main__pizzas-list-wrapper">
+                    <div
+                        style={{
+                            width: selectedPizza.recipe_id === '' ? '100%' : ''
+                        }}
+                        className={`main__pizzas-list-wrapper ${
+                            selectedPizza.recipe_id !== ''
+                                ? 'main__pizzas-list-wrapper--column'
+                                : ''
+                        } `}
+                    >
                         <PizzasList />
                         <Pagination />
                     </div>

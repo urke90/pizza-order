@@ -8,6 +8,8 @@ import { API_ENDPOINTS } from 'api/endpoints';
 import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 import { getPizzasToRender } from 'util/pagination';
 
+import './PizzasList.scss';
+
 import PizzaItem from './PizzaItem';
 
 const PizzasList: React.FC = () => {

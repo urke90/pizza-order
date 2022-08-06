@@ -1,0 +1,20 @@
+.main {
+    &__pizzas-list {
+        max-width: 300px;
+        padding: 20px;
+        margin: auto;
+    }
+    @media screen and (min-width: 768px) {
+        &__pizzas-list {
+            display: flex;
+            max-width: none;
+            justify-content: space-around;
+            min-height: 300px;
+        }
+
+        &__pizzas-list--column {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

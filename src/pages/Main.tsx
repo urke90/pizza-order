@@ -28,6 +28,10 @@ const Main: React.FC<MainProps> = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
+    const { ingredients, title, source_url, image_url } = selectedPizza;
+
+    console.log('selectedPizza', selectedPizza);
+
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
             const pizzaIdURL = API_ENDPOINTS.pizzaId;
@@ -91,7 +95,12 @@ const Main: React.FC<MainProps> = () => {
                                 : ''
                         }`}
                     >
-                        <PizzaRecipe />
+                        <PizzaRecipe
+                            ingredients={ingredients}
+                            title={title}
+                            source_url={source_url}
+                            image_url={image_url}
+                        />
                     </main>
                     <div
                         className={`main__ingredients ${

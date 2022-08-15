@@ -46,7 +46,13 @@ const Input: React.FC<IInputProps> = ({
             <label className="input__label" htmlFor={id}>
                 {labelText}
             </label>
-            <input className="input__element" type={type} id={id} name={name} />
+            <input
+                className="input__element"
+                type={type}
+                id={id}
+                name={name}
+                placeholder={placeholder}
+            />
         </div>
     );
 };

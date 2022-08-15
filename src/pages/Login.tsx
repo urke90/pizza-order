@@ -52,6 +52,7 @@ const Login: React.FC<LoginProps> = () => {
                 >
                     <div className="login__form-control">
                         <Input
+                            textarea
                             id="email"
                             type="email"
                             name="email"

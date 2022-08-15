@@ -8,16 +8,18 @@
         margin-bottom: 10px;
     }
     &__element {
+        background-color: #e6e6e6;
         color: $dark;
         padding: 8px;
-        // border-color: $orange;
-        // border-color: $red;
         border: none;
         border-radius: 5px;
-        // outline: 3px solid $yellow;
         &:focus {
             outline: 2px solid $red;
             border: none;
         }
     }
+}
+
+textarea {
+    resize: none;
 }

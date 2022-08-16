@@ -16,8 +16,6 @@ const PizzasList: React.FC = () => {
     const { isLoading, error, sendRequest } = useAxios();
     const dispatch = useAppDispatch();
 
-    console.log('isLoading IN PIZZA LIST', isLoading);
-
     // current page of pagination
     const currentPage = useAppSelector(
         (state) => state.paginationReducer.currentPage

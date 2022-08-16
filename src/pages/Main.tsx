@@ -9,6 +9,7 @@ import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
+import Ingredients from 'components/ingredients/Ingredients';
 
 import './Main.scss';
 
@@ -30,7 +31,31 @@ const Main: React.FC<MainProps> = () => {
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
-    console.log('selectedPizza', selectedPizza);
+    // console.log('ingredients in MAIN', ingredients);
+
+    let convertedIngredients = ingredients.map((ing) => {
+        const splitIng = ing.split(' ');
+        const ingQty = splitIng[0];
+        const ingredientsLabel = splitIng.slice(1).join(' ');
+        let ingredientQuantity: number;
+
+        if (ingQty.includes('-')) {
+            const splitIngQty = ingQty.split('-');
+            const ingQtyWhole = parseInt(splitIngQty[0]);
+            // console.log('ingQtyWhole', ingQtyWhole);
+
+            const ingQtyFraction = splitIngQty[1];
+            const ingQtyFractionSplit = ingQtyFraction.split('/');
+
+            console.log('ingQtyFractionSplit 0 ', ingQtyFractionSplit[0]);
+            console.log('ingQtyFractionSplit 1 ', ingQtyFractionSplit[1]);
+            // const ingQtyFractionCalculated = parseFloat();
+        }
+
+        // console.log('splitQty TYPEOF', typeof splitQty);
+        // console.log('ingQty', ingQty);
+        // console.log('ingredientsLabel', ingredientsLabel);
+    });
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -43,7 +68,7 @@ const Main: React.FC<MainProps> = () => {
                     method: 'GET'
                 });
 
-                console.log('response FETCHING SPECIFIC PIZZA', response);
+                // console.log('response FETCHING SPECIFIC PIZZA', response);
             } catch (error) {
                 console.log('error fetching specific pizza', error);
             }
@@ -109,7 +134,7 @@ const Main: React.FC<MainProps> = () => {
                                 : ''
                         }`}
                     >
-                        ingredients here
+                        {/* <Ingredients ingredients={ingredients} /> */}
                     </div>
                 </div>
             </div>

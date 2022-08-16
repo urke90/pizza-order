@@ -26,7 +26,10 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
             <a href={source_url}>Chech the recipe online</a>
             <ul className="recipe__ingredients-list">
                 {ingredients.map((ingredient) => (
-                    <li key={ingredient} className="recipe__ingredient-item">
+                    <li
+                        key={ingredient + Math.random()}
+                        className="recipe__ingredient-item"
+                    >
                         <span className="recipe__ingredient-icon">
                             <IoFastFood color="#c80037" />
                         </span>{' '}

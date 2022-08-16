@@ -10,6 +10,7 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
+import { getIngredientQuantity } from 'util/ingredients';
 
 import './Main.scss';
 
@@ -34,23 +35,36 @@ const Main: React.FC<MainProps> = () => {
     // console.log('ingredients in MAIN', ingredients);
 
     let convertedIngredients = ingredients.map((ing) => {
+        // console.log('ing', ing);
+
         const splitIng = ing.split(' ');
+
         const ingQty = splitIng[0];
-        const ingredientsLabel = splitIng.slice(1).join(' ');
-        let ingredientQuantity: number;
+        // console.log('ingQty', ingQty);
+
+        // const ingredientsLabel = splitIng.slice(1).join(' ');
+        let ingredientQuantity: number = 1;
+
+        // let bla = getIngredientLabel(ing);
+        // console.log('bla', bla);
 
         if (ingQty.includes('-')) {
-            const splitIngQty = ingQty.split('-');
-            const ingQtyWhole = parseInt(splitIngQty[0]);
+            // console.log('ingQty', ingQty);
+
+            // const splitIngQty = ingQty.split('-');
+            // const ingQtyWholeNum = parseInt(splitIngQty[0]);
             // console.log('ingQtyWhole', ingQtyWhole);
 
-            const ingQtyFraction = splitIngQty[1];
-            const ingQtyFractionSplit = ingQtyFraction.split('/');
-
-            console.log('ingQtyFractionSplit 0 ', ingQtyFractionSplit[0]);
-            console.log('ingQtyFractionSplit 1 ', ingQtyFractionSplit[1]);
-            // const ingQtyFractionCalculated = parseFloat();
+            // const ingQtyFraction = splitIngQty[1];
+            // const ingQtyFractionSplit = ingQtyFraction.split('/');
+            // const countedFraction =
+            //     parseInt(ingQtyFractionSplit[0]) /
+            //     parseInt(ingQtyFractionSplit[1]);
+            // const totalQuantity = ingQtyWholeNum + countedFraction;
+            // console.log('totalQuantity', totalQuantity);
+            ingredientQuantity = getIngredientQuantity(ingQty);
         }
+        console.log('ingredientQuantity', ingredientQuantity);
 
         // console.log('splitQty TYPEOF', typeof splitQty);
         // console.log('ingQty', ingQty);

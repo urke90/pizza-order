@@ -10,7 +10,7 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import { getIngredientQuantity } from 'util/ingredients';
+import { getIngredientQuantity, countFractionQuantity } from 'util/ingredients';
 
 import './Main.scss';
 
@@ -32,15 +32,17 @@ const Main: React.FC<MainProps> = () => {
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
-    // console.log('ingredients in MAIN', ingredients);
+    console.log('ingredients in MAIN ******', ingredients);
 
     let convertedIngredients = ingredients.map((ing) => {
-        // console.log('ing', ing);
+        // console.log('ing ****', ing);
 
         const splitIng = ing.split(' ');
+        // console.log('splitIng', splitIng);
 
-        const ingQty = splitIng[0];
-        // console.log('ingQty', ingQty);
+        const ingSplitFirstPart = splitIng[0];
+        const ingSplitSecondPart = splitIng[1];
+        // console.log('ingSplitSecondPart', ingSplitSecondPart);
 
         // const ingredientsLabel = splitIng.slice(1).join(' ');
         let ingredientQuantity: number = 1;
@@ -48,8 +50,11 @@ const Main: React.FC<MainProps> = () => {
         // let bla = getIngredientLabel(ing);
         // console.log('bla', bla);
 
-        if (ingQty.includes('-')) {
-            // console.log('ingQty', ingQty);
+        if (ingSplitFirstPart.includes('-')) {
+            // code to execute if ing first part is 1-1/4
+            // console.log('1');
+
+            // console.log('ingSplitFirstPart', ingSplitFirstPart);
 
             // const splitIngQty = ingQty.split('-');
             // const ingQtyWholeNum = parseInt(splitIngQty[0]);
@@ -62,13 +67,38 @@ const Main: React.FC<MainProps> = () => {
             //     parseInt(ingQtyFractionSplit[1]);
             // const totalQuantity = ingQtyWholeNum + countedFraction;
             // console.log('totalQuantity', totalQuantity);
-            ingredientQuantity = getIngredientQuantity(ingQty);
+            ingredientQuantity = getIngredientQuantity(ingSplitFirstPart);
+            // console.log('ingredientQuantity', ingredientQuantity);
+        } else if (ingSplitFirstPart.includes('/')) {
+            // console.log('2');
+            // code to execute if ing first part is exm: 1/4
+            ingredientQuantity = countFractionQuantity(ingSplitFirstPart);
+            // console.log('fractionSplit');
         }
-        console.log('ingredientQuantity', ingredientQuantity);
 
-        // console.log('splitQty TYPEOF', typeof splitQty);
-        // console.log('ingQty', ingQty);
-        // console.log('ingredientsLabel', ingredientsLabel);
+        if (!!Number(ingSplitFirstPart)) {
+            // console.log('3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ingSplitFirstPart);
+
+            // console.log(
+            //     '3 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+            //     Number(ingSplitFirstPart)
+            // );
+            ingredientQuantity = Number(ingSplitFirstPart);
+        }
+
+        if (
+            ingSplitSecondPart !== undefined &&
+            ingSplitSecondPart.includes('/') &&
+            !ingSplitSecondPart.includes('-')
+        ) {
+            // console.log('4');
+
+            const countedFraction = countFractionQuantity(ingSplitSecondPart);
+            ingredientQuantity += countedFraction;
+        }
+
+        console.log('ingredientQuantity', ingredientQuantity);
+        // console.log('ingredientQuantity', ingredientQuantity);
     });
 
     useEffect(() => {

@@ -10,20 +10,11 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import {
-    getIngredientQuantity,
-    countFractionQuantity,
-    ingredientIncludesDash,
-    ingredientIncludesSlash,
-    ingredientIsNumber,
-    ingredientIsFraction
-} from 'util/ingredients';
+import { convertIngredientsForRendering } from 'util/ingredients';
 
 import './Main.scss';
 
-type MainProps = {};
-
-const Main: React.FC<MainProps> = () => {
+const Main: React.FC = () => {
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
 
@@ -39,70 +30,11 @@ const Main: React.FC<MainProps> = () => {
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
-    console.log('ingredients in MAIN ******', ingredients);
+    console.log('ingredients ******************', ingredients);
 
-    let convertedIngredients = ingredients.map((ing) => {
-        // console.log('ing ****', ing);
+    const convertedIngredients = convertIngredientsForRendering(ingredients);
 
-        const splitIng = ing.split(' ');
-        // console.log('splitIng', splitIng);
-
-        const ingSplitFirstPart = splitIng[0];
-        const ingSplitSecondPart = splitIng[1];
-        // console.log('ingSplitSecondPart', ingSplitSecondPart);
-
-        // const ingredientsLabel = splitIng.slice(1).join(' ');
-        let ingredientQuantity: number = 1;
-
-        // let bla = getIngredientLabel(ing);
-        // console.log('bla', bla);
-
-        if (ingredientIncludesDash(ingSplitFirstPart)) {
-            // code to execute if ing first part is 1-1/4
-            // console.log('1');
-
-            // console.log('ingSplitFirstPart', ingSplitFirstPart);
-
-            // const splitIngQty = ingQty.split('-');
-            // const ingQtyWholeNum = parseInt(splitIngQty[0]);
-            // console.log('ingQtyWhole', ingQtyWhole);
-
-            // const ingQtyFraction = splitIngQty[1];
-            // const ingQtyFractionSplit = ingQtyFraction.split('/');
-            // const countedFraction =
-            //     parseInt(ingQtyFractionSplit[0]) /
-            //     parseInt(ingQtyFractionSplit[1]);
-            // const totalQuantity = ingQtyWholeNum + countedFraction;
-            // console.log('totalQuantity', totalQuantity);
-            ingredientQuantity = getIngredientQuantity(ingSplitFirstPart);
-            // console.log('ingredientQuantity', ingredientQuantity);
-        } else if (ingredientIncludesSlash(ingSplitFirstPart)) {
-            // console.log('2');
-            // code to execute if ing first part is exm: 1/4
-            ingredientQuantity = countFractionQuantity(ingSplitFirstPart);
-            // console.log('fractionSplit');
-        }
-
-        if (ingredientIsNumber(ingSplitFirstPart)) {
-            // console.log('3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ingSplitFirstPart);
-
-            // console.log(
-            //     '3 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-            //     Number(ingSplitFirstPart)
-            // );
-            ingredientQuantity = Number(ingSplitFirstPart);
-        }
-
-        if (ingredientIsFraction(ingSplitSecondPart)) {
-            // console.log('4');
-
-            const countedFraction = countFractionQuantity(ingSplitSecondPart);
-            ingredientQuantity += countedFraction;
-        }
-
-        console.log('ingredientQuantity', ingredientQuantity);
-        // console.log('ingredientQuantity', ingredientQuantity);
-    });
+    console.log('convertedIngredients', convertedIngredients);
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -188,4 +120,5 @@ const Main: React.FC<MainProps> = () => {
         </section>
     );
 };
+
 export default Main;

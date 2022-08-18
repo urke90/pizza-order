@@ -10,7 +10,14 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import { getIngredientQuantity, countFractionQuantity } from 'util/ingredients';
+import {
+    getIngredientQuantity,
+    countFractionQuantity,
+    ingredientIncludesDash,
+    ingredientIncludesSlash,
+    ingredientIsNumber,
+    ingredientIsFraction
+} from 'util/ingredients';
 
 import './Main.scss';
 
@@ -50,7 +57,7 @@ const Main: React.FC<MainProps> = () => {
         // let bla = getIngredientLabel(ing);
         // console.log('bla', bla);
 
-        if (ingSplitFirstPart.includes('-')) {
+        if (ingredientIncludesDash(ingSplitFirstPart)) {
             // code to execute if ing first part is 1-1/4
             // console.log('1');
 
@@ -69,14 +76,14 @@ const Main: React.FC<MainProps> = () => {
             // console.log('totalQuantity', totalQuantity);
             ingredientQuantity = getIngredientQuantity(ingSplitFirstPart);
             // console.log('ingredientQuantity', ingredientQuantity);
-        } else if (ingSplitFirstPart.includes('/')) {
+        } else if (ingredientIncludesSlash(ingSplitFirstPart)) {
             // console.log('2');
             // code to execute if ing first part is exm: 1/4
             ingredientQuantity = countFractionQuantity(ingSplitFirstPart);
             // console.log('fractionSplit');
         }
 
-        if (!!Number(ingSplitFirstPart)) {
+        if (ingredientIsNumber(ingSplitFirstPart)) {
             // console.log('3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ingSplitFirstPart);
 
             // console.log(
@@ -86,11 +93,7 @@ const Main: React.FC<MainProps> = () => {
             ingredientQuantity = Number(ingSplitFirstPart);
         }
 
-        if (
-            ingSplitSecondPart !== undefined &&
-            ingSplitSecondPart.includes('/') &&
-            !ingSplitSecondPart.includes('-')
-        ) {
+        if (ingredientIsFraction(ingSplitSecondPart)) {
             // console.log('4');
 
             const countedFraction = countFractionQuantity(ingSplitSecondPart);

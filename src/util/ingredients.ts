@@ -42,3 +42,21 @@ export const countFractionQuantity = (ingQtyFraction: string): number => {
 
     return firstNum / secondNum;
 };
+
+/**
+ * INGRREDIENTS IF IF-ELSE CHECK STATEMENTS
+ */
+
+export const ingredientIncludesDash = (ingredient: string): boolean =>
+    ingredient.includes('-');
+
+export const ingredientIncludesSlash = (ingredient: string): boolean =>
+    ingredient.includes('/');
+
+export const ingredientIsNumber = (ingredient: string): boolean =>
+    !!Number(ingredient);
+
+export const ingredientIsFraction = (ingredient: string): boolean =>
+    ingredient !== undefined &&
+    ingredient.includes('/') &&
+    !ingredient.includes('-');

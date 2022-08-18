@@ -9,6 +9,8 @@ import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
+import Ingredients from 'components/ingredients/Ingredients';
+import { getIngredientQuantity, countFractionQuantity } from 'util/ingredients';
 
 import './Main.scss';
 
@@ -30,7 +32,74 @@ const Main: React.FC<MainProps> = () => {
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
-    console.log('selectedPizza', selectedPizza);
+    console.log('ingredients in MAIN ******', ingredients);
+
+    let convertedIngredients = ingredients.map((ing) => {
+        // console.log('ing ****', ing);
+
+        const splitIng = ing.split(' ');
+        // console.log('splitIng', splitIng);
+
+        const ingSplitFirstPart = splitIng[0];
+        const ingSplitSecondPart = splitIng[1];
+        // console.log('ingSplitSecondPart', ingSplitSecondPart);
+
+        // const ingredientsLabel = splitIng.slice(1).join(' ');
+        let ingredientQuantity: number = 1;
+
+        // let bla = getIngredientLabel(ing);
+        // console.log('bla', bla);
+
+        if (ingSplitFirstPart.includes('-')) {
+            // code to execute if ing first part is 1-1/4
+            // console.log('1');
+
+            // console.log('ingSplitFirstPart', ingSplitFirstPart);
+
+            // const splitIngQty = ingQty.split('-');
+            // const ingQtyWholeNum = parseInt(splitIngQty[0]);
+            // console.log('ingQtyWhole', ingQtyWhole);
+
+            // const ingQtyFraction = splitIngQty[1];
+            // const ingQtyFractionSplit = ingQtyFraction.split('/');
+            // const countedFraction =
+            //     parseInt(ingQtyFractionSplit[0]) /
+            //     parseInt(ingQtyFractionSplit[1]);
+            // const totalQuantity = ingQtyWholeNum + countedFraction;
+            // console.log('totalQuantity', totalQuantity);
+            ingredientQuantity = getIngredientQuantity(ingSplitFirstPart);
+            // console.log('ingredientQuantity', ingredientQuantity);
+        } else if (ingSplitFirstPart.includes('/')) {
+            // console.log('2');
+            // code to execute if ing first part is exm: 1/4
+            ingredientQuantity = countFractionQuantity(ingSplitFirstPart);
+            // console.log('fractionSplit');
+        }
+
+        if (!!Number(ingSplitFirstPart)) {
+            // console.log('3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ingSplitFirstPart);
+
+            // console.log(
+            //     '3 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+            //     Number(ingSplitFirstPart)
+            // );
+            ingredientQuantity = Number(ingSplitFirstPart);
+        }
+
+        if (
+            ingSplitSecondPart !== undefined &&
+            ingSplitSecondPart.includes('/') &&
+            !ingSplitSecondPart.includes('-')
+        ) {
+            // console.log('4');
+
+            const countedFraction = countFractionQuantity(ingSplitSecondPart);
+            ingredientQuantity += countedFraction;
+        }
+
+        console.log('ingredientQuantity', ingredientQuantity);
+        // console.log('ingredientQuantity', ingredientQuantity);
+    });
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -43,7 +112,7 @@ const Main: React.FC<MainProps> = () => {
                     method: 'GET'
                 });
 
-                console.log('response FETCHING SPECIFIC PIZZA', response);
+                // console.log('response FETCHING SPECIFIC PIZZA', response);
             } catch (error) {
                 console.log('error fetching specific pizza', error);
             }
@@ -109,7 +178,7 @@ const Main: React.FC<MainProps> = () => {
                                 : ''
                         }`}
                     >
-                        ingredients here
+                        {/* <Ingredients ingredients={ingredients} /> */}
                     </div>
                 </div>
             </div>

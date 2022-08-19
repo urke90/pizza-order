@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { IConvertedIngredients } from 'ts/ingredients';
+
 interface IIngredientsProps {
-    ingredients: string[];
+    ingredients: IConvertedIngredients[];
 }
 
 const Ingredients: React.FC<IIngredientsProps> = ({ ingredients }) => {

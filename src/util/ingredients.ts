@@ -1,3 +1,5 @@
+import { IConvertedIngredients } from 'ts/ingredients';
+
 // used to count ingredinet quantity if it's in format 1-1/4, 1-1/3 etc
 const getIngredientQuantity = (ingQty: string): number => {
     const splitIngQty = ingQty.split('-');
@@ -39,12 +41,14 @@ export const ingredientIsFraction = (ingredient: string): boolean =>
     ingredient.includes('/') &&
     !ingredient.includes('-');
 
-interface IConvertedIngredients {
-    title: string;
-    quantity: number;
-}
+// interface IConvertedIngredients {
+//     title: string;
+//     quantity: number;
+// }
 
-export const convertIngredientsForRendering = (ingredients: string[]) => {
+export const convertIngredientsForRendering = (
+    ingredients: string[]
+): IConvertedIngredients[] => {
     return ingredients.map((ing) => {
         const splitIng = ing.split(' ');
         const ingSplitFirstPart = splitIng[0];
@@ -96,15 +100,15 @@ export const convertIngredientsForRendering = (ingredients: string[]) => {
             ingredientTitle = ing;
         }
 
-        ingredientTitle = ingredientTitle.replace(/\s*\(.*?\)\s*/g, ' ');
+        ingredientTitle = ingredientTitle.replace(/\s*\(.*?\)\s*/g, ' ').trim();
 
-        // return {
-        //     title: ingredientTitle,
-        //     quantity: ingredientQuantity
-        // };
         return {
-            [ingredientTitle]: ingredientQuantity
-            // quantity: ingredientQuantity
+            title: ingredientTitle,
+            quantity: ingredientQuantity
         };
+        // return {
+        //     [ingredientTitle]: ingredientQuantity
+        //     // quantity: ingredientQuantity
+        // };
     });
 };

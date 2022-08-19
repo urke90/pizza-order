@@ -1,3 +1,5 @@
+@import '../../assets/scss/colors';
+
 .recipe {
     display: flex;
     flex-direction: column;
@@ -21,9 +23,22 @@
             object-fit: cover;
         }
     }
-    // &__ingredients-list {
-
-    // }
+    &__link {
+        width: fit-content;
+        margin: auto;
+        text-align: center;
+        a {
+            &:hover {
+                color: $red;
+                transition: 1s;
+            }
+        }
+    }
+    &__button-wrapper {
+        text-align: center;
+        margin-top: 30px;
+        // border: 1px solid blue;
+    }
     &__ingredient-item {
         margin: 10px auto;
         line-height: 24px;

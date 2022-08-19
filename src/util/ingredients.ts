@@ -44,9 +44,7 @@ interface IConvertedIngredients {
     quantity: number;
 }
 
-export const convertIngredientsForRendering = (
-    ingredients: string[]
-): IConvertedIngredients[] => {
+export const convertIngredientsForRendering = (ingredients: string[]) => {
     return ingredients.map((ing) => {
         const splitIng = ing.split(' ');
         const ingSplitFirstPart = splitIng[0];
@@ -100,9 +98,13 @@ export const convertIngredientsForRendering = (
 
         ingredientTitle = ingredientTitle.replace(/\s*\(.*?\)\s*/g, ' ');
 
+        // return {
+        //     title: ingredientTitle,
+        //     quantity: ingredientQuantity
+        // };
         return {
-            title: ingredientTitle,
-            quantity: ingredientQuantity
+            [ingredientTitle]: ingredientQuantity
+            // quantity: ingredientQuantity
         };
     });
 };

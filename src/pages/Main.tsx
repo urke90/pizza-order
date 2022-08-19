@@ -28,15 +28,36 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
+    // console.log('selectedPizza', selectedPizza);
+
     const { ingredients, title, source_url, image_url } = selectedPizza;
-
-    console.log('ingredients ******************', ingredients);
-
     const convertedIngredients = convertIngredientsForRendering(ingredients);
 
-    console.log('convertedIngredients', convertedIngredients);
+    const handleAddToCart = () => {
+        /**
+         * DATA TO SEND
+         * 1. recipe_id --- bice KEY za objekat koji cu da napravim
+         * 2. title --- title od pizze
+         * 3. ingredients
+         */
+
+        const orderedPizza = {
+            title,
+            ingredients
+        };
+
+        console.log('handleAddToCart');
+    };
+
+    // console.log('ingredients ******************', ingredients);
+    // console.log(
+    //     'convertedIngredients ******************',
+    //     convertedIngredients
+    // );
 
     useEffect(() => {
+        console.log('use EFFECT IS MAIN');
+
         const fetchPizzaRecipe = async () => {
             const pizzaIdURL = API_ENDPOINTS.pizzaId;
             let response: AxiosResponse<any, any> | undefined;
@@ -47,7 +68,7 @@ const Main: React.FC = () => {
                     method: 'GET'
                 });
 
-                // console.log('response FETCHING SPECIFIC PIZZA', response);
+                console.log('response FETCHING SPECIFIC PIZZA', response);
             } catch (error) {
                 console.log('error fetching specific pizza', error);
             }
@@ -62,7 +83,7 @@ const Main: React.FC = () => {
         if (selectedPizzaId) {
             fetchPizzaRecipe();
         }
-    }, [selectedPizzaId, sendRequest, dispatch]);
+    }, [selectedPizzaId]);
 
     return (
         <section className="main">
@@ -104,6 +125,7 @@ const Main: React.FC = () => {
                             title={title}
                             source_url={source_url}
                             image_url={image_url}
+                            onAddToCart={handleAddToCart}
                         />
                     </main>
                     <div

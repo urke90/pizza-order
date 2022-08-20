@@ -56,7 +56,7 @@ const Login: React.FC<LoginProps> = () => {
                             id="email"
                             type="email"
                             name="email"
-                            labelText="Email"
+                            label="Email"
                             placeholder="Email"
                             onChange={handleSetEmail}
                         />
@@ -66,7 +66,7 @@ const Login: React.FC<LoginProps> = () => {
                             id="password"
                             type="password"
                             name="password"
-                            labelText="Password"
+                            label="Password"
                             placeholder="Password"
                             onChange={handleSetPassword}
                         />

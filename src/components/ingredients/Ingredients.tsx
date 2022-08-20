@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Input from 'shared/form/Input';
+
 import { IConvertedIngredients } from 'ts/ingredients';
 
 // interface IIngredientsProps {

@@ -22,6 +22,8 @@ const Login: React.FC<LoginProps> = () => {
     } = useLogin();
 
     const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
+    const handleSetEmail = (value: string) => setEmail(value);
+    const handleSetPassword = (value: string) => setPassword(value);
 
     const handleSubmit = isSignUpMode
         ? handleSignUpWithCredentials
@@ -29,8 +31,7 @@ const Login: React.FC<LoginProps> = () => {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log('user SIGN IN', user);
-
+            // console.log('user SIGN IN', user);
             // user is logged in
             // console.log('user imaaaa', user);
         } else {
@@ -52,12 +53,12 @@ const Login: React.FC<LoginProps> = () => {
                 >
                     <div className="login__form-control">
                         <Input
-                            textarea
                             id="email"
                             type="email"
                             name="email"
                             labelText="Email"
                             placeholder="Email"
+                            onChange={handleSetEmail}
                         />
                     </div>
                     <div className="login__form-control">
@@ -67,6 +68,7 @@ const Login: React.FC<LoginProps> = () => {
                             name="password"
                             labelText="Password"
                             placeholder="Password"
+                            onChange={handleSetPassword}
                         />
                     </div>
                     <Button

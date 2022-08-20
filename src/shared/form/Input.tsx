@@ -11,6 +11,7 @@ interface IInputProps {
     textarea?: boolean;
     rows?: number;
     cols?: number;
+    onChange?: (value: any) => void;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -21,7 +22,8 @@ const Input: React.FC<IInputProps> = ({
     placeholder,
     textarea = false,
     rows = 3,
-    cols = 3
+    cols = 3,
+    onChange
 }) => {
     if (textarea) {
         return (
@@ -36,6 +38,9 @@ const Input: React.FC<IInputProps> = ({
                     cols={cols}
                     rows={rows}
                     placeholder={placeholder}
+                    onChange={
+                        onChange ? (e) => onChange(e.target.value) : () => {}
+                    }
                 ></textarea>
             </div>
         );
@@ -69,6 +74,7 @@ const Input: React.FC<IInputProps> = ({
                 id={id}
                 name={name}
                 placeholder={placeholder}
+                onChange={onChange ? (e) => onChange(e.target.value) : () => {}}
             />
         </div>
     );

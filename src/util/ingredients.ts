@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { IConvertedIngredients } from 'ts/ingredients';
 
 // used to count ingredinet quantity if it's in format 1-1/4, 1-1/3 etc
@@ -103,6 +104,7 @@ export const convertIngredientsForRendering = (
         ingredientTitle = ingredientTitle.replace(/\s*\(.*?\)\s*/g, ' ').trim();
 
         return {
+            id: uuid(),
             title: ingredientTitle,
             quantity: ingredientQuantity
         };

@@ -142,7 +142,7 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        <Ingredients ingredients={convertedIngredients} />
+                        {/* <Ingredients ingredients={convertedIngredients} /> */}
                     </div>
                 </div>
             </div>

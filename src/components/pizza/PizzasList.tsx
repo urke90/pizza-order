@@ -38,7 +38,7 @@ const PizzasList: React.FC = () => {
     );
 
     useEffect(() => {
-        console.log('use EFFECT IZ PIZZA LIST');
+        // console.log('use EFFECT IZ PIZZA LIST');
 
         const fetchPizzas = async () => {
             const pizzasURL = API_ENDPOINTS.pizzas;

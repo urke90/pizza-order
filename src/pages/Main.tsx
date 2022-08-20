@@ -4,6 +4,7 @@ import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
+import { IConvertedIngredients } from 'ts/ingredients';
 
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
@@ -15,6 +16,9 @@ import { convertIngredientsForRendering } from 'util/ingredients';
 import './Main.scss';
 
 const Main: React.FC = () => {
+    const [convertedIngredients, setConvertedIngredients] = useState<
+        IConvertedIngredients[]
+    >([]);
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
 
@@ -31,7 +35,6 @@ const Main: React.FC = () => {
     // console.log('selectedPizza', selectedPizza);
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
-    const convertedIngredients = convertIngredientsForRendering(ingredients);
 
     const handleAddToCart = () => {
         /**
@@ -49,14 +52,12 @@ const Main: React.FC = () => {
         console.log('handleAddToCart');
     };
 
-    // console.log('ingredients ******************', ingredients);
-    // console.log(
-    //     'convertedIngredients ******************',
-    //     convertedIngredients
-    // );
+    useEffect(() => {
+        console.log('convertedIngredients', convertedIngredients);
+    }, [convertedIngredients]);
 
     useEffect(() => {
-        console.log('use EFFECT IS MAIN');
+        // console.log('use EFFECT IS MAIN');
 
         const fetchPizzaRecipe = async () => {
             const pizzaIdURL = API_ENDPOINTS.pizzaId;
@@ -68,7 +69,13 @@ const Main: React.FC = () => {
                     method: 'GET'
                 });
 
-                console.log('response FETCHING SPECIFIC PIZZA', response);
+                const convertedIngredients = convertIngredientsForRendering(
+                    response?.data.recipe.ingredients
+                );
+
+                // console.log('convertedIngredients', convertedIngredients);
+
+                setConvertedIngredients(convertedIngredients);
             } catch (error) {
                 console.log('error fetching specific pizza', error);
             }
@@ -135,7 +142,7 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        {/* <Ingredients ingredients={ingredients} /> */}
+                        {/* <Ingredients ingredients={convertedIngredients} /> */}
                     </div>
                 </div>
             </div>

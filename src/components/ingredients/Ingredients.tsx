@@ -1,11 +1,13 @@
 import React from 'react';
 
-interface IIngredientsProps {
-    ingredients: string[];
-}
+import { IConvertedIngredients } from 'ts/ingredients';
 
-const Ingredients: React.FC<IIngredientsProps> = ({ ingredients }) => {
-    console.log('ingredients in Ingredients component', ingredients);
+// interface IIngredientsProps {
+//     ingredients: IConvertedIngredients[];
+// }
+
+const Ingredients: React.FC = ({}) => {
+    // console.log('ingredients in Ingredients component', ingredients);
 
     return <div>Ingredients component</div>;
 };

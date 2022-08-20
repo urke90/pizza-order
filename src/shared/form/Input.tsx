@@ -41,6 +41,23 @@ const Input: React.FC<IInputProps> = ({
         );
     }
 
+    // if (type === 'number') {
+    //     return (
+    //         <div className="input">
+    //             <label className="input__label" htmlFor={id}>
+    //                 {labelText}
+    //             </label>
+    //             <input
+    //                 className="input__element"
+    //                 type={type}
+    //                 id={id}
+    //                 name={name}
+    //                 placeholder={placeholder}
+    //             />
+    //         </div>
+    //     );
+    // }
+
     return (
         <div className="input">
             <label className="input__label" htmlFor={id}>

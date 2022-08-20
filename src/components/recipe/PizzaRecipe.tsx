@@ -1,5 +1,5 @@
 import { IoFastFood } from 'react-icons/io5';
-import { BsFillCartPlusFill } from 'react-icons/bs';
+import { BsFillCartPlusFill, BsFillCartXFill } from 'react-icons/bs';
 
 import Button from 'shared/form/Button';
 
@@ -29,7 +29,7 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                 <img src={image_url} alt={title} />
             </div>
             <div className="recipe__link">
-                <a href={source_url} target="_blank">
+                <a href={source_url} target="_blank" rel="noreferer">
                     Chech the recipe online
                 </a>
             </div>

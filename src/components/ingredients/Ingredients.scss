@@ -1,3 +1,11 @@
 .ingredients {
     padding: 10px;
+    &__heading {
+        text-align: center;
+    }
+    &__buttons-wrapper {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
 }

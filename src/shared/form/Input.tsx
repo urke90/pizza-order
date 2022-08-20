@@ -6,30 +6,32 @@ interface IInputProps {
     type: 'email' | 'hidden' | 'number' | 'password';
     name: string;
     id: string;
-    labelText: string;
+    label: string;
     placeholder: string;
     textarea?: boolean;
     rows?: number;
     cols?: number;
     onChange?: (value: any) => void;
+    initValue?: string | number;
 }
 
 const Input: React.FC<IInputProps> = ({
     type,
     id,
-    labelText,
+    label,
     name,
     placeholder,
     textarea = false,
     rows = 3,
     cols = 3,
-    onChange
+    onChange,
+    initValue
 }) => {
     if (textarea) {
         return (
             <div className="input">
                 <label className="input__label" htmlFor={id}>
-                    {labelText}
+                    {label}
                 </label>
                 <textarea
                     className="input__textarea input__element"
@@ -50,7 +52,7 @@ const Input: React.FC<IInputProps> = ({
     //     return (
     //         <div className="input">
     //             <label className="input__label" htmlFor={id}>
-    //                 {labelText}
+    //                 {label}
     //             </label>
     //             <input
     //                 className="input__element"
@@ -66,7 +68,7 @@ const Input: React.FC<IInputProps> = ({
     return (
         <div className="input">
             <label className="input__label" htmlFor={id}>
-                {labelText}
+                {label}
             </label>
             <input
                 className="input__element"
@@ -75,6 +77,7 @@ const Input: React.FC<IInputProps> = ({
                 name={name}
                 placeholder={placeholder}
                 onChange={onChange ? (e) => onChange(e.target.value) : () => {}}
+                value={initValue ? initValue : ''}
             />
         </div>
     );

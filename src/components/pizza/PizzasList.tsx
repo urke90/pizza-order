@@ -6,7 +6,7 @@ import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
-import { getPizzasToRender } from 'util/pagination';
+import { getPizzasToRender } from 'util/pagination-data';
 
 import './PizzasList.scss';
 

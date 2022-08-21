@@ -4,7 +4,7 @@ import { useLogin } from 'hooks/useLogin';
 
 import './NavMobile.scss';
 
-import { NAVLINKS_CONFIG } from 'util/navlinks';
+import { NAVLINKS_CONFIG } from 'util/navlinks-data';
 
 type NavMobileProps = {};
 

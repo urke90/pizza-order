@@ -1,0 +1,23 @@
+@import '../../assets/scss/colors';
+
+.ingredient-item {
+    // border: 1px solid blue;
+    // display: flex;
+    margin: 20px auto;
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    &__value {
+        display: inline-block;
+        padding: 5px 18px;
+        border: 2px dotted $orange;
+        border-radius: 5px;
+        margin: 0 15px;
+    }
+    &__button-img {
+        display: flex;
+        // align-items: center;
+        // border: 1px solid blue;
+    }
+}

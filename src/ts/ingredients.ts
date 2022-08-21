@@ -3,3 +3,7 @@ export interface IConvertedIngredients {
     title: string;
     quantity: number;
 }
+
+export interface IUpdatableIngredients {
+    [key: string]: IConvertedIngredients;
+}

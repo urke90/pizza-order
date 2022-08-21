@@ -7,3 +7,5 @@ export interface IConvertedIngredients {
 export interface IUpdatableIngredients {
     [key: string]: IConvertedIngredients;
 }
+
+export type TIngredientActionType = 'inc' | 'dec';

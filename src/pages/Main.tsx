@@ -4,7 +4,11 @@ import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
-import { IConvertedIngredients, IUpdatableIngredients } from 'ts/ingredients';
+import {
+    IConvertedIngredients,
+    IUpdatableIngredients,
+    TIngredientActionType
+} from 'ts/ingredients';
 
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
@@ -35,7 +39,12 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
-    // console.log('selectedPizza', selectedPizza);
+    const onIngredientQtyChange =
+        (value: number) => (id: string, type: TIngredientActionType) => {
+            console.log('value onIngredientChange', value);
+            console.log('id onIngredientChange', id);
+            console.log('type onIngredientChange', type);
+        };
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
@@ -54,10 +63,6 @@ const Main: React.FC = () => {
 
         console.log('handleAddToCart');
     };
-
-    useEffect(() => {
-        console.log('convertedIngredients', convertedIngredients);
-    }, [convertedIngredients]);
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -155,7 +160,10 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        <Ingredients ingredients={updatableIngredients} />
+                        <Ingredients
+                            onIngredientQtyChange={onIngredientQtyChange}
+                            ingredients={updatableIngredients}
+                        />
                     </div>
                 </div>
             </div>

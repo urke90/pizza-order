@@ -11,7 +11,7 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import { convertIngredientsForRendering } from 'util/ingredients';
+import { convertIngredientsForRendering } from 'util/ingredients-data';
 
 import './Main.scss';
 
@@ -73,7 +73,7 @@ const Main: React.FC = () => {
                     response?.data.recipe.ingredients
                 );
 
-                // console.log('convertedIngredients', convertedIngredients);
+                console.log('convertedIngredients', convertedIngredients);
 
                 setConvertedIngredients(convertedIngredients);
             } catch (error) {
@@ -90,7 +90,7 @@ const Main: React.FC = () => {
         if (selectedPizzaId) {
             fetchPizzaRecipe();
         }
-    }, [selectedPizzaId]);
+    }, [selectedPizzaId, dispatch, sendRequest]);
 
     return (
         <section className="main">
@@ -142,7 +142,7 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        <Ingredients />
+                        <Ingredients ingredients={convertedIngredients} />
                     </div>
                 </div>
             </div>

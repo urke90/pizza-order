@@ -3,17 +3,20 @@ import { useState, useEffect } from 'react';
 import Button from 'shared/form/Button';
 import './Ingredients.scss';
 
-import Input from 'shared/form/Input';
+// import Input from 'shared/form/Input';
+import IngredientItem from './IngredientItem';
 
 import { IConvertedIngredients } from 'ts/ingredients';
 
-// interface IIngredientsProps {
-//     ingredients: IConvertedIngredients[];
-// }
+interface IIngredientsProps {
+    ingredients: IConvertedIngredients[];
+}
 
-const Ingredients: React.FC = ({}) => {
-    // console.log('ingredients in Ingredients component', ingredients);
+const Ingredients: React.FC<IIngredientsProps> = ({ ingredients }) => {
+    console.log('ingredients in Ingredients component', ingredients);
+
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
+
     const handleConstantValueChange = (value: number) =>
         setIngValueConstant(value);
 
@@ -35,6 +38,11 @@ const Ingredients: React.FC = ({}) => {
                         1
                     </Button>
                 </div>
+                <ul className="ingredients__list">
+                    <IngredientItem />
+                    <IngredientItem />
+                    <IngredientItem />
+                </ul>
             </div>
         </div>
     );

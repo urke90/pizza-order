@@ -6,19 +6,25 @@ import './Ingredients.scss';
 // import Input from 'shared/form/Input';
 import IngredientItem from './IngredientItem';
 
-import { IConvertedIngredients } from 'ts/ingredients';
+import { IUpdatableIngredients } from 'ts/ingredients';
 
 interface IIngredientsProps {
-    ingredients: IConvertedIngredients[];
+    ingredients: IUpdatableIngredients;
 }
 
 const Ingredients: React.FC<IIngredientsProps> = ({ ingredients }) => {
-    console.log('ingredients in Ingredients component', ingredients);
+    console.log('Updatable Ingredients in Ingredients.TSX', ingredients);
 
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
 
     const handleConstantValueChange = (value: number) =>
         setIngValueConstant(value);
+
+    // const ingredientsIDs = Object.keys(ingredients);
+
+    const ingredientsToRender = Object.values(ingredients);
+
+    // console.log('ingredientsToRender', ingredientsToRender);
 
     return (
         <div className="ingredients">
@@ -39,9 +45,12 @@ const Ingredients: React.FC<IIngredientsProps> = ({ ingredients }) => {
                     </Button>
                 </div>
                 <ul className="ingredients__list">
-                    <IngredientItem />
-                    <IngredientItem />
-                    <IngredientItem />
+                    {ingredientsToRender.map((ingredient) => (
+                        <IngredientItem
+                            key={ingredient.id}
+                            ingredient={ingredient}
+                        />
+                    ))}
                 </ul>
             </div>
         </div>

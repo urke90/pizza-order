@@ -1,14 +1,23 @@
 @import '../../assets/scss/colors';
 
 .ingredient-item {
-    // border: 1px solid blue;
+    border: 1px solid blue;
+    max-width: 222px;
     // display: flex;
     margin: 20px auto;
     &__wrapper {
         display: flex;
         justify-content: center;
     }
+    &__title {
+        text-align: center;
+        margin: 10px auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     &__value {
+        min-width: 32px;
         display: inline-block;
         padding: 5px 18px;
         border: 2px dotted $orange;
@@ -17,7 +26,7 @@
     }
     &__button-img {
         display: flex;
-        // align-items: center;
-        // border: 1px solid blue;
+    }
+    @media screen and (min-width: 768px) {
     }
 }

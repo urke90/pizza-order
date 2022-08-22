@@ -26,7 +26,9 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                         <AiOutlinePlus />
                     </div>
                 </Button>
-                <span className="ingredient-item__value">{quantity}</span>
+                <span className="ingredient-item__value">
+                    {quantity.toFixed(2)}
+                </span>
                 <Button
                     type="button"
                     onClick={() => onIngredientQtyChange(id, 'dec')}

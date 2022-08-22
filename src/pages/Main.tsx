@@ -39,11 +39,44 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
+    useEffect(() => {
+        console.log('updatableIngredients', updatableIngredients);
+    }, [updatableIngredients]);
+
     const onIngredientQtyChange =
         (value: number) => (id: string, type: TIngredientActionType) => {
-            console.log('value onIngredientChange', value);
-            console.log('id onIngredientChange', id);
-            console.log('type onIngredientChange', type);
+            // console.log('value onIngredientChange', value);
+            // console.log('type onIngredientChange', type);
+
+            if (type === 'inc') {
+                return setUpdatableIngredients((prevIngredients) => {
+                    // console.log('prevIngredients', prevIngredients);
+                    console.log(
+                        'prevIngredients CONCRETE',
+                        prevIngredients[id]
+                    );
+
+                    console.log('id onIngredientChange', id);
+
+                    return {
+                        ...prevIngredients,
+                        [id]: {
+                            ...prevIngredients[id],
+                            quantity: prevIngredients[id].quantity + value
+                        }
+                    };
+                });
+            }
+
+            return setUpdatableIngredients((prevIngredients) => {
+                return {
+                    ...prevIngredients,
+                    [id]: {
+                        ...prevIngredients[id],
+                        quantity: prevIngredients[id].quantity - value
+                    }
+                };
+            });
         };
 
     const { ingredients, title, source_url, image_url } = selectedPizza;

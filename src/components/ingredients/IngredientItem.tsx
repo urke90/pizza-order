@@ -12,11 +12,12 @@ import './IngredientItem.scss';
 interface IIngredientItemProps {
     ingredient: IConvertedIngredients;
     onIngredientQtyChange: (id: string, type: TIngredientActionType) => void;
+    onIngredientRemove: (id: string) => void;
 }
 
 const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
     const { id, title, quantity } = props.ingredient;
-    const { onIngredientQtyChange } = props;
+    const { onIngredientQtyChange, onIngredientRemove } = props;
 
     return (
         <li className="ingredient-item">
@@ -46,7 +47,7 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                 <div className="ingredient-item__button--remove-icon">
                     <AiFillMinusCircle
                         size={30}
-                        onClick={() => window.alert(title)}
+                        onClick={() => onIngredientRemove(id)}
                     />
                 </div>
                 <p>Remove Ingredient</p>

@@ -5,15 +5,18 @@
     }
     &__buttons-wrapper {
         display: flex;
-        justify-content: space-around;
-        margin: 20px 0;
+        justify-content: space-between;
+        margin: 20px auto;
+        max-width: 222px;
     }
     &__list-title {
         text-align: center;
         text-transform: uppercase;
         text-decoration: solid;
     }
-    // &__list {
-    // border: 1px solid peru;
-    // }
+    @media screen and (max-width: 768px) {
+        &__buttons-wrapper {
+            max-width: 300px;
+        }
+    }
 }

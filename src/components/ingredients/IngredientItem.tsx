@@ -1,6 +1,10 @@
 import Button from 'shared/form/Button';
 import { IConvertedIngredients } from 'ts/ingredients';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import {
+    AiOutlinePlus,
+    AiOutlineMinus,
+    AiFillMinusCircle
+} from 'react-icons/ai';
 import type { TIngredientActionType } from 'ts/ingredients';
 
 import './IngredientItem.scss';
@@ -37,6 +41,15 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                         <AiOutlineMinus />
                     </div>
                 </Button>
+            </div>
+            <div className="ingredient-item__button--remove">
+                <div className="ingredient-item__button--remove-icon">
+                    <AiFillMinusCircle
+                        size={30}
+                        onClick={() => window.alert(title)}
+                    />
+                </div>
+                <p>Remove Ingredient</p>
             </div>
         </li>
     );

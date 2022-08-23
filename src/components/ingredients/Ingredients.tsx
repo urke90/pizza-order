@@ -13,11 +13,13 @@ interface IIngredientsProps {
     onIngredientQtyChange: (
         value: number
     ) => (id: string, type: TIngredientActionType) => void;
+    onIngredientRemove: (id: string) => void;
 }
 
 const Ingredients: React.FC<IIngredientsProps> = ({
     ingredients,
-    onIngredientQtyChange
+    onIngredientQtyChange,
+    onIngredientRemove
 }) => {
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
 
@@ -58,6 +60,7 @@ const Ingredients: React.FC<IIngredientsProps> = ({
                         key={ingredient.id}
                         ingredient={ingredient}
                         onIngredientQtyChange={handleIngredientChange}
+                        onIngredientRemove={onIngredientRemove}
                     />
                 ))}
             </ul>

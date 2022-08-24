@@ -12,3 +12,9 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+.button--disabled {
+    color: $red;
+    background-color: $gray;
+    cursor: not-allowed;
+}

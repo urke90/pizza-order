@@ -40,19 +40,18 @@
         transition: 1s opacity;
         &-icon {
             margin-right: 10px;
+            cursor: pointer;
         }
     }
     &:hover &__button--remove {
         opacity: 1;
         visibility: visible;
-        // pointer-events: auto;
-        // hidden: ;
     }
 
     @media screen and (max-width: 768px) {
         max-width: 300px;
         &__wrapper {
-            justify-content: space-around;
+            justify-content: space-between;
         }
     }
 }

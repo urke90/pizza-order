@@ -25,6 +25,9 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
     const { ingValueConstant, onIngredientQtyChange, onIngredientRemove } =
         props;
 
+    console.log('quantity', quantity);
+    console.log('ingValueConstant', ingValueConstant);
+
     return (
         <li className="ingredient-item">
             <p className="ingredient-item__title">{title}</p>
@@ -47,6 +50,7 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                     onClick={() =>
                         onIngredientQtyChange(id, ingValueConstant, 'dec')
                     }
+                    disabled={ingValueConstant >= quantity}
                 >
                     <div className="ingredient-item__button-img">
                         <AiOutlineMinus />

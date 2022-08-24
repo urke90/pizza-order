@@ -11,13 +11,19 @@ import './IngredientItem.scss';
 
 interface IIngredientItemProps {
     ingredient: IConvertedIngredients;
-    onIngredientQtyChange: (id: string, type: TIngredientActionType) => void;
+    onIngredientQtyChange: (
+        id: string,
+        value: number,
+        type: TIngredientActionType
+    ) => void;
     onIngredientRemove: (id: string) => void;
+    ingValueConstant: number;
 }
 
 const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
     const { id, title, quantity } = props.ingredient;
-    const { onIngredientQtyChange, onIngredientRemove } = props;
+    const { ingValueConstant, onIngredientQtyChange, onIngredientRemove } =
+        props;
 
     return (
         <li className="ingredient-item">
@@ -25,7 +31,9 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
             <div className="ingredient-item__wrapper">
                 <Button
                     type="button"
-                    onClick={() => onIngredientQtyChange(id, 'inc')}
+                    onClick={() =>
+                        onIngredientQtyChange(id, ingValueConstant, 'inc')
+                    }
                 >
                     <div className="ingredient-item__button-img">
                         <AiOutlinePlus />
@@ -36,7 +44,9 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                 </span>
                 <Button
                     type="button"
-                    onClick={() => onIngredientQtyChange(id, 'dec')}
+                    onClick={() =>
+                        onIngredientQtyChange(id, ingValueConstant, 'dec')
+                    }
                 >
                     <div className="ingredient-item__button-img">
                         <AiOutlineMinus />

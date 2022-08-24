@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
 
 import Button from 'shared/form/Button';
@@ -10,9 +10,12 @@ import { IUpdatableIngredients } from 'ts/ingredients';
 
 interface IIngredientsProps {
     ingredients: IUpdatableIngredients;
+    bla?: IUpdatableIngredients;
     onIngredientQtyChange: (
-        value: number
-    ) => (id: string, type: TIngredientActionType) => void;
+        id: string,
+        value: number,
+        type: TIngredientActionType
+    ) => void;
     onIngredientRemove: (id: string) => void;
 }
 
@@ -23,14 +26,8 @@ const Ingredients: React.FC<IIngredientsProps> = ({
 }) => {
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
 
-    const handleConstantValueChange = (value: number) =>
-        setIngValueConstant(value);
-
     // will return array [{ id, title, quantity }] for single ingredient
     const ingredientsToRender = Object.values(ingredients);
-
-    // pass chosen quantity for incrementing/decrementing ingredient quantity
-    const handleIngredientChange = onIngredientQtyChange(ingValueConstant);
 
     return (
         <div className="ingredients">
@@ -40,14 +37,14 @@ const Ingredients: React.FC<IIngredientsProps> = ({
             <div className="ingredients__buttons-wrapper">
                 <Button
                     type="button"
-                    onClick={() => handleConstantValueChange(0.25)}
+                    onClick={() => setIngValueConstant(0.25)}
                     secondary={ingValueConstant === 0.25 ? true : false}
                 >
                     0.25
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => handleConstantValueChange(1)}
+                    onClick={() => setIngValueConstant(1)}
                     secondary={ingValueConstant === 1 ? true : false}
                 >
                     1
@@ -59,8 +56,9 @@ const Ingredients: React.FC<IIngredientsProps> = ({
                     <IngredientItem
                         key={ingredient.id}
                         ingredient={ingredient}
-                        onIngredientQtyChange={handleIngredientChange}
+                        onIngredientQtyChange={onIngredientQtyChange}
                         onIngredientRemove={onIngredientRemove}
+                        ingValueConstant={ingValueConstant}
                     />
                 ))}
             </ul>

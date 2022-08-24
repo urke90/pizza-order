@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AxiosResponse } from 'axios';
 import { useAxios } from 'hooks/useAxios';
+import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
-import {
-    IConvertedIngredients,
-    IUpdatableIngredients,
-    TIngredientActionType
-} from 'ts/ingredients';
-
+import { IUpdatableIngredients } from 'ts/ingredients';
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
@@ -20,12 +16,12 @@ import { convertIngredientsForRendering } from 'util/ingredients-data';
 import './Main.scss';
 
 const Main: React.FC = () => {
-    const [convertedIngredients, setConvertedIngredients] = useState<
-        IConvertedIngredients[]
-    >([]);
-    const [updatableIngredients, setUpdatableIngredients] =
-        useState<IUpdatableIngredients>({});
-
+    const {
+        updatableIngredients,
+        handleSetIngredients,
+        handleIngredientQtyChange,
+        handleIngredientRemove
+    } = useIngredients();
     const { sendRequest, isLoading, error } = useAxios();
     const dispatch = useAppDispatch();
 
@@ -39,70 +35,77 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
-    const onIngredientQtyChange =
-        (value: number) => (id: string, type: TIngredientActionType) => {
-            if (id && type) {
-                if (type === 'inc') {
-                    return setUpdatableIngredients((prevIngredients) => {
-                        if (prevIngredients[id] === undefined) {
-                            return {
-                                ...prevIngredients
-                            };
-                        }
+    // const onIngredientQtyChange =
+    //     (value: number) => (id: string, type: TIngredientActionType) => {
+    //         if (id && type) {
+    //             if (type === 'inc') {
+    //                 return setUpdatableIngredients((prevIngredients) => {
+    //                     if (prevIngredients[id] === undefined) {
+    //                         return {
+    //                             ...prevIngredients
+    //                         };
+    //                     }
 
-                        return {
-                            ...prevIngredients,
-                            [id]: {
-                                ...prevIngredients[id],
-                                quantity: prevIngredients[id].quantity + value
-                            }
-                        };
-                    });
-                }
+    //                     return {
+    //                         ...prevIngredients,
+    //                         [id]: {
+    //                             ...prevIngredients[id],
+    //                             quantity: prevIngredients[id].quantity + value
+    //                         }
+    //                     };
+    //                 });
+    //             }
 
-                return setUpdatableIngredients((prevIngredients) => {
-                    if (prevIngredients[id] === undefined) {
-                        return {
-                            ...prevIngredients
-                        };
-                    }
+    //             return setUpdatableIngredients((prevIngredients) => {
+    //                 if (prevIngredients[id] === undefined) {
+    //                     return {
+    //                         ...prevIngredients
+    //                     };
+    //                 }
 
-                    return {
-                        ...prevIngredients,
-                        [id]: {
-                            ...prevIngredients[id],
-                            quantity: prevIngredients[id].quantity - value
-                        }
-                    };
-                });
-            }
+    //                 return {
+    //                     ...prevIngredients,
+    //                     [id]: {
+    //                         ...prevIngredients[id],
+    //                         quantity: prevIngredients[id].quantity - value
+    //                     }
+    //                 };
+    //             });
+    //         }
 
-            throw new Error(`ID: ${id} or type: ${type} is not provided`);
-        };
+    //         throw new Error(`ID: ${id} or type: ${type} is not provided`);
+    //     };
 
-    const onIngredientRemove = (id: string) => {
-        if (!id) {
-            throw new Error(`Ingredient with ID ${id} is not found`);
-        }
+    // const onIngredientRemove = (id: string) => {
+    //     if (!id) {
+    //         throw new Error(`Ingredient with ID ${id} is not found`);
+    //     }
 
-        setUpdatableIngredients((prevIngredients) => {
-            if (prevIngredients[id] === undefined) {
-                return {
-                    ...prevIngredients
-                };
-            }
+    //     setUpdatableIngredients((prevIngredients) => {
+    //         if (prevIngredients[id] === undefined) {
+    //             return {
+    //                 ...prevIngredients
+    //             };
+    //         }
 
-            delete prevIngredients[id];
+    //         delete prevIngredients[id];
 
-            return {
-                ...prevIngredients
-            };
-        });
-    };
+    //         return {
+    //             ...prevIngredients
+    //         };
+    //     });
+    // };
 
-    useEffect(() => {
-        console.log('updatableIngredients', updatableIngredients);
-    }, [updatableIngredients]);
+    // useEffect(() => {
+    //     console.log(
+    //         'updatableIngredients u USE EFFET U MAIN.TSX AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    //         updatableIngredients
+    //     );
+
+    //     console.log('BLBLBLBLBLBLBLBLBBLBLBLBLBLBLBLBLBLBLBL', bla);
+
+    //     console.log('COMPAREEEEEEEEE', bla === updatableIngredients);
+    // }, [updatableIngredients]);
 
     const { ingredients, title, source_url, image_url } = selectedPizza;
 
@@ -150,8 +153,7 @@ const Main: React.FC = () => {
                     };
                 });
 
-                setConvertedIngredients(convertedIngredients);
-                setUpdatableIngredients(updatableIngredients);
+                handleSetIngredients(updatableIngredients);
             } catch (error) {
                 console.log('error fetching specific pizza', error);
             }
@@ -166,7 +168,7 @@ const Main: React.FC = () => {
         if (selectedPizzaId) {
             fetchPizzaRecipe();
         }
-    }, [selectedPizzaId, dispatch, sendRequest]);
+    }, [selectedPizzaId, dispatch, sendRequest, handleSetIngredients]);
 
     return (
         <section className="main">
@@ -203,13 +205,15 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        <PizzaRecipe
-                            ingredients={ingredients}
-                            title={title}
-                            source_url={source_url}
-                            image_url={image_url}
-                            onAddToCart={handleAddToCart}
-                        />
+                        {selectedPizza && (
+                            <PizzaRecipe
+                                ingredients={ingredients}
+                                title={title}
+                                source_url={source_url}
+                                image_url={image_url}
+                                onAddToCart={handleAddToCart}
+                            />
+                        )}
                     </main>
                     <div
                         className={`main__ingredients ${
@@ -218,11 +222,15 @@ const Main: React.FC = () => {
                                 : ''
                         }`}
                     >
-                        <Ingredients
-                            onIngredientQtyChange={onIngredientQtyChange}
-                            onIngredientRemove={onIngredientRemove}
-                            ingredients={updatableIngredients}
-                        />
+                        {updatableIngredients && (
+                            <Ingredients
+                                onIngredientQtyChange={
+                                    handleIngredientQtyChange
+                                }
+                                onIngredientRemove={handleIngredientRemove}
+                                ingredients={updatableIngredients}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

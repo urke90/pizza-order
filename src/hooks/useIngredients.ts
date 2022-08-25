@@ -12,11 +12,23 @@ interface IUseIngredients {
         type: TIngredientActionType
     ) => void;
     handleIngredientRemove: (id: string) => void;
+    pizzaQuantity: number;
+    handleChangePizzaQuantity: (type: TIngredientActionType) => void;
 }
 
 export const useIngredients = (): IUseIngredients => {
     const [updatableIngredients, setUpdatableIngredients] =
         useState<IUpdatableIngredients>({});
+    const [pizzaQuantity, setPizzaQuantity] = useState(1);
+
+    const handleChangePizzaQuantity = useCallback(
+        (type: TIngredientActionType) => {
+            setPizzaQuantity((prevQuantity) => {
+                return type === 'inc' ? prevQuantity + 1 : prevQuantity - 1;
+            });
+        },
+        []
+    );
 
     const handleSetIngredients = useCallback(
         (ingredients: IUpdatableIngredients) => {
@@ -92,6 +104,8 @@ export const useIngredients = (): IUseIngredients => {
         updatableIngredients,
         handleSetIngredients,
         handleIngredientQtyChange,
-        handleIngredientRemove
+        handleIngredientRemove,
+        handleChangePizzaQuantity,
+        pizzaQuantity
     };
 };

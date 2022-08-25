@@ -25,9 +25,6 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
     const { ingValueConstant, onIngredientQtyChange, onIngredientRemove } =
         props;
 
-    console.log('quantity', quantity);
-    console.log('ingValueConstant', ingValueConstant);
-
     return (
         <li className="ingredient-item">
             <p className="ingredient-item__title">{title}</p>

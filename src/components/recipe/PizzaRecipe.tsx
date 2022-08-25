@@ -1,5 +1,11 @@
 import { IoFastFood } from 'react-icons/io5';
 import { BsFillCartPlusFill, BsFillCartXFill } from 'react-icons/bs';
+import {
+    AiOutlinePlus,
+    AiOutlineMinus,
+    AiFillMinusCircle
+} from 'react-icons/ai';
+import type { TIngredientActionType } from 'ts/ingredients';
 
 import Button from 'shared/form/Button';
 
@@ -11,6 +17,8 @@ interface IPizzaRecipeProps {
     source_url: string;
     ingredients: string[];
     onAddToCart: () => void;
+    pizzaQuantity: number;
+    onChangePizzaQuantity: (type: TIngredientActionType) => void;
 }
 
 const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
@@ -18,7 +26,9 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
     image_url,
     source_url,
     ingredients,
-    onAddToCart
+    onAddToCart,
+    pizzaQuantity,
+    onChangePizzaQuantity
 }) => {
     return (
         <div className="recipe">
@@ -46,7 +56,26 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                     </li>
                 ))}
             </ul>
-            <div className="recipe__button-wrapper">
+            <div className="recipe__buttons-wrapper">
+                <p className="recipe__quantity">Quantity:</p>
+                <div className="recipe__buttons-wrapper--quantity">
+                    <Button
+                        type="button"
+                        onClick={() => onChangePizzaQuantity('inc')}
+                    >
+                        <AiOutlinePlus />
+                    </Button>
+                    <span className="recipe__buttons__quantity-wrapper">
+                        {pizzaQuantity}
+                    </span>
+                    <Button
+                        type="button"
+                        onClick={() => onChangePizzaQuantity('dec')}
+                        disabled={pizzaQuantity <= 1}
+                    >
+                        <AiOutlineMinus />
+                    </Button>
+                </div>
                 <Button type="button" onClick={onAddToCart}>
                     Add <BsFillCartPlusFill />
                 </Button>

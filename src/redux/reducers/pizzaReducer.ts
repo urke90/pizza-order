@@ -43,6 +43,7 @@ const pizzaSlice = createSlice({
         },
         savePizzaId(state, action: PayloadAction<{ pizzaId: string }>) {
             const { pizzaId } = action.payload;
+
             state.pizzaId = pizzaId;
         },
         savePizzaRecipe(

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAxios } from 'hooks/useAxios';
 import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { IUpdatableIngredients } from 'ts/ingredients';
+import { ICartItem } from 'ts/orders';
 import Pagination from 'components/pagination/Pagination';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
@@ -37,11 +38,17 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
-    const cart = useAppSelector((state) => state.ordersReducer.cart);
+    console.log('selectedPizza', selectedPizza);
 
-    const { ingredients, title, source_url, image_url } = selectedPizza;
+    // user ID when user is logged in
+    const uid = useAppSelector((state) => state.authReducer.uid);
 
-    const handleAddToCart = () => {
+    // const cart = useAppSelector((state) => state.ordersReducer.cart);
+
+    const { ingredients, title, source_url, image_url, recipe_id } =
+        selectedPizza;
+
+    const handleAddToCart = useCallback(() => {
         /**
          * DATA TO SEND
          * 1. recipe_id --- bice KEY za objekat koji cu da napravim
@@ -49,13 +56,59 @@ const Main: React.FC = () => {
          * 3. ingredients
          */
 
-        // const orderedPizza = {
-        //     title,
-        //     ingredients
-        // };
+        const pizza: ICartItem = {
+            uid,
+            title,
+            quantity: pizzaQuantity,
+            imageUrl: image_url,
+            sourceUrl: source_url,
+            recipeId: recipe_id,
+            ingredients: updatableIngredients
+        };
 
-        console.log('handleAddToCart');
-    };
+        console.log('handleAddToCart', pizza);
+
+        // const orderedPizza = {
+        //     title, ----- pizza title (string)
+        //     quantity --- number of pizzas ordered (nunnber)
+        //     ingredients: {} ovo ce biti updatable ingredients (updatableIngredients) (IUpdatableIngredients)
+        // };
+    }, [
+        uid,
+        title,
+        image_url,
+        source_url,
+        recipe_id,
+        pizzaQuantity,
+        updatableIngredients
+    ]);
+
+    // const handleAddToCart = () => {
+    //     /**
+    //      * DATA TO SEND
+    //      * 1. recipe_id --- bice KEY za objekat koji cu da napravim
+    //      * 2. title --- title od pizze
+    //      * 3. ingredients
+    //      */
+
+    //     const pizza: ICartItem = {
+    //         uid,
+    //         title,
+    //         quantity: pizzaQuantity,
+    //         imageUrl: image_url,
+    //         sourceUrl: source_url,
+    //         recipeId: recipe_id,
+    //         ingredients: updatableIngredients
+    //     };
+
+    //     console.log('handleAddToCart', pizza);
+
+    //     // const orderedPizza = {
+    //     //     title, ----- pizza title (string)
+    //     //     quantity --- number of pizzas ordered (nunnber)
+    //     //     ingredients: {} ovo ce biti updatable ingredients (updatableIngredients) (IUpdatableIngredients)
+    //     // };
+    // };
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {

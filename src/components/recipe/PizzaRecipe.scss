@@ -45,7 +45,10 @@
         justify-content: center;
         margin-bottom: 20px;
     }
-    &__buttons__quantity-wrapper {
+    &__button--img {
+        display: flex;
+    }
+    &__pizza--quantity {
         min-width: 32px;
         text-align: center;
         display: inline-block;

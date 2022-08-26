@@ -1,0 +1,28 @@
+@import '../../assets/scss/colors';
+
+.modal {
+    background-color: $white;
+    // border: 1px solid blue;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    position: fixed;
+    max-height: 70%;
+    z-index: 100;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &__header {
+        border-bottom: 2px solid $gray;
+        padding: 10px 20px;
+        text-align: center;
+        color: $black;
+    }
+    @media screen and (min-width: 756px) {
+        &__header {
+            color: blue;
+        }
+    }
+}

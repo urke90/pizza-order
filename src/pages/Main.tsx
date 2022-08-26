@@ -9,12 +9,13 @@ import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
+import { convertIngredientsForRendering } from 'util/ingredients-data';
 import Pagination from 'components/pagination/Pagination';
-import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import { convertIngredientsForRendering } from 'util/ingredients-data';
+import LoadingSpinner from 'shared/ui/LoadingSpinner';
+import Modal from 'shared/ui/Modal';
 
 import './Main.scss';
 
@@ -125,6 +126,9 @@ const Main: React.FC = () => {
 
     return (
         <section className="main">
+            <Modal headerTitle="Add pizza to your order">
+                <PizzasList />
+            </Modal>
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">

@@ -63,9 +63,11 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         type="button"
                         onClick={() => onChangePizzaQuantity('inc')}
                     >
-                        <AiOutlinePlus />
+                        <div className="recipe__button--img">
+                            <AiOutlinePlus />
+                        </div>
                     </Button>
-                    <span className="recipe__buttons__quantity-wrapper">
+                    <span className="recipe__pizza--quantity">
                         {pizzaQuantity}
                     </span>
                     <Button
@@ -73,7 +75,9 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         onClick={() => onChangePizzaQuantity('dec')}
                         disabled={pizzaQuantity <= 1}
                     >
-                        <AiOutlineMinus />
+                        <div className="recipe__button--img">
+                            <AiOutlineMinus />
+                        </div>
                     </Button>
                 </div>
                 <Button type="button" onClick={onAddToCart}>

@@ -1,4 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
+
+import { addPizzaToCart } from 'redux/reducers/ordersReducer';
+
 import { useAxios } from 'hooks/useAxios';
 import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
@@ -25,7 +28,6 @@ const Main: React.FC = () => {
         handleChangePizzaQuantity,
         pizzaQuantity
     } = useIngredients();
-    // const [pizzaQuantity, setPizzaQuantity] = useState(1);
     const dispatch = useAppDispatch();
 
     // pizzaId we should fetch when user choose any
@@ -38,24 +40,19 @@ const Main: React.FC = () => {
         (state) => state.pizzaReducer.selectedPizza
     );
 
-    console.log('selectedPizza', selectedPizza);
-
     // user ID when user is logged in
     const uid = useAppSelector((state) => state.authReducer.uid);
 
-    // const cart = useAppSelector((state) => state.ordersReducer.cart);
+    const cart = useAppSelector((state) => state.ordersReducer.cart);
+
+    useEffect(() => {
+        console.log('cart', cart);
+    }, [cart]);
 
     const { ingredients, title, source_url, image_url, recipe_id } =
         selectedPizza;
 
     const handleAddToCart = useCallback(() => {
-        /**
-         * DATA TO SEND
-         * 1. recipe_id --- bice KEY za objekat koji cu da napravim
-         * 2. title --- title od pizze
-         * 3. ingredients
-         */
-
         const pizza: ICartItem = {
             uid,
             title,
@@ -66,13 +63,9 @@ const Main: React.FC = () => {
             ingredients: updatableIngredients
         };
 
-        console.log('handleAddToCart', pizza);
+        dispatch(addPizzaToCart({ pizza }));
 
-        // const orderedPizza = {
-        //     title, ----- pizza title (string)
-        //     quantity --- number of pizzas ordered (nunnber)
-        //     ingredients: {} ovo ce biti updatable ingredients (updatableIngredients) (IUpdatableIngredients)
-        // };
+        console.log('handleAddToCart', pizza);
     }, [
         uid,
         title,
@@ -80,35 +73,9 @@ const Main: React.FC = () => {
         source_url,
         recipe_id,
         pizzaQuantity,
-        updatableIngredients
+        updatableIngredients,
+        dispatch
     ]);
-
-    // const handleAddToCart = () => {
-    //     /**
-    //      * DATA TO SEND
-    //      * 1. recipe_id --- bice KEY za objekat koji cu da napravim
-    //      * 2. title --- title od pizze
-    //      * 3. ingredients
-    //      */
-
-    //     const pizza: ICartItem = {
-    //         uid,
-    //         title,
-    //         quantity: pizzaQuantity,
-    //         imageUrl: image_url,
-    //         sourceUrl: source_url,
-    //         recipeId: recipe_id,
-    //         ingredients: updatableIngredients
-    //     };
-
-    //     console.log('handleAddToCart', pizza);
-
-    //     // const orderedPizza = {
-    //     //     title, ----- pizza title (string)
-    //     //     quantity --- number of pizzas ordered (nunnber)
-    //     //     ingredients: {} ovo ce biti updatable ingredients (updatableIngredients) (IUpdatableIngredients)
-    //     // };
-    // };
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {

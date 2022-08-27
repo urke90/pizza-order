@@ -2,15 +2,6 @@
 
 .modal {
     background-color: $white;
-    /*
-        * should we have some box shadow props for this?
-    */
-    // box-shadow: rgba(230, 230, 230, 0.25) 0px 54px 55px,
-    //     rgba(230, 230, 230, 0.12) 0px -12px 30px,
-    //     rgba(230, 230, 230, 0.12) 0px 4px 6px,
-    //     rgba(230, 230, 230, 0.17) 0px 12px 13px,
-    //     rgba(230, 230, 230, 0.09) 0px -3px 5px;
-    // border: 1px solid blue;
     position: fixed;
     width: 70%;
     max-width: 90%;
@@ -30,19 +21,15 @@
         border-radius: 10px 10px 0 0;
     }
     &__footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid blue;
-        border-radius: 0 0 10px 10px;
-        background-color: $yellow;
-        padding: 10px 20px;
-
         /*
             * figure out height for footer
         */
-
-        // min-height: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0 0 10px 10px;
+        background-color: $yellow;
+        padding: 10px 20px;
     }
     @media screen and (min-width: 768px) {
         &__header {

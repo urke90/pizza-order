@@ -2,27 +2,64 @@
 
 .modal {
     background-color: $white;
+    /*
+        * should we have some box shadow props for this?
+    */
+    // box-shadow: rgba(230, 230, 230, 0.25) 0px 54px 55px,
+    //     rgba(230, 230, 230, 0.12) 0px -12px 30px,
+    //     rgba(230, 230, 230, 0.12) 0px 4px 6px,
+    //     rgba(230, 230, 230, 0.17) 0px 12px 13px,
+    //     rgba(230, 230, 230, 0.09) 0px -3px 5px;
     // border: 1px solid blue;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
     position: fixed;
-    max-height: 70%;
+    width: 70%;
+    max-width: 90%;
     z-index: 100;
-    border-radius: 5px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: modal-animation 0.3s ease-in;
+    border-radius: 10px 10px 10px 10px;
     &__header {
-        border-bottom: 2px solid $gray;
+        background-color: $yellow;
+        color: $black;
+        font-size: 14px;
+        border-bottom: 3px solid $gray;
         padding: 10px 20px;
         text-align: center;
-        color: $black;
+        border-radius: 10px 10px 0 0;
     }
-    @media screen and (min-width: 756px) {
+    &__footer {
+        border-radius: 0 0 10px 10px;
+        background-color: $yellow;
+        padding: 10px 20px;
+
+        /*
+            * figure out height for footer
+        */
+
+        // min-height: 30px;
+    }
+    @media screen and (min-width: 768px) {
         &__header {
-            color: blue;
+            font-size: 24px;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        width: 50%;
+    }
+    @media screen and (min-width: 1200px) {
+        width: 46%;
+    }
+
+    @keyframes modal-animation {
+        0% {
+            opacity: 0.7;
+            top: 46%;
+        }
+        100% {
+            opacity: 1;
+            top: 50%;
         }
     }
 }

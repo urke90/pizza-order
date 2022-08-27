@@ -6,17 +6,17 @@ import './Modal.scss';
 interface IModalProps {
     headerTitle: string;
     children: React.ReactElement;
+    footer?: React.ReactElement | string;
 }
 
-const Modal: React.FC<IModalProps> = ({ headerTitle, children }) => {
-    // return <div className="modal">This is modal component</div>;
-
+const Modal: React.FC<IModalProps> = ({ headerTitle, children, footer }) => {
     const content = (
         <div className="modal">
-            <div className="modal__header">
+            <header className="modal__header">
                 <h3>{headerTitle}</h3>
-            </div>
+            </header>
             <div className="modal__content">{children}</div>
+            <footer className="modal__footer">{footer}</footer>
         </div>
     );
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 import { addPizzaToCart } from 'redux/reducers/ordersReducer';
 
@@ -20,6 +20,8 @@ import Modal from 'shared/ui/Modal';
 import './Main.scss';
 
 const Main: React.FC = () => {
+    const [showModal, setShowModal] = useState(true);
+
     const { sendRequest, isLoading, error } = useAxios();
     const {
         updatableIngredients,
@@ -64,7 +66,7 @@ const Main: React.FC = () => {
             ingredients: updatableIngredients
         };
 
-        dispatch(addPizzaToCart({ pizza }));
+        // dispatch(addPizzaToCart({ pizza }));
 
         console.log('handleAddToCart', pizza);
     }, [
@@ -126,9 +128,11 @@ const Main: React.FC = () => {
 
     return (
         <section className="main">
-            <Modal headerTitle="Add pizza to your order">
-                <PizzasList />
-            </Modal>
+            {showModal && (
+                <Modal headerTitle="Add pizza to your order">
+                    <p>hello</p>
+                </Modal>
+            )}
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">

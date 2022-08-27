@@ -129,7 +129,7 @@ const Main: React.FC = () => {
     return (
         <section className="main">
             {showModal && (
-                <Modal headerTitle="Add pizza to your order">
+                <Modal headerTitle="Add pizza to your order" onClose={() => {}}>
                     <p>hello</p>
                 </Modal>
             )}

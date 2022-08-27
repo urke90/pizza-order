@@ -30,6 +30,10 @@
         border-radius: 10px 10px 0 0;
     }
     &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid blue;
         border-radius: 0 0 10px 10px;
         background-color: $yellow;
         padding: 10px 20px;

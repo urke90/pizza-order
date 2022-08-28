@@ -1,10 +1,3 @@
-/**
- * DATA TO SEND
- * 1. recipe_id --- bice KEY za objekat koji cu da napravim
- * 2. title --- title od pizze
- * 3. ingredients
- */
-
 // const orderedPizza = {
 //     uid --- userID (string)
 //     title, ----- pizza title (string)

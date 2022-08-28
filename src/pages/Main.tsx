@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
-
+import React, { useEffect, useCallback, useState, Suspense } from 'react';
 import { addPizzaToCart } from 'redux/reducers/ordersReducer';
 
 import { useAxios } from 'hooks/useAxios';
@@ -14,13 +13,24 @@ import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
+import OrderList from 'components/orders/OrderList';
+
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import Modal from 'shared/ui/Modal';
 
 import './Main.scss';
 
 const Main: React.FC = () => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [createdPizza, setCreatedPizza] = useState<ICartItem>({
+        uid: '',
+        title: '',
+        recipeId: '',
+        quantity: 0,
+        imageUrl: '',
+        sourceUrl: '',
+        ingredients: {}
+    });
 
     const { sendRequest, isLoading, error } = useAxios();
     const {
@@ -49,8 +59,9 @@ const Main: React.FC = () => {
     const cart = useAppSelector((state) => state.ordersReducer.cart);
 
     useEffect(() => {
+        console.log('createdPizza', createdPizza);
         console.log('cart', cart);
-    }, [cart]);
+    }, [createdPizza]);
 
     const { ingredients, title, source_url, image_url, recipe_id } =
         selectedPizza;
@@ -65,6 +76,9 @@ const Main: React.FC = () => {
             recipeId: recipe_id,
             ingredients: updatableIngredients
         };
+
+        setCreatedPizza(pizza);
+        setShowModal(true);
 
         // dispatch(addPizzaToCart({ pizza }));
 
@@ -129,8 +143,11 @@ const Main: React.FC = () => {
     return (
         <section className="main">
             {showModal && (
-                <Modal headerTitle="Add pizza to your order" onClose={() => {}}>
-                    <p>hello</p>
+                <Modal
+                    headerTitle="Add pizza to your order"
+                    onClose={() => setShowModal(false)}
+                >
+                    <OrderList createdPizza={createdPizza} />
                 </Modal>
             )}
             {isLoading && !error && <LoadingSpinner asOverlay />}

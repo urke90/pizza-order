@@ -1,0 +1,45 @@
+@import '../../assets/scss/colors';
+
+.order {
+    padding: 10px;
+    &__heading {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    &__img {
+        margin-bottom: 20px;
+        img {
+            display: block;
+            margin: auto;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        background-color: $gray;
+        padding: 3px 6px;
+        border-radius: 5px;
+        margin: 6px auto;
+    }
+    &__item--title {
+        margin-right: 6px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    &__item--quantity {
+        color: $red;
+    }
+}
+
+/*
+    text-align: center;
+    margin: 10px auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+*/

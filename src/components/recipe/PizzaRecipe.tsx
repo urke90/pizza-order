@@ -1,12 +1,8 @@
-import { IoFastFood } from 'react-icons/io5';
-import { BsFillCartPlusFill, BsFillCartXFill } from 'react-icons/bs';
-import {
-    AiOutlinePlus,
-    AiOutlineMinus,
-    AiFillMinusCircle
-} from 'react-icons/ai';
-import type { TIngredientActionType } from 'ts/ingredients';
+import { BsFillCartPlusFill } from 'react-icons/bs';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
+import type { TIngredientActionType } from 'ts/ingredients';
+import PizzaRecipeItem from './PizzaRecipeItem';
 import Button from 'shared/form/Button';
 
 import './PizzaRecipe.scss';
@@ -45,15 +41,10 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
             </div>
             <ul className="recipe__ingredients-list">
                 {ingredients.map((ingredient) => (
-                    <li
+                    <PizzaRecipeItem
                         key={ingredient + Math.random()}
-                        className="recipe__ingredient-item"
-                    >
-                        <span className="recipe__ingredient-icon">
-                            <IoFastFood color="#c80037" />
-                        </span>{' '}
-                        <span>{ingredient}</span>
-                    </li>
+                        ingredient={ingredient}
+                    />
                 ))}
             </ul>
             <div className="recipe__buttons-wrapper">

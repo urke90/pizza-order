@@ -1,0 +1,21 @@
+.recipe {
+    &__ingredient-item {
+        display: flex;
+        margin: 10px auto;
+        line-height: 24px;
+        span {
+            font-size: 14px;
+        }
+    }
+    &__ingredient-icon {
+        margin-right: 10px;
+    }
+
+    @media screen and (min-width: 481px) {
+        &__ingredient-item {
+            span {
+                font-size: 16px;
+            }
+        }
+    }
+}

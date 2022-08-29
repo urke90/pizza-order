@@ -31,6 +31,7 @@ const Main: React.FC = () => {
         sourceUrl: '',
         ingredients: {}
     });
+    const [orderConfirmed, setOrderConfirmed] = useState(false);
 
     const { sendRequest, isLoading, error } = useAxios();
     const {

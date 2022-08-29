@@ -1,13 +1,19 @@
 import OrderItem from './OrderItem';
 import { ICartItem } from 'ts/orders';
 
+import OrderConfirm from './OrderConfirm';
+
 import './OrderList.scss';
 
 interface IOrderListProps {
     createdPizza: ICartItem;
+    orderConfirmed: boolean;
 }
 
-const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
+const OrderList: React.FC<IOrderListProps> = ({
+    createdPizza,
+    orderConfirmed
+}) => {
     console.log('createdPizza', createdPizza.title);
 
     const { title, imageUrl, ingredients, quantity } = createdPizza;
@@ -15,6 +21,10 @@ const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
     const ingredientsToRender = Object.values(ingredients);
 
     console.log('ingredientsToRender', ingredientsToRender);
+
+    if (orderConfirmed) {
+        return <OrderConfirm />;
+    }
 
     return (
         <div className="order">

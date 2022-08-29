@@ -14,6 +14,7 @@ import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
 import OrderList from 'components/orders/OrderList';
+import Button from 'shared/form/Button';
 
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import Modal from 'shared/ui/Modal';
@@ -62,7 +63,7 @@ const Main: React.FC = () => {
     useEffect(() => {
         console.log('createdPizza', createdPizza);
         console.log('cart', cart);
-    }, [createdPizza]);
+    }, [createdPizza, cart]);
 
     const { ingredients, title, source_url, image_url, recipe_id } =
         selectedPizza;
@@ -81,8 +82,6 @@ const Main: React.FC = () => {
         setCreatedPizza(pizza);
         setShowModal(true);
 
-        // dispatch(addPizzaToCart({ pizza }));
-
         console.log('handleAddToCart', pizza);
     }, [
         uid,
@@ -91,9 +90,14 @@ const Main: React.FC = () => {
         source_url,
         recipe_id,
         pizzaQuantity,
-        updatableIngredients,
-        dispatch
+        updatableIngredients
     ]);
+
+    // will add pizza to cart after modal is opened and order is confirmed
+    const handleConfirmOrder = useCallback(() => {
+        dispatch(addPizzaToCart({ pizza: createdPizza }));
+        setOrderConfirmed(true);
+    }, [createdPizza, dispatch]);
 
     useEffect(() => {
         const fetchPizzaRecipe = async () => {
@@ -147,8 +151,18 @@ const Main: React.FC = () => {
                 <Modal
                     headerTitle="Add pizza to your order"
                     onClose={() => setShowModal(false)}
+                    footer={
+                        !orderConfirmed ? (
+                            <Button type="button" onClick={handleConfirmOrder}>
+                                confirm
+                            </Button>
+                        ) : null
+                    }
                 >
-                    <OrderList createdPizza={createdPizza} />
+                    <OrderList
+                        createdPizza={createdPizza}
+                        orderConfirmed={orderConfirmed}
+                    />
                 </Modal>
             )}
             {isLoading && !error && <LoadingSpinner asOverlay />}

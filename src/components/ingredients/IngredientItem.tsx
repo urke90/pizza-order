@@ -27,7 +27,7 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
 
     return (
         <li className="ingredient-item">
-            <p className="ingredient-item__title">{title}</p>
+            <h4 className="ingredient-item__title">{title}</h4>
             <div className="ingredient-item__wrapper">
                 <Button
                     type="button"
@@ -35,9 +35,10 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                         onIngredientQtyChange(id, ingValueConstant, 'inc')
                     }
                 >
-                    <div className="ingredient-item__button-img">
+                    {/* <div className="ingredient-item__button-img">
                         <AiOutlinePlus />
-                    </div>
+                    </div> */}
+                    +
                 </Button>
                 <span className="ingredient-item__value">
                     {quantity.toFixed(2)}
@@ -49,9 +50,10 @@ const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
                     }
                     disabled={ingValueConstant >= quantity}
                 >
-                    <div className="ingredient-item__button-img">
+                    {/* <div className="ingredient-item__button-img">
                         <AiOutlineMinus />
-                    </div>
+                    </div> */}
+                    -
                 </Button>
             </div>
             <div className="ingredient-item__button--remove">

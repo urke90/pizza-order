@@ -30,7 +30,7 @@ const Button: React.FC<IButtonProps> = ({
 }) => {
     return (
         <button
-            className={`${disabled ? 'button--disabled' : ''}`}
+            className={`button ${disabled ? 'button--disabled' : ''}`}
             type={type}
             disabled={disabled}
             onClick={onClick}

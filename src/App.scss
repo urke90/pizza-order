@@ -15,3 +15,25 @@ img {
     max-width: 100%;
     // width: 100%;
 }
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+    h3 {
+        font-size: 18px;
+    }
+    p {
+        font-size: 16px;
+    }
+}

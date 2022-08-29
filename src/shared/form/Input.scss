@@ -5,17 +5,28 @@
     flex-direction: column;
     &__label {
         color: $red;
+        font-size: 12px;
         margin-bottom: 10px;
     }
     &__element {
         background-color: $gray;
         color: $dark;
-        padding: 8px;
+        padding: 6px;
         border: none;
         border-radius: 5px;
+        font-size: 12px;
         &:focus {
             outline: 2px solid $red;
             border: none;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        &__label {
+            font-size: 16px;
+        }
+        &__element {
+            font-size: 16px;
+            padding: 8px;
         }
     }
 }

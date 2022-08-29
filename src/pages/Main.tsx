@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, Suspense } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { addPizzaToCart } from 'redux/reducers/ordersReducer';
 
 import { useAxios } from 'hooks/useAxios';
@@ -153,8 +153,7 @@ const Main: React.FC = () => {
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">
-                    <h1 className="main__heading">Main Pizza Page</h1>
-                    <p>Pick your favorite pizza</p>
+                    <h1 className="main__heading">Pick your favorite pizza</h1>
                 </div>
                 <div
                     className={`main__content ${

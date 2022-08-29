@@ -52,7 +52,7 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         <span className="recipe__ingredient-icon">
                             <IoFastFood color="#c80037" />
                         </span>{' '}
-                        {ingredient}
+                        <span>{ingredient}</span>
                     </li>
                 ))}
             </ul>

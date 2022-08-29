@@ -10,7 +10,7 @@ interface IOrderListProps {
 const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
     console.log('createdPizza', createdPizza.title);
 
-    const { title, imageUrl, ingredients } = createdPizza;
+    const { title, imageUrl, ingredients, quantity } = createdPizza;
 
     const ingredientsToRender = Object.values(ingredients);
 
@@ -19,10 +19,15 @@ const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
     return (
         <div className="order">
             <header className="order__heading">
-                <h4>{title}</h4>
+                <h3>{title}</h3>
             </header>
             <div className="order__img">
                 <img src={imageUrl} alt={title} />
+            </div>
+            <div className="order__quantity">
+                <h4>
+                    Quantity: <span>{quantity}</span>{' '}
+                </h4>
             </div>
             <ul className="order__list">
                 {ingredientsToRender &&

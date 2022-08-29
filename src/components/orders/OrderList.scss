@@ -7,15 +7,27 @@
         text-align: center;
     }
     &__img {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         img {
             display: block;
             margin: auto;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
         }
+    }
+    &__quantity {
+        text-align: center;
+        margin-bottom: 10px;
+        span {
+            color: $red;
+        }
+    }
+    &__list {
+        border: 1px solid blue;
+        max-height: 250px;
+        overflow-y: scroll;
     }
     &__item {
         display: flex;
@@ -24,6 +36,7 @@
         padding: 3px 6px;
         border-radius: 5px;
         margin: 6px auto;
+        font-size: 12px;
     }
     &__item--title {
         margin-right: 6px;
@@ -33,6 +46,17 @@
     }
     &__item--quantity {
         color: $red;
+    }
+
+    @media screen and (min-width: 768px) {
+        &__item {
+            font-size: 14px;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        &__item {
+            font-size: 16px;
+        }
     }
 }
 

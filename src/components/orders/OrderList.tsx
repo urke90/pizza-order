@@ -1,30 +1,16 @@
 import OrderItem from './OrderItem';
 import { ICartItem } from 'ts/orders';
 
-import OrderConfirm from './OrderConfirm';
-
 import './OrderList.scss';
 
 interface IOrderListProps {
     createdPizza: ICartItem;
-    orderConfirmed: boolean;
 }
 
-const OrderList: React.FC<IOrderListProps> = ({
-    createdPizza,
-    orderConfirmed
-}) => {
-    console.log('createdPizza', createdPizza.title);
-
+const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
     const { title, imageUrl, ingredients, quantity } = createdPizza;
 
     const ingredientsToRender = Object.values(ingredients);
-
-    console.log('ingredientsToRender', ingredientsToRender);
-
-    if (orderConfirmed) {
-        return <OrderConfirm />;
-    }
 
     return (
         <div className="order">
@@ -43,7 +29,7 @@ const OrderList: React.FC<IOrderListProps> = ({
                 {ingredientsToRender &&
                     ingredientsToRender.map((ing) => {
                         return (
-                            <li className="order__item">
+                            <li key={ing.id} className="order__item">
                                 <span className="order__item--title">
                                     {ing.title}
                                 </span>

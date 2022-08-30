@@ -1,10 +1,14 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { addPizzaToCart } from 'redux/reducers/ordersReducer';
+import {
+    savePizzaRecipe,
+    removePizzaRecipe,
+    removePizzaId
+} from 'redux/reducers/pizzaReducer';
 
 import { useAxios } from 'hooks/useAxios';
 import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import { savePizzaRecipe } from 'redux/reducers/pizzaReducer';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
@@ -15,11 +19,11 @@ import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
 import OrderList from 'components/orders/OrderList';
 import Button from 'shared/form/Button';
-
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import Modal from 'shared/ui/Modal';
 
 import './Main.scss';
+// import OrderConfirm from 'components/orders/OrderConfirm';
 
 const Main: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +36,6 @@ const Main: React.FC = () => {
         sourceUrl: '',
         ingredients: {}
     });
-    const [orderConfirmed, setOrderConfirmed] = useState(false);
 
     const { sendRequest, isLoading, error } = useAxios();
     const {
@@ -60,11 +63,6 @@ const Main: React.FC = () => {
 
     const cart = useAppSelector((state) => state.ordersReducer.cart);
 
-    useEffect(() => {
-        console.log('createdPizza', createdPizza);
-        console.log('cart', cart);
-    }, [createdPizza, cart]);
-
     const { ingredients, title, source_url, image_url, recipe_id } =
         selectedPizza;
 
@@ -81,8 +79,6 @@ const Main: React.FC = () => {
 
         setCreatedPizza(pizza);
         setShowModal(true);
-
-        console.log('handleAddToCart', pizza);
     }, [
         uid,
         title,
@@ -96,7 +92,9 @@ const Main: React.FC = () => {
     // will add pizza to cart after modal is opened and order is confirmed
     const handleConfirmOrder = useCallback(() => {
         dispatch(addPizzaToCart({ pizza: createdPizza }));
-        setOrderConfirmed(true);
+        dispatch(removePizzaId());
+        dispatch(removePizzaRecipe());
+        setShowModal(false);
     }, [createdPizza, dispatch]);
 
     useEffect(() => {
@@ -145,6 +143,11 @@ const Main: React.FC = () => {
         }
     }, [selectedPizzaId, dispatch, sendRequest, handleSetIngredients]);
 
+    useEffect(() => {
+        console.log('selectedPizzaId', selectedPizzaId);
+        console.log('selectedPizza', selectedPizza);
+    }, [selectedPizzaId, selectedPizza]);
+
     return (
         <section className="main">
             {showModal && (
@@ -152,17 +155,12 @@ const Main: React.FC = () => {
                     headerTitle="Add pizza to your order"
                     onClose={() => setShowModal(false)}
                     footer={
-                        !orderConfirmed ? (
-                            <Button type="button" onClick={handleConfirmOrder}>
-                                confirm
-                            </Button>
-                        ) : null
+                        <Button type="button" onClick={handleConfirmOrder}>
+                            confirm
+                        </Button>
                     }
                 >
-                    <OrderList
-                        createdPizza={createdPizza}
-                        orderConfirmed={orderConfirmed}
-                    />
+                    <OrderList createdPizza={createdPizza} />
                 </Modal>
             )}
             {isLoading && !error && <LoadingSpinner asOverlay />}

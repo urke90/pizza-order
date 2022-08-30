@@ -18,7 +18,7 @@ interface IInitialState {
     selectedPizza: ISelectedPizza;
 }
 
-export const emptyPizzaSkeleton: ISelectedPizza = {
+export const emptySelectedPizza: ISelectedPizza = {
     image_url: '',
     ingredients: [],
     publisher: '',
@@ -32,7 +32,7 @@ export const emptyPizzaSkeleton: ISelectedPizza = {
 const initialState: IInitialState = {
     pizzas: [],
     pizzaId: '',
-    selectedPizza: emptyPizzaSkeleton
+    selectedPizza: emptySelectedPizza
 };
 
 const pizzaSlice = createSlice({
@@ -59,7 +59,7 @@ const pizzaSlice = createSlice({
             state.selectedPizza = selectedPizza;
         },
         removePizzaRecipe(state) {
-            state.selectedPizza = emptyPizzaSkeleton;
+            state.selectedPizza = emptySelectedPizza;
         }
     }
 });

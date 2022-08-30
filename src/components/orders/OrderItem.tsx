@@ -4,9 +4,12 @@ interface IOrderItemProps {
 }
 
 const OrderItem: React.FC<IOrderItemProps> = ({ title, quantity }) => {
-    console.log('OrderItem.tsx title', title);
-    console.log('OrderItem.tsx quantity', quantity);
-
-    return <li>OrderItem component</li>;
+    return (
+        <li className="order__item">
+            <span className="order__item--title">{title}</span>{' '}
+            <span className="order__item--quantity">{quantity.toFixed(2)}</span>
+        </li>
+    );
 };
+
 export default OrderItem;

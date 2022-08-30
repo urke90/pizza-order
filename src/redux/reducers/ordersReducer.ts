@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-import { v4 as uuid } from 'uuid';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICartItem } from 'ts/orders';
 
 interface IInitialState {
@@ -12,6 +11,17 @@ interface IInitialState {
 const initialState: IInitialState = {
     cart: {},
     orders: []
+};
+
+export const emptyCartItem: ICartItem = {
+    id: '',
+    uid: '',
+    title: '',
+    recipeId: '',
+    quantity: 0,
+    imageUrl: '',
+    sourceUrl: '',
+    ingredients: {}
 };
 
 const ordersSlice = createSlice({
@@ -28,10 +38,8 @@ const ordersSlice = createSlice({
 
             const isEmptyObject = Object.keys(pizza).length === 0;
 
-            const id = uuid();
-
-            if (id && !isEmptyObject) {
-                state.cart[id] = pizza;
+            if (pizza.id && !isEmptyObject) {
+                state.cart[pizza.id] = pizza;
             }
         },
         removePizzaFromCart() {

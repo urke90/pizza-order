@@ -27,19 +27,9 @@ const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
             </div>
             <ul className="order__list">
                 {ingredientsToRender &&
-                    ingredientsToRender.map((ing) => {
-                        return (
-                            <li key={ing.id} className="order__item">
-                                <span className="order__item--title">
-                                    {ing.title}
-                                </span>
-                                {'    '}{' '}
-                                <span className="order__item--quantity">
-                                    {ing.quantity}
-                                </span>
-                            </li>
-                        );
-                    })}
+                    ingredientsToRender.map(({ id, title, quantity }) => (
+                        <OrderItem key={id} title={title} quantity={quantity} />
+                    ))}
             </ul>
         </div>
     );

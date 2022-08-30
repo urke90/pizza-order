@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import { addPizzaToCart } from 'redux/reducers/ordersReducer';
 import {
     savePizzaRecipe,
@@ -12,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
+import { emptyCartItem } from 'redux/reducers/ordersReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -27,15 +29,7 @@ import './Main.scss';
 
 const Main: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
-    const [createdPizza, setCreatedPizza] = useState<ICartItem>({
-        uid: '',
-        title: '',
-        recipeId: '',
-        quantity: 0,
-        imageUrl: '',
-        sourceUrl: '',
-        ingredients: {}
-    });
+    const [createdPizza, setCreatedPizza] = useState<ICartItem>(emptyCartItem);
 
     const { sendRequest, isLoading, error } = useAxios();
     const {
@@ -61,13 +55,12 @@ const Main: React.FC = () => {
     // user ID when user is logged in
     const uid = useAppSelector((state) => state.authReducer.uid);
 
-    const cart = useAppSelector((state) => state.ordersReducer.cart);
-
     const { ingredients, title, source_url, image_url, recipe_id } =
         selectedPizza;
 
     const handleAddToCart = useCallback(() => {
         const pizza: ICartItem = {
+            id: uuid(),
             uid,
             title,
             quantity: pizzaQuantity,
@@ -142,11 +135,6 @@ const Main: React.FC = () => {
             fetchPizzaRecipe();
         }
     }, [selectedPizzaId, dispatch, sendRequest, handleSetIngredients]);
-
-    useEffect(() => {
-        console.log('selectedPizzaId', selectedPizzaId);
-        console.log('selectedPizza', selectedPizza);
-    }, [selectedPizzaId, selectedPizza]);
 
     return (
         <section className="main">

@@ -11,6 +11,7 @@
 import { IUpdatableIngredients } from './ingredients';
 
 export interface ICartItem {
+    id: string;
     uid: string;
     title: string;
     recipeId: string;

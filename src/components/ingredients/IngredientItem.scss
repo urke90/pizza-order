@@ -1,10 +1,10 @@
 @import '../../assets/scss/colors';
 
 .ingredient-item {
-    max-width: 222px;
+    // max-width: 222px;
     position: relative;
     margin: 20px auto 50px;
-    // border: 1px solid blue;
+    border: 1px solid blue;
     &__wrapper {
         display: flex;
         justify-content: center;
@@ -48,8 +48,8 @@
         visibility: visible;
     }
 
-    @media screen and (max-width: 768px) {
-        max-width: 300px;
+    @media screen and (min-width: 768px) {
+        // max-width: 222;
         &__wrapper {
             justify-content: space-between;
         }

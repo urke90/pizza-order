@@ -8,7 +8,7 @@ import './Modal.scss';
 interface IModalProps {
     headerTitle: string;
     children: React.ReactElement;
-    footer?: React.ReactElement;
+    footer?: React.ReactElement | null;
     onClose: () => void;
 }
 

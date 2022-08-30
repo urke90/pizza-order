@@ -18,19 +18,21 @@ interface IInitialState {
     selectedPizza: ISelectedPizza;
 }
 
+export const emptyPizzaSkeleton: ISelectedPizza = {
+    image_url: '',
+    ingredients: [],
+    publisher: '',
+    publisher_url: '',
+    recipe_id: '',
+    social_rank: 0,
+    source_url: '',
+    title: ''
+};
+
 const initialState: IInitialState = {
     pizzas: [],
     pizzaId: '',
-    selectedPizza: {
-        image_url: '',
-        ingredients: [],
-        publisher: '',
-        publisher_url: '',
-        recipe_id: '',
-        social_rank: 0,
-        source_url: '',
-        title: ''
-    }
+    selectedPizza: emptyPizzaSkeleton
 };
 
 const pizzaSlice = createSlice({
@@ -46,18 +48,29 @@ const pizzaSlice = createSlice({
 
             state.pizzaId = pizzaId;
         },
+        removePizzaId(state) {
+            state.pizzaId = '';
+        },
         savePizzaRecipe(
             state,
             action: PayloadAction<{ selectedPizza: ISelectedPizza }>
         ) {
             const { selectedPizza } = action.payload;
             state.selectedPizza = selectedPizza;
+        },
+        removePizzaRecipe(state) {
+            state.selectedPizza = emptyPizzaSkeleton;
         }
     }
 });
 
-export const { saveFetchedPizzas, savePizzaId, savePizzaRecipe } =
-    pizzaSlice.actions;
+export const {
+    saveFetchedPizzas,
+    savePizzaId,
+    savePizzaRecipe,
+    removePizzaId,
+    removePizzaRecipe
+} = pizzaSlice.actions;
 
 const pizzaReducer = pizzaSlice.reducer;
 

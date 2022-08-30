@@ -8,13 +8,9 @@ interface IOrderListProps {
 }
 
 const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
-    console.log('createdPizza', createdPizza.title);
-
     const { title, imageUrl, ingredients, quantity } = createdPizza;
 
     const ingredientsToRender = Object.values(ingredients);
-
-    console.log('ingredientsToRender', ingredientsToRender);
 
     return (
         <div className="order">
@@ -33,7 +29,7 @@ const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
                 {ingredientsToRender &&
                     ingredientsToRender.map((ing) => {
                         return (
-                            <li className="order__item">
+                            <li key={ing.id} className="order__item">
                                 <span className="order__item--title">
                                     {ing.title}
                                 </span>

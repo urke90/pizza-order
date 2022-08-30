@@ -3,10 +3,12 @@
 .pagination {
     display: flex;
     margin: 0 auto 20px;
+    font-size: 16px;
     &__controls {
         display: flex;
         align-items: center;
         margin: auto;
+        // border: 1px solid blue;
     }
     &__numbers-list {
         display: flex;
@@ -14,19 +16,40 @@
     &__numbers-item {
         cursor: pointer;
         margin: 0 8px;
-        border-bottom: 3px solid transparent;
+        // border-bottom: 3px solid transparent;
+        // border: 1px solid red;
     }
     &__numbers-item--active {
         cursor: pointer;
-        margin: 0 8px;
+        // margin: 0 8px;
         border-bottom: 3px solid $orange;
+    }
+    &__arrow {
+        display: flex;
+        margin: 0 3px;
+        border-bottom: 3px solid transparent;
+        // border: 1px solid red;
+        padding: 3px;
     }
     &__button-arrow {
         cursor: pointer;
     }
+    @media screen and (min-width: 481px) {
+        font-size: 18px;
+    }
     @media screen and (min-width: 768px) {
+        font-size: 16px;
         &__numbers-item {
-            margin: 0 10px;
+            margin: 0 6px;
         }
+    }
+    @media screen and (min-width: 1024px) {
+        font-size: 18px;
+        &__numbers-item {
+            margin: 0 8px;
+        }
+    }
+    @media screen and (min-width: 1200px) {
+        font-size: 20px;
     }
 }

@@ -38,12 +38,14 @@ const Pagination: React.FC = () => {
         <div className="pagination">
             <div className="pagination__controls">
                 {currentPage > 1 && (
-                    <BsArrowLeftCircleFill
-                        className="pagination__button-arrow"
-                        size={30}
-                        // color="#c80037"
-                        onClick={handleDecrementPage}
-                    />
+                    <div className="pagination__arrow">
+                        <BsArrowLeftCircleFill
+                            className="pagination__button-arrow"
+                            // size={30}
+                            // color="#c80037"
+                            onClick={handleDecrementPage}
+                        />
+                    </div>
                 )}
                 <ul className="pagination__numbers-list">
                     {numberButtons.map((numBtn) => (
@@ -62,12 +64,14 @@ const Pagination: React.FC = () => {
                     ))}
                 </ul>
                 {currentPage < totalPages && totalPages > 1 && (
-                    <BsArrowRightCircleFill
-                        className="pagination__button-arrow"
-                        size={30}
-                        // color="#c80037"
-                        onClick={handleIncrementPage}
-                    />
+                    <div className="pagination__arrow">
+                        <BsArrowRightCircleFill
+                            className="pagination__button-arrow"
+                            // size={30}
+                            // color="#c80037"
+                            onClick={handleIncrementPage}
+                        />
+                    </div>
                 )}
             </div>
         </div>

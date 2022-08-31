@@ -15,5 +15,9 @@ export const NAVLINKS_CONFIG: INavLinksConfig[] = [
     {
         to: '/custom-pizza',
         text: 'custom'
+    },
+    {
+        to: '/cart',
+        text: 'cart'
     }
 ];

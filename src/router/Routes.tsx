@@ -5,8 +5,15 @@ import Login from 'pages/Login';
 import Orders from 'pages/Orders';
 import CustomPizza from 'pages/CustomPizza';
 import Cart from 'pages/Cart';
+import React from 'react';
 
-const ROUTES_CONFIG = [
+interface IRoutesConfig {
+    name: string;
+    path: string;
+    component: React.ReactNode;
+}
+
+const ROUTES_CONFIG: IRoutesConfig[] = [
     {
         name: 'Main',
         path: '/',
@@ -39,14 +46,12 @@ const ROUTES_CONFIG = [
     }
 ];
 
-type RoutesProps = {};
-
-const RoutesComponent: React.FC<RoutesProps> = () => {
+const RoutesComponent: React.FC = () => {
     return (
         <>
             <Routes>
                 {ROUTES_CONFIG.map(({ path, component }) => (
-                    <Route path={path} element={component} />
+                    <Route key={path} path={path} element={component} />
                 ))}
 
                 {/* <Route path="/" element={<Main />} />

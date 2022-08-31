@@ -4,33 +4,38 @@ import Main from 'pages/Main';
 import Login from 'pages/Login';
 import Orders from 'pages/Orders';
 import CustomPizza from 'pages/CustomPizza';
-import NotFound from 'pages/NotFound';
+import Cart from 'pages/Cart';
 
 const ROUTES_CONFIG = [
     {
         name: 'Main',
         path: '/',
-        component: Main
+        component: <Main />
     },
     {
         name: 'Login',
         path: 'login',
-        component: Login
+        component: <Login />
     },
     {
         name: 'Orders',
         path: 'orders',
-        component: Orders
+        component: <Orders />
     },
     {
         name: 'Custom',
         path: 'custom-pizza',
-        component: CustomPizza
+        component: <CustomPizza />
     },
     {
-        name: '404',
+        name: 'Cart',
+        path: 'cart',
+        component: <Cart />
+    },
+    {
+        name: 'Not-Found',
         path: '*',
-        component: NotFound
+        component: <Navigate to="/" />
     }
 ];
 
@@ -40,11 +45,16 @@ const RoutesComponent: React.FC<RoutesProps> = () => {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Main />} />
+                {ROUTES_CONFIG.map(({ path, component }) => (
+                    <Route path={path} element={component} />
+                ))}
+
+                {/* <Route path="/" element={<Main />} />
                 <Route path="login" element={<Login />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="custom-pizza" element={<CustomPizza />} />
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="*" element={<Navigate to="/" />} /> */}
             </Routes>
         </>
     );

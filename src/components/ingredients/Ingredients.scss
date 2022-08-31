@@ -1,13 +1,27 @@
+@import '../../assets/scss/colors';
+
 .ingredients {
-    padding: 40px;
+    padding: 20px;
     &__heading {
         text-align: center;
+        // margin-bottom: 20px;
     }
     &__buttons-wrapper {
         display: flex;
-        justify-content: space-between;
-        margin: 20px auto;
-        max-width: 222px;
+        justify-content: center;
+        margin: 20px auto 40px;
+        button:first-child {
+            padding: 5px 12px;
+        }
+    }
+    &__constant-value {
+        min-width: 32px;
+        text-align: center;
+        display: inline-block;
+        padding: 5px 18px;
+        border: 2px dotted $orange;
+        border-radius: 5px;
+        margin: 0 15px;
     }
     &__list-title {
         text-align: center;

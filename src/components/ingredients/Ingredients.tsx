@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
+import { IUpdatableIngredients } from 'ts/ingredients';
 
 import Button from 'shared/form/Button';
-import './Ingredients.scss';
-
 import IngredientItem from './IngredientItem';
 
-import { IUpdatableIngredients } from 'ts/ingredients';
+import './Ingredients.scss';
 
 interface IIngredientsProps {
     ingredients: IUpdatableIngredients;
@@ -32,7 +31,7 @@ const Ingredients: React.FC<IIngredientsProps> = ({
     return (
         <div className="ingredients">
             <div className="ingredients__heading">
-                <p>Increment or decrement by:</p>
+                <h4>Increment or decrement by:</h4>
             </div>
             <div className="ingredients__buttons-wrapper">
                 <Button
@@ -42,6 +41,9 @@ const Ingredients: React.FC<IIngredientsProps> = ({
                 >
                     0.25
                 </Button>
+                <span className="ingredients__constant-value">
+                    {ingValueConstant}
+                </span>
                 <Button
                     type="button"
                     onClick={() => setIngValueConstant(1)}

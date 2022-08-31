@@ -18,10 +18,6 @@
     &__pizzas-list-wrapper {
         width: 100%;
     }
-    &__pizzas-list-wrapper--column {
-        border: 1px solid yellow;
-    }
-
     &__recipe {
         width: 100%;
         display: none;
@@ -45,14 +41,29 @@
             display: flex;
         }
         &__pizzas-list-wrapper {
-            width: 26%;
+            width: 27%;
         }
         &__recipe {
-            width: 46%;
+            width: 38%;
         }
         &__ingredients {
-            width: 28%;
-            border: 1px solid blue;
+            width: 35%;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        &__recipe {
+            width: 42%;
+        }
+        &__ingredients {
+            width: 31%;
+        }
+    }
+    @media screen and (min-width: 1200px) {
+        &__recipe {
+            width: 44%;
+        }
+        &__ingredients {
+            width: 29%;
         }
     }
 }

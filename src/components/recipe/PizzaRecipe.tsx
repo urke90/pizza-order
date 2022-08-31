@@ -48,7 +48,7 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                 ))}
             </ul>
             <div className="recipe__buttons-wrapper">
-                <p className="recipe__quantity">Quantity:</p>
+                <h4 className="recipe__quantity">Quantity:</h4>
                 <div className="recipe__buttons-wrapper--quantity">
                     <Button
                         type="button"

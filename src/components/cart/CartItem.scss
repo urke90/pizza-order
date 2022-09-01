@@ -1,0 +1,58 @@
+@import '../../assets/scss/colors';
+
+.cart-item {
+    background-color: $dark;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 1px solid red;
+    &__heading {
+        // padding: 10px;
+        display: flex;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    &__img {
+        flex: 1;
+        border: 1px solid blue;
+        img {
+            display: block;
+            margin: auto;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+    }
+    &__description {
+        flex: 2;
+        border: 1px solid green;
+    }
+    &__title {
+        margin-bottom: 10px;
+    }
+    a {
+        display: inline-block;
+        &:hover {
+            transition: 1s;
+            color: $red;
+        }
+    }
+    &__link {
+        margin-bottom: 10px;
+    }
+    &__quantity {
+        color: $red;
+    }
+
+    &__title--ingredients {
+        margin-bottom: 20px;
+    }
+    &__ingredient-item {
+        margin: 6px 0;
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 48%;
+    }
+}

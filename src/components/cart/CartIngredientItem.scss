@@ -1,0 +1,33 @@
+@import '../../assets/scss/colors';
+
+.cart-ingredient-item {
+    display: flex;
+    margin: 6px auto;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px auto;
+    &__description {
+        display: flex;
+        span {
+            display: inline-block;
+        }
+    }
+    &__title {
+        max-width: 100px;
+        min-width: 100px;
+        margin-right: 6px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media screen and (min-width: 481px) {
+            min-width: 240px;
+        }
+        @media screen and (min-width: 768px) {
+            min-width: 178px;
+        }
+    }
+    &__quantity {
+        margin-left: 10px;
+        color: $red;
+    }
+}

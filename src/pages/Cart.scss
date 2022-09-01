@@ -1,3 +1,20 @@
+@import '../assets/scss/colors';
+
 .cart {
+    background-color: $black;
+    color: $orange;
     border: 1px solid blue;
+    // height: 100vh;
+    &__header {
+        text-align: center;
+        padding: 20px;
+    }
+    &__container {
+        padding: 0 20px;
+    }
+    @media screen and (min-width: 768px) {
+        &__list {
+            display: flex;
+        }
+    }
 }

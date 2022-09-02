@@ -10,8 +10,11 @@ interface ICartProps {}
 const Cart: React.FC<ICartProps> = () => {
     const cart = useAppSelector((state) => state.ordersReducer.cart);
 
+    console.log('cart', cart);
+
     const cartItems = Object.values(cart);
 
+    console.log('cartItems', cartItems);
     return (
         <div className="cart">
             <header className="cart__header">
@@ -20,7 +23,7 @@ const Cart: React.FC<ICartProps> = () => {
             <div className="cart__container">
                 <ul className="cart__list">
                     {cartItems &&
-                        cartItems.length > 1 &&
+                        cartItems.length > 0 &&
                         cartItems.map((cartItem) => (
                             <CartItem key={cartItem.id} item={cartItem} />
                         ))}

@@ -26,6 +26,9 @@
             min-width: 178px;
         }
     }
+    &__list {
+        padding: 20px;
+    }
     &__quantity {
         margin-left: 10px;
         color: $red;

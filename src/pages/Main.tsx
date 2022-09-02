@@ -60,7 +60,7 @@ const Main: React.FC = () => {
 
     const handleAddToCart = useCallback(() => {
         const pizza: ICartItem = {
-            id: uuid(),
+            pizzaId: uuid(),
             uid,
             title,
             quantity: pizzaQuantity,

@@ -25,7 +25,7 @@ const Cart: React.FC<ICartProps> = () => {
                     {cartItems &&
                         cartItems.length > 0 &&
                         cartItems.map((cartItem) => (
-                            <CartItem key={cartItem.id} item={cartItem} />
+                            <CartItem key={cartItem.pizzaId} item={cartItem} />
                         ))}
                 </ul>
             </div>

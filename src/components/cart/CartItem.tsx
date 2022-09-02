@@ -11,7 +11,7 @@ interface ICartItemProps {
 const CartItem: React.FC<ICartItemProps> = ({ item }) => {
     // console.log('item in cartItem', item);
 
-    const { id, imageUrl, title, sourceUrl, quantity, ingredients } = item;
+    const { pizzaId, imageUrl, title, sourceUrl, quantity, ingredients } = item;
 
     const ingredientsToRender = Object.values(ingredients);
 

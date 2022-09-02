@@ -14,7 +14,7 @@ const initialState: IInitialState = {
 };
 
 export const emptyCartItem: ICartItem = {
-    id: '',
+    pizzaId: '',
     uid: '',
     title: '',
     recipeId: '',
@@ -34,12 +34,11 @@ const ordersSlice = createSlice({
          */
         addPizzaToCart(state, action: PayloadAction<{ pizza: ICartItem }>) {
             const { pizza } = action.payload;
-            console.log('pizza in order Slice', pizza);
 
             const isEmptyObject = Object.keys(pizza).length === 0;
 
-            if (pizza.id && !isEmptyObject) {
-                state.cart[pizza.id] = pizza;
+            if (pizza.pizzaId && !isEmptyObject) {
+                state.cart[pizza.pizzaId] = pizza;
             }
         },
         removePizzaFromCart() {

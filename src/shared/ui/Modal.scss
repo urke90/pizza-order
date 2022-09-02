@@ -4,6 +4,7 @@
     background-color: $white;
     position: fixed;
     width: 76%;
+    width: max-content;
     max-width: 90%;
     z-index: 100;
     top: 50%;
@@ -36,12 +37,12 @@
             font-size: 24px;
         }
     }
-    @media screen and (min-width: 1024px) {
-        width: 50%;
-    }
-    @media screen and (min-width: 1200px) {
-        width: 46%;
-    }
+    // @media screen and (min-width: 1024px) {
+    //     width: 50%;
+    // }
+    // @media screen and (min-width: 1200px) {
+    //     width: 46%;
+    // }
 
     @keyframes modal-animation {
         0% {

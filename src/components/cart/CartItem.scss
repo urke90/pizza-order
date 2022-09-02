@@ -7,10 +7,10 @@
     border-radius: 5px;
     border: 1px solid red;
     &__heading {
-        // padding: 10px;
         display: flex;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        min-height: 86px;
     }
     &__img {
         flex: 1;
@@ -22,9 +22,16 @@
             width: 80px;
             height: 80px;
             object-fit: cover;
+            @media screen and (min-width: 481px) {
+                width: 100px;
+                height: 100px;
+            }
         }
     }
     &__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         flex: 2;
         border: 1px solid green;
     }

@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
 import IngredientItem from 'components/ingredients/IngredientItem';
+import IngredientConstValue from 'components/ingredients/IngredientConstValue';
+
 import type { TIngredientActionType } from 'ts/ingredients';
 
 import './CartIngredientItem.scss';
@@ -17,20 +20,30 @@ interface ICartIngredientItemProps {
 const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
     ingredient
 }) => {
-    const [showModal, setShowModal] = useState(false);
-
     const { id, title, quantity } = ingredient;
-    const handleIngredientQtyChange = (
-        id: string,
-        value: number,
-        type: TIngredientActionType
-    ) => {
-        console.log('handleIngredientQtyChange', id, value, type);
-    };
 
-    const handleIngredientRemove = (id: string) => {
+    const [showModal, setShowModal] = useState(false);
+    const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
+
+    useEffect(() => {
+        console.log('ingValueConstant', ingValueConstant);
+    }, [ingValueConstant]);
+
+    const handleIngredientConstValueChange = useCallback(
+        (value: number) => setIngValueConstant(value),
+        []
+    );
+
+    const handleIngredientQtyChange = useCallback(
+        (id: string, value: number, type: TIngredientActionType) => {
+            console.log('handleIngredientQtyChange', id, value, type);
+        },
+        []
+    );
+
+    const handleIngredientRemove = useCallback((id: string) => {
         console.log('handleIngredientRemove', id);
-    };
+    }, []);
 
     console.log('ingredient inCartIngredientItem'.toUpperCase(), ingredient);
 
@@ -41,14 +54,22 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
                     headerTitle="Quantity:"
                     onClose={() => setShowModal(false)}
                 >
-                    <ul className="cart-ingredient-item__list">
-                        <IngredientItem
-                            ingredient={ingredient}
-                            ingValueConstant={0.25}
-                            onIngredientQtyChange={handleIngredientQtyChange}
-                            onIngredientRemove={handleIngredientRemove}
+                    <div className="cart-ingredient-item__modal">
+                        <IngredientConstValue
+                            ingValueConstant={ingValueConstant}
+                            onValueChange={handleIngredientConstValueChange}
                         />
-                    </ul>
+                        <ul className="cart-ingredient-item__list">
+                            <IngredientItem
+                                ingredient={ingredient}
+                                ingValueConstant={0.25}
+                                onIngredientQtyChange={
+                                    handleIngredientQtyChange
+                                }
+                                onIngredientRemove={handleIngredientRemove}
+                            />
+                        </ul>
+                    </div>
                 </Modal>
             )}
             <div className="cart-ingredient-item__description">

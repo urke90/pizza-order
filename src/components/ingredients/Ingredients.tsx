@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
 import { IUpdatableIngredients } from 'ts/ingredients';
+import IngredientConstValue from './IngredientConstValue';
 
-import Button from 'shared/form/Button';
 import IngredientItem from './IngredientItem';
 
 import './Ingredients.scss';
@@ -28,30 +28,17 @@ const Ingredients: React.FC<IIngredientsProps> = ({
     // will return array [{ id, title, quantity }] for single ingredient
     const ingredientsToRender = Object.values(ingredients);
 
+    const handleIngredientConstValueChange = useCallback(
+        (value: number) => setIngValueConstant(value),
+        []
+    );
+
     return (
         <div className="ingredients">
-            <div className="ingredients__heading">
-                <h4>Increment or decrement by:</h4>
-            </div>
-            <div className="ingredients__buttons-wrapper">
-                <Button
-                    type="button"
-                    onClick={() => setIngValueConstant(0.25)}
-                    secondary={ingValueConstant === 0.25 ? true : false}
-                >
-                    0.25
-                </Button>
-                <span className="ingredients__constant-value">
-                    {ingValueConstant}
-                </span>
-                <Button
-                    type="button"
-                    onClick={() => setIngValueConstant(1)}
-                    secondary={ingValueConstant === 1 ? true : false}
-                >
-                    1
-                </Button>
-            </div>
+            <IngredientConstValue
+                ingValueConstant={ingValueConstant}
+                onValueChange={handleIngredientConstValueChange}
+            />
             <h4 className="ingredients__list-title">Ingredients</h4>
             <ul className="ingredients__list">
                 {ingredientsToRender.map((ingredient) => (

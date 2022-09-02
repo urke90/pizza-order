@@ -6,6 +6,9 @@
     justify-content: space-between;
     align-items: center;
     margin: 10px auto;
+    &__modal {
+        margin-top: 20px;
+    }
     &__description {
         display: flex;
         span {
@@ -32,5 +35,13 @@
     &__quantity {
         margin-left: 10px;
         color: $red;
+    }
+}
+
+.ingredients__buttons-wrapper {
+    margin: 20px auto 20px;
+
+    @media screen and (max-width: 768px) {
+        max-width: 300px;
     }
 }

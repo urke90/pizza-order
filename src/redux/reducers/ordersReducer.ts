@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { ICartItem } from 'ts/orders';
+import type { TIngredientActionType } from 'ts/ingredients';
 
 interface IInitialState {
     cart: {
@@ -43,11 +45,27 @@ const ordersSlice = createSlice({
         },
         removePizzaFromCart() {
             console.log('remove pizza from cart');
+        },
+        changeIngredientQuantity(
+            state,
+            action: PayloadAction<{
+                pizzaId: string;
+                ingId: string;
+                value: number;
+                type: TIngredientActionType;
+            }>
+        ) {
+            const { pizzaId, ingId, value, type } = action.payload;
+            // console.log(' REDUCER pizzaId', pizzaId);
+            // console.log('REDUCER ingId', ingId);
+            // console.log('REDUCER value', value);
+            // console.log('REDUCER type', type);
         }
     }
 });
 
-export const { addPizzaToCart, removePizzaFromCart } = ordersSlice.actions;
+export const { addPizzaToCart, removePizzaFromCart, changeIngredientQuantity } =
+    ordersSlice.actions;
 
 const ordersReducer = ordersSlice.reducer;
 

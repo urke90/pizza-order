@@ -12,7 +12,7 @@ const Cart: React.FC<ICartProps> = () => {
 
     const cartItems = Object.values(cart);
 
-    console.log('cartItems', cartItems);
+    // console.log('cartItems', cartItems);
     return (
         <div className="cart">
             <header className="cart__header">

@@ -5,7 +5,10 @@ import Modal from 'shared/ui/Modal';
 import IngredientItem from 'components/ingredients/IngredientItem';
 import IngredientConstValue from 'components/ingredients/IngredientConstValue';
 import { useAppDispatch } from 'hooks/useRedux';
-import { changeIngredientQuantity } from 'redux/reducers/ordersReducer';
+import {
+    changeIngredientQuantity,
+    removePizzaIngredient
+} from 'redux/reducers/ordersReducer';
 
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -51,9 +54,13 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
         [dispatch, ingValueConstant]
     );
 
-    const handleIngredientRemove = useCallback((id: string) => {
-        console.log('handleIngredientRemove', id);
-    }, []);
+    const handleIngredientRemove = useCallback(
+        (id: string) => {
+            dispatch(removePizzaIngredient({ pizzaId, ingId: id }));
+            setShowModal(false);
+        },
+        [pizzaId, dispatch]
+    );
 
     return (
         <li className="cart-ingredient-item">

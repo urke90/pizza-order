@@ -43,7 +43,7 @@ const ordersSlice = createSlice({
                 state.cart[pizza.pizzaId] = pizza;
             }
         },
-        removePizzaFromCart() {
+        removePizzaFromCart(state, action: PayloadAction<{ pizzaId: string }>) {
             console.log('remove pizza from cart');
         },
         changeIngredientQuantity(

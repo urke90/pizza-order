@@ -56,10 +56,22 @@ const ordersSlice = createSlice({
             }>
         ) {
             const { pizzaId, ingId, value, type } = action.payload;
-            // console.log(' REDUCER pizzaId', pizzaId);
-            // console.log('REDUCER ingId', ingId);
-            // console.log('REDUCER value', value);
-            // console.log('REDUCER type', type);
+
+            if (state.cart[pizzaId] === undefined) {
+                throw new Error(`Pizza with ID: ${pizzaId} is not found!!!`);
+            }
+
+            if (state.cart[pizzaId].ingredients[ingId] === undefined) {
+                throw new Error(`Ingredient with ID: ${ingId} is not found!!!`);
+            }
+
+            const isIncrementAction = type === 'inc';
+
+            if (isIncrementAction) {
+                state.cart[pizzaId].ingredients[ingId].quantity += value;
+            } else {
+                state.cart[pizzaId].ingredients[ingId].quantity -= value;
+            }
         }
     }
 });

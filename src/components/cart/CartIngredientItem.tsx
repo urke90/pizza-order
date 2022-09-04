@@ -43,7 +43,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
                 changeIngredientQuantity({
                     pizzaId,
                     ingId: id,
-                    value: ingValueConstant,
+                    value,
                     type
                 })
             );

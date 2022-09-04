@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 
 import { ICartItem } from 'ts/orders';
 import type { TIngredientActionType } from 'ts/ingredients';
@@ -72,12 +72,38 @@ const ordersSlice = createSlice({
             } else {
                 state.cart[pizzaId].ingredients[ingId].quantity -= value;
             }
+        },
+        removePizzaIngredient(
+            state,
+            action: PayloadAction<{ pizzaId: string; ingId: string }>
+        ) {
+            const { ingId, pizzaId } = action.payload;
+
+            if (state.cart[pizzaId] === undefined) {
+                throw new Error(`Pizza with ID: ${pizzaId} not found`);
+            }
+
+            if (state.cart[pizzaId].ingredients[ingId] === undefined) {
+                throw new Error(`Ingredient with ID: ${ingId} doesn't exist`);
+            }
+
+            delete state.cart[pizzaId].ingredients[ingId];
+
+            if (Object.keys(state.cart[pizzaId].ingredients).length === 0) {
+                console.log('ulazi u if');
+
+                delete state.cart[pizzaId];
+            }
         }
     }
 });
 
-export const { addPizzaToCart, removePizzaFromCart, changeIngredientQuantity } =
-    ordersSlice.actions;
+export const {
+    addPizzaToCart,
+    removePizzaFromCart,
+    changeIngredientQuantity,
+    removePizzaIngredient
+} = ordersSlice.actions;
 
 const ordersReducer = ordersSlice.reducer;
 

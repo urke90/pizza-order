@@ -40,7 +40,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
             <h4 className="cart-item__title--ingredients">Ingredients:</h4>
             <ul className="cart-item__list--ingredients">
                 {ingredientsToRender &&
-                    ingredientsToRender.length > 1 &&
+                    ingredientsToRender.length &&
                     ingredientsToRender.map((ing) => (
                         <CartIngredientItem
                             key={ing.id}

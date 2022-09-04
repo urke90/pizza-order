@@ -42,7 +42,11 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                 {ingredientsToRender &&
                     ingredientsToRender.length > 1 &&
                     ingredientsToRender.map((ing) => (
-                        <CartIngredientItem key={ing.id} ingredient={ing} />
+                        <CartIngredientItem
+                            key={ing.id}
+                            ingredient={ing}
+                            pizzaId={pizzaId}
+                        />
                     ))}
             </ul>
         </li>

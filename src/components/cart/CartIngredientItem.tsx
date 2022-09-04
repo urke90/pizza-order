@@ -4,6 +4,8 @@ import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
 import IngredientItem from 'components/ingredients/IngredientItem';
 import IngredientConstValue from 'components/ingredients/IngredientConstValue';
+import { useAppDispatch } from 'hooks/useRedux';
+import { changeIngredientQuantity } from 'redux/reducers/ordersReducer';
 
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -15,37 +17,43 @@ interface ICartIngredientItemProps {
         title: string;
         quantity: number;
     };
+    pizzaId: string;
 }
 
 const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
-    ingredient
+    ingredient,
+    pizzaId
 }) => {
+    const dispatch = useAppDispatch();
+
     const { id, title, quantity } = ingredient;
 
     const [showModal, setShowModal] = useState(false);
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
 
-    useEffect(() => {
-        console.log('ingValueConstant', ingValueConstant);
-    }, [ingValueConstant]);
+    const handleIngredientConstValueChange = useCallback((value: number) => {
+        setIngValueConstant(value);
+    }, []);
 
-    const handleIngredientConstValueChange = useCallback(
-        (value: number) => setIngValueConstant(value),
-        []
-    );
+    // console.log('ingValueConstant', ingValueConstant);
 
     const handleIngredientQtyChange = useCallback(
         (id: string, value: number, type: TIngredientActionType) => {
-            console.log('handleIngredientQtyChange', id, value, type);
+            dispatch(
+                changeIngredientQuantity({
+                    pizzaId,
+                    ingId: id,
+                    value,
+                    type
+                })
+            );
         },
-        []
+        [dispatch, ingValueConstant]
     );
 
     const handleIngredientRemove = useCallback((id: string) => {
         console.log('handleIngredientRemove', id);
     }, []);
-
-    console.log('ingredient inCartIngredientItem'.toUpperCase(), ingredient);
 
     return (
         <li className="cart-ingredient-item">
@@ -62,7 +70,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
                         <ul className="cart-ingredient-item__list">
                             <IngredientItem
                                 ingredient={ingredient}
-                                ingValueConstant={0.25}
+                                ingValueConstant={ingValueConstant}
                                 onIngredientQtyChange={
                                     handleIngredientQtyChange
                                 }

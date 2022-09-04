@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 import CartItem from 'components/cart/CartItem';
 import { useAppSelector } from 'hooks/useRedux';
 

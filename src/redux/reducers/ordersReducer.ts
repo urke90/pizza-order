@@ -45,6 +45,13 @@ const ordersSlice = createSlice({
         },
         removePizzaFromCart(state, action: PayloadAction<{ pizzaId: string }>) {
             console.log('remove pizza from cart');
+            const { pizzaId } = action.payload;
+
+            if (state.cart[pizzaId] === undefined) {
+                throw new Error(`pizza with ID: ${pizzaId} not found!`);
+            }
+
+            delete state.cart[pizzaId];
         },
         changeIngredientQuantity(
             state,

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
@@ -29,7 +29,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    const { id, title, quantity } = ingredient;
+    const { title, quantity } = ingredient;
 
     const [showModal, setShowModal] = useState(false);
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
@@ -49,7 +49,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
                 })
             );
         },
-        [dispatch, ingValueConstant]
+        [dispatch, pizzaId]
     );
 
     const handleIngredientRemove = useCallback(
@@ -91,7 +91,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
                     {quantity.toFixed(2)}
                 </p>
             </div>
-            <div className="cart-ingredient__button--edit">
+            <div className="cart-ingredient-item__button--edit">
                 <Button type="button" onClick={() => setShowModal(true)}>
                     edit
                 </Button>

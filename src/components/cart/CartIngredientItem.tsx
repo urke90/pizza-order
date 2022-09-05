@@ -38,8 +38,6 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
         setIngValueConstant(value);
     }, []);
 
-    // console.log('ingValueConstant', ingValueConstant);
-
     const handleIngredientQtyChange = useCallback(
         (id: string, value: number, type: TIngredientActionType) => {
             dispatch(

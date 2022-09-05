@@ -90,10 +90,36 @@ const ordersSlice = createSlice({
             delete state.cart[pizzaId].ingredients[ingId];
 
             if (Object.keys(state.cart[pizzaId].ingredients).length === 0) {
-                console.log('ulazi u if');
-
                 delete state.cart[pizzaId];
             }
+        },
+        changePizzaQuantity(
+            state,
+            action: PayloadAction<{
+                pizzaId: string;
+                type: TIngredientActionType;
+            }>
+        ) {
+            const { pizzaId, type } = action.payload;
+
+            if (state.cart[pizzaId] === undefined) {
+                throw new Error(`Can't find pizza with ID: ${pizzaId}`);
+            }
+
+            const isIncrementAction = type === 'inc';
+
+            if (isIncrementAction) {
+                state.cart[pizzaId].quantity++;
+            } else {
+                if (state.cart[pizzaId].quantity <= 1) {
+                    delete state.cart[pizzaId];
+                    return;
+                }
+
+                state.cart[pizzaId].quantity--;
+            }
+
+            console.log('state cart pizza qty change', current(state.cart));
         }
     }
 });
@@ -102,7 +128,8 @@ export const {
     addPizzaToCart,
     removePizzaFromCart,
     changeIngredientQuantity,
-    removePizzaIngredient
+    removePizzaIngredient,
+    changePizzaQuantity
 } = ordersSlice.actions;
 
 const ordersReducer = ordersSlice.reducer;

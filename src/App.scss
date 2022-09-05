@@ -30,6 +30,12 @@ p {
     font-size: 14px;
 }
 
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 @media screen and (min-width: 481px) {
     h3 {
         font-size: 18px;

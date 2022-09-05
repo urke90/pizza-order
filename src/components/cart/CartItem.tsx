@@ -2,8 +2,13 @@ import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import { ICartItem } from 'ts/orders';
 import { useAppDispatch } from 'hooks/useRedux';
 import type { TIngredientActionType } from 'ts/ingredients';
-import { changePizzaQuantity } from 'redux/reducers/ordersReducer';
+import {
+    changePizzaQuantity,
+    removePizzaFromCart
+} from 'redux/reducers/ordersReducer';
+
 import CartIngredientItem from './CartIngredientItem';
+import Button from 'shared/form/Button';
 
 import './CartItem.scss';
 
@@ -26,6 +31,10 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
         type: TIngredientActionType
     ) => {
         dispatch(changePizzaQuantity({ pizzaId, type }));
+    };
+
+    const handleRemovePizzaFromCart = (pizzaId: string) => {
+        dispatch(removePizzaFromCart({ pizzaId }));
     };
 
     return (
@@ -61,7 +70,6 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                     </div>
                 </div>
             </div>
-
             <h4 className="cart-item__title--ingredients">Ingredients:</h4>
             <ul className="cart-item__list--ingredients">
                 {ingredientsToRender &&
@@ -74,6 +82,15 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                         />
                     ))}
             </ul>
+            <div className="cart-item__button--remove">
+                <Button
+                    type="button"
+                    onClick={() => handleRemovePizzaFromCart(pizzaId)}
+                    secondary
+                >
+                    remove
+                </Button>
+            </div>
         </li>
     );
 };

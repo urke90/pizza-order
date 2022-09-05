@@ -59,15 +59,24 @@
         margin: 0 8px;
         color: $red;
     }
-
     &__title--ingredients {
         margin-bottom: 20px;
     }
     &__ingredient-item {
         margin: 6px 0;
     }
+    &__button--remove {
+        text-align: center;
+        margin: 20px auto 10px;
+    }
 
     @media screen and (min-width: 768px) {
         width: 48%;
+    }
+    @media screen and (min-width: 1025px) {
+        &__quantity-icon {
+            font-size: 21px;
+            cursor: pointer;
+        }
     }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { addPizzaToCart } from 'redux/reducers/ordersReducer';
+import { addPizzaToCart } from 'redux/reducers/cartReducer';
 import {
     savePizzaRecipe,
     removePizzaRecipe,
@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { API_ENDPOINTS } from 'api/endpoints';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
-import { emptyCartItem } from 'redux/reducers/ordersReducer';
+import { emptyCartItem } from 'redux/reducers/cartReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';

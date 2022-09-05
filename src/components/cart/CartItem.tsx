@@ -5,7 +5,7 @@ import type { TIngredientActionType } from 'ts/ingredients';
 import {
     changePizzaQuantity,
     removePizzaFromCart
-} from 'redux/reducers/ordersReducer';
+} from 'redux/reducers/cartReducer';
 
 import CartIngredientItem from './CartIngredientItem';
 import Button from 'shared/form/Button';

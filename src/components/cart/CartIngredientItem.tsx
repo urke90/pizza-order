@@ -8,7 +8,7 @@ import { useAppDispatch } from 'hooks/useRedux';
 import {
     changeIngredientQuantity,
     removePizzaIngredient
-} from 'redux/reducers/ordersReducer';
+} from 'redux/reducers/cartReducer';
 
 import type { TIngredientActionType } from 'ts/ingredients';
 

@@ -7,12 +7,10 @@ interface IInitialState {
     cart: {
         [key: string]: ICartItem;
     };
-    orders: ICartItem[];
 }
 
 const initialState: IInitialState = {
-    cart: {},
-    orders: []
+    cart: {}
 };
 
 export const emptyCartItem: ICartItem = {
@@ -26,7 +24,7 @@ export const emptyCartItem: ICartItem = {
     ingredients: {}
 };
 
-const ordersSlice = createSlice({
+const cartSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
@@ -44,7 +42,6 @@ const ordersSlice = createSlice({
             }
         },
         removePizzaFromCart(state, action: PayloadAction<{ pizzaId: string }>) {
-            console.log('remove pizza from cart');
             const { pizzaId } = action.payload;
 
             if (state.cart[pizzaId] === undefined) {
@@ -125,8 +122,6 @@ const ordersSlice = createSlice({
 
                 state.cart[pizzaId].quantity--;
             }
-
-            console.log('state cart pizza qty change', current(state.cart));
         }
     }
 });
@@ -137,8 +132,8 @@ export const {
     changeIngredientQuantity,
     removePizzaIngredient,
     changePizzaQuantity
-} = ordersSlice.actions;
+} = cartSlice.actions;
 
-const ordersReducer = ordersSlice.reducer;
+const cartReducer = cartSlice.reducer;
 
-export default ordersReducer;
+export default cartReducer;

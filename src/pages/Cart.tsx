@@ -6,7 +6,7 @@ import './Cart.scss';
 interface ICartProps {}
 
 const Cart: React.FC<ICartProps> = () => {
-    const cart = useAppSelector((state) => state.ordersReducer.cart);
+    const cart = useAppSelector((state) => state.cartReducer.cart);
 
     console.log('cart', cart);
 

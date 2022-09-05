@@ -5,7 +5,7 @@
     margin: 6px auto;
     justify-content: space-between;
     align-items: center;
-    margin: 10px auto;
+    margin: 8px auto;
     &__modal {
         margin-top: 20px;
     }
@@ -35,6 +35,14 @@
     &__quantity {
         margin-left: 10px;
         color: $red;
+    }
+    &__button--edit {
+        button {
+            padding: 1px 14px;
+            @media screen and (max-width: 768px) {
+                padding: 2px 14px;
+            }
+        }
     }
 }
 

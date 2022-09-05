@@ -122,8 +122,6 @@ const cartSlice = createSlice({
 
                 state.cart[pizzaId].quantity--;
             }
-
-            console.log('state cart pizza qty change', current(state.cart));
         }
     }
 });

@@ -1,5 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { IPizzas } from '../../ts/pizzas';
+
+import { API_ENDPOINTS } from 'api/endpoints';
+
+import axios from '../../api/axios.config';
 
 interface ISelectedPizza {
     image_url: string;
@@ -16,6 +20,8 @@ interface IInitialState {
     pizzas: IPizzas[];
     pizzaId: string;
     selectedPizza: ISelectedPizza;
+    isLoading: boolean;
+    error: null | string;
 }
 
 export const emptySelectedPizza: ISelectedPizza = {
@@ -32,17 +38,36 @@ export const emptySelectedPizza: ISelectedPizza = {
 const initialState: IInitialState = {
     pizzas: [],
     pizzaId: '',
-    selectedPizza: emptySelectedPizza
+    selectedPizza: emptySelectedPizza,
+    isLoading: false,
+    error: null
 };
 
+/**
+ * * https://www.youtube.com/watch?v=80c33x2ne20 ===> youtube video for async actions with TS
+ * 1. 1st arg is type of the action: pizzas ===> slice name, /fetchPizzas ===> manually added
+ * 2. 2nd arg is async function: 1st arg is data, second is thunkAPI
+ * ! investigate 2nd argument for createAsyncThunk
+ */
+
+export const getPizzas = createAsyncThunk(
+    'pizzas/getPizzas',
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get<{ recipes: IPizzas[] }>(
+                API_ENDPOINTS.pizzas
+            );
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
 const pizzaSlice = createSlice({
-    name: 'pizza',
+    name: 'pizzas',
     initialState,
     reducers: {
-        saveFetchedPizzas(state, action: PayloadAction<{ pizzas: IPizzas[] }>) {
-            const { pizzas } = action.payload;
-            state.pizzas = pizzas;
-        },
         savePizzaId(state, action: PayloadAction<{ pizzaId: string }>) {
             const { pizzaId } = action.payload;
 
@@ -61,11 +86,31 @@ const pizzaSlice = createSlice({
         removePizzaRecipe(state) {
             state.selectedPizza = emptySelectedPizza;
         }
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(getPizzas.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                getPizzas.fulfilled,
+                (state, action: PayloadAction<{ recipes: IPizzas[] }>) => {
+                    const { recipes } = action.payload;
+                    state.isLoading = false;
+                    state.pizzas = recipes;
+                }
+            )
+            .addCase(
+                getPizzas.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.isLoading = false;
+                    state.error = action.payload;
+                }
+            );
     }
 });
 
 export const {
-    saveFetchedPizzas,
     savePizzaId,
     savePizzaRecipe,
     removePizzaId,

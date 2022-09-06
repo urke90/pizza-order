@@ -1,20 +1,18 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { AxiosResponse } from 'axios';
-
-import { useAxios } from 'hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import { API_ENDPOINTS } from 'api/endpoints';
-import { saveFetchedPizzas } from 'redux/reducers/pizzaReducer';
 import { getPizzasToRender } from 'util/pagination-data';
+import { getPizzas } from 'redux/reducers/pizzaReducer';
 
 import './PizzasList.scss';
 
 import PizzaItem from './PizzaItem';
 
 const PizzasList: React.FC = () => {
-    const { isLoading, error, sendRequest } = useAxios();
     const dispatch = useAppDispatch();
+
+    const isLoading = useAppSelector((state) => state.pizzaReducer.isLoading);
+    const error = useAppSelector((state) => state.pizzaReducer.error);
 
     // current page of pagination
     const currentPage = useAppSelector(
@@ -38,38 +36,16 @@ const PizzasList: React.FC = () => {
     );
 
     useEffect(() => {
-        // console.log('use EFFECT IZ PIZZA LIST');
-
-        const fetchPizzas = async () => {
-            const pizzasURL = API_ENDPOINTS.pizzas;
-            let response: AxiosResponse<any, any> | undefined;
-
-            try {
-                response = await sendRequest({
-                    url: pizzasURL,
-                    method: 'GET'
-                });
-            } catch (error) {
-                console.log('error fetching all pizzas', error);
-            }
-
-            if (response?.status !== 200) {
-                return;
-            }
-
-            dispatch(saveFetchedPizzas({ pizzas: response.data.recipes }));
-        };
-
-        fetchPizzas();
-    }, [sendRequest, dispatch]);
+        dispatch(getPizzas());
+    }, [dispatch]);
 
     // TODO FIGURE OUT A BEST WAY TO SHOW FALLBACK CONTENT IN REACT
 
-    const fallbackContent = (
-        <h2 style={{ textAlign: 'center' }}>
-            Sorry there are no pizzas we can offer at the moment :(
-        </h2>
-    );
+    // const fallbackContent = (
+    //     <h2 style={{ textAlign: 'center' }}>
+    //         Sorry there are no pizzas we can offer at the moment :(
+    //     </h2>
+    // );
 
     return (
         <>
@@ -92,11 +68,6 @@ const PizzasList: React.FC = () => {
                         />
                     ))}
             </ul>
-            {!isLoading &&
-                !error &&
-                pizzas.length === 0 &&
-                pizzasToRender.length === 0 &&
-                fallbackContent}
         </>
     );
 };

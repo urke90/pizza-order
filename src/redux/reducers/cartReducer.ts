@@ -24,8 +24,11 @@ export const emptyCartItem: ICartItem = {
     ingredients: {}
 };
 
+// /https://www.youtube.com/watch?v=93CR_yURoII
+//https://blog.logrocket.com/using-redux-toolkits-createasyncthunk/
+
 const cartSlice = createSlice({
-    name: 'orders',
+    name: 'cart',
     initialState,
     reducers: {
         /**
@@ -34,6 +37,8 @@ const cartSlice = createSlice({
          */
         addPizzaToCart(state, action: PayloadAction<{ pizza: ICartItem }>) {
             const { pizza } = action.payload;
+
+            console.log('action addPizzaToCart', action);
 
             const isEmptyObject = Object.keys(pizza).length === 0;
 

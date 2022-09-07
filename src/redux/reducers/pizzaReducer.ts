@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getPizzas } from 'redux/actions/pizza-actions';
-import { IPizzas } from '../../ts/pizzas';
+import { fetchPizzas, fetchPizzaById } from 'redux/actions/pizza-actions';
+import { IPizzas, ISelectedPizza } from '../../ts/pizzas';
 
-interface ISelectedPizza {
-    image_url: string;
-    ingredients: string[];
-    publisher: string;
-    publisher_url: string;
-    recipe_id: string;
-    social_rank: number;
-    source_url: string;
-    title: string;
-}
+// export interface ISelectedPizza {
+//     image_url: string;
+//     ingredients: string[];
+//     publisher: string;
+//     publisher_url: string;
+//     recipe_id: string;
+//     social_rank: number;
+//     source_url: string;
+//     title: string;
+// }
 
 interface IInitialState {
     pizzas: IPizzas[];
@@ -72,11 +72,11 @@ const pizzaSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(getPizzas.pending, (state) => {
+            .addCase(fetchPizzas.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
-                getPizzas.fulfilled,
+                fetchPizzas.fulfilled,
                 (state, action: PayloadAction<{ recipes: IPizzas[] }>) => {
                     const { recipes } = action.payload;
                     state.isLoading = false;
@@ -84,7 +84,26 @@ const pizzaSlice = createSlice({
                 }
             )
             .addCase(
-                getPizzas.rejected,
+                fetchPizzas.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.isLoading = false;
+                    state.error = action.payload;
+                }
+            );
+        builder
+            .addCase(fetchPizzaById.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                fetchPizzaById.fulfilled,
+                (state, action: PayloadAction<{ recipe: ISelectedPizza }>) => {
+                    const { recipe } = action.payload;
+                    state.isLoading = false;
+                    state.selectedPizza = recipe;
+                }
+            )
+            .addCase(
+                fetchPizzaById.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;
@@ -92,6 +111,8 @@ const pizzaSlice = createSlice({
             );
     }
 });
+
+// export const pizzaId = (state: IInitialState) => state.pizzaId;
 
 export const {
     savePizzaId,

@@ -1,9 +1,6 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getPizzas } from 'redux/actions/pizza-actions';
 import { IPizzas } from '../../ts/pizzas';
-
-import { API_ENDPOINTS } from 'api/endpoints';
-
-import axios from '../../api/axios.config';
 
 interface ISelectedPizza {
     image_url: string;
@@ -49,20 +46,6 @@ const initialState: IInitialState = {
  * 2. 2nd arg is async function: 1st arg is data, second is thunkAPI
  * ! investigate 2nd argument for createAsyncThunk
  */
-
-export const getPizzas = createAsyncThunk(
-    'pizzas/getPizzas',
-    async (_, thunkAPI) => {
-        try {
-            const response = await axios.get<{ recipes: IPizzas[] }>(
-                API_ENDPOINTS.pizzas
-            );
-            return response.data;
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
 
 const pizzaSlice = createSlice({
     name: 'pizzas',

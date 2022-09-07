@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { getPizzasToRender } from 'util/pagination-data';
-import { getPizzas } from 'redux/reducers/pizzaReducer';
+import { getPizzas } from 'redux/actions/pizza-actions';
 
 import './PizzasList.scss';
 

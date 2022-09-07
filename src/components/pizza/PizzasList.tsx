@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { getPizzasToRender } from 'util/pagination-data';
-import { getPizzas } from 'redux/actions/pizza-actions';
+import { fetchPizzas } from 'redux/actions/pizza-actions';
 
 import './PizzasList.scss';
 
@@ -36,8 +36,12 @@ const PizzasList: React.FC = () => {
     );
 
     useEffect(() => {
-        dispatch(getPizzas());
-    }, [dispatch]);
+        if (pizzas.length > 0) {
+            return;
+        }
+
+        dispatch(fetchPizzas());
+    }, [dispatch, pizzas]);
 
     // TODO FIGURE OUT A BEST WAY TO SHOW FALLBACK CONTENT IN REACT
 

@@ -9,8 +9,8 @@ import './PizzaRecipe.scss';
 
 interface IPizzaRecipeProps {
     title: string;
-    image_url: string;
-    source_url: string;
+    imageUrl: string;
+    sourceUrl: string;
     ingredients: string[];
     onAddToCart: () => void;
     pizzaQuantity: number;
@@ -19,8 +19,8 @@ interface IPizzaRecipeProps {
 
 const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
     title,
-    image_url,
-    source_url,
+    imageUrl,
+    sourceUrl,
     ingredients,
     onAddToCart,
     pizzaQuantity,
@@ -32,10 +32,10 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                 <h2>{title}</h2>
             </div>
             <div className="recipe__image">
-                <img src={image_url} alt={title} />
+                <img src={imageUrl} alt={title} />
             </div>
             <div className="recipe__link">
-                <a href={source_url} target="_blank" rel="noopener">
+                <a href={sourceUrl} target="_blank" rel="noopener">
                     Chech the recipe online
                 </a>
             </div>

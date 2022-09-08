@@ -8,4 +8,4 @@ export interface IUpdatableIngredients {
     [key: string]: IConvertedIngredients;
 }
 
-export type TIngredientActionType = 'inc' | 'dec';
+export type TIngredientActionType = 'inc' | 'dec' | 'reset';

@@ -1,32 +1,24 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { getPizzasToRender } from 'util/pagination-data';
 import { fetchPizzas } from 'redux/actions/pizza-actions';
 import { generateClassName } from 'util/class-generators/main-page';
+import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
+import { paginationSelectors } from 'redux/reducers/paginationReducer';
+import PizzaItem from './PizzaItem';
 
 import './PizzasList.scss';
-
-import PizzaItem from './PizzaItem';
 
 const PizzasList: React.FC<{ recipeId: string }> = ({ recipeId }) => {
     const dispatch = useAppDispatch();
 
-    const isLoading = useAppSelector((state) => state.pizzaReducer.isLoading);
-    const error = useAppSelector((state) => state.pizzaReducer.error);
+    const isLoading = useAppSelector(pizzaSelectors.isLoading);
+    const error = useAppSelector(pizzaSelectors.error);
+    const pizzas = useAppSelector(pizzaSelectors.pizzas);
 
-    // current page of pagination
-    const currentPage = useAppSelector(
-        (state) => state.paginationReducer.currentPage
-    );
+    const currentPage = useAppSelector(paginationSelectors.currentPage);
 
-    // how many pizzas per page we will show in pagination
-    const itemsPerPage = useAppSelector(
-        (state) => state.paginationReducer.itemsPerPage
-    );
-
-    // all fetched pizzas from API which we will use to slice later
-    const pizzas = useAppSelector((state) => state.pizzaReducer.pizzas);
+    const itemsPerPage = useAppSelector(paginationSelectors.itemsPerPage);
 
     // slice fetched pizzas so we could should specific number of pizzas on UI
     const pizzasToRender = getPizzasToRender(pizzas, currentPage, itemsPerPage);
@@ -61,9 +53,9 @@ const PizzasList: React.FC<{ recipeId: string }> = ({ recipeId }) => {
                     pizzasToRender.map(({ recipe_id, title, image_url }) => (
                         <PizzaItem
                             key={recipe_id}
-                            recipe_id={recipe_id}
+                            recipeId={recipe_id}
                             title={title}
-                            image_url={image_url}
+                            imageUrl={image_url}
                         />
                     ))}
             </ul>

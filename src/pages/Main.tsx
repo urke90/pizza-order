@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { addPizzaToCart } from 'redux/reducers/cartReducer';
 import { removePizzaRecipe, removePizzaId } from 'redux/reducers/pizzaReducer';
-import { pizzaReducerSelectors } from 'redux/reducers/pizzaReducer';
+import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
 import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IUpdatableIngredients } from 'ts/ingredients';
@@ -42,15 +42,15 @@ const Main: React.FC = () => {
     /**
      * pizzaSlice state
      */
-    const selectedPizzaId = useAppSelector(pizzaReducerSelectors.pizzaId);
-    const isLoading = useAppSelector(pizzaReducerSelectors.isLoading);
-    const error = useAppSelector(pizzaReducerSelectors.error);
-    const selectedPizza = useAppSelector(pizzaReducerSelectors.selectedPizza);
-    const ingredients = useAppSelector(pizzaReducerSelectors.ingredients);
-    const title = useAppSelector(pizzaReducerSelectors.title);
-    const sourceUrl = useAppSelector(pizzaReducerSelectors.sourceUrl);
-    const imageUrl = useAppSelector(pizzaReducerSelectors.imageUrl);
-    const recipeId = useAppSelector(pizzaReducerSelectors.recipeId);
+    const selectedPizzaId = useAppSelector(pizzaSelectors.pizzaId);
+    const isLoading = useAppSelector(pizzaSelectors.isLoading);
+    const error = useAppSelector(pizzaSelectors.error);
+    const selectedPizza = useAppSelector(pizzaSelectors.selectedPizza);
+    const ingredients = useAppSelector(pizzaSelectors.ingredients);
+    const title = useAppSelector(pizzaSelectors.title);
+    const sourceUrl = useAppSelector(pizzaSelectors.sourceUrl);
+    const imageUrl = useAppSelector(pizzaSelectors.imageUrl);
+    const recipeId = useAppSelector(pizzaSelectors.recipeId);
     const uid = useAppSelector((state) => state.authReducer.uid);
 
     /**

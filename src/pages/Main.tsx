@@ -1,14 +1,17 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+
 import { addPizzaToCart } from 'redux/reducers/cartReducer';
 import { removePizzaRecipe, removePizzaId } from 'redux/reducers/pizzaReducer';
-
+import { pizzaReducerSelectors } from 'redux/reducers/pizzaReducer';
 import { useIngredients } from 'hooks/useIngredients';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
 import { emptyCartItem } from 'redux/reducers/cartReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
+import { fetchPizzaById } from 'redux/actions/pizza-actions';
+
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
@@ -17,15 +20,12 @@ import OrderList from 'components/orders/OrderList';
 import Button from 'shared/form/Button';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import Modal from 'shared/ui/Modal';
-import { fetchPizzaById } from 'redux/actions/pizza-actions';
 
 import './Main.scss';
 
 const Main: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
     const [createdPizza, setCreatedPizza] = useState<ICartItem>(emptyCartItem);
-
-    // const { sendRequest, isLoading, error } = useAxios();
     const {
         updatableIngredients,
         handleSetIngredients,
@@ -34,39 +34,27 @@ const Main: React.FC = () => {
         handleChangePizzaQuantity,
         pizzaQuantity
     } = useIngredients();
-
     const dispatch = useAppDispatch();
 
-    // pizzaId we should fetch when user choose any
-    const selectedPizzaId = useAppSelector(
-        (state) => state.pizzaReducer.pizzaId
-    );
-    const isLoading = useAppSelector((state) => state.pizzaReducer.isLoading);
-    const error = useAppSelector((state) => state.pizzaReducer.error);
-
-    const selectedPizza = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza
-    );
-    const ingredients = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza.ingredients
-    );
-    // console.log('ingredients in MAIN.TSX', ingredients);
-    const title = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza.title
-    );
-    const sourceUrl = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza.source_url
-    );
-    const imageUrl = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza.image_url
-    );
-    const recipeId = useAppSelector(
-        (state) => state.pizzaReducer.selectedPizza.recipe_id
-    );
-
-    // user ID when user is logged in
+    // TODO figure out best way to shorten these selectors
+    // ? IS THIS RIGHT APROACH?!??!?!??!?!??!??!
+    /**
+     * pizzaSlice state
+     */
+    const selectedPizzaId = useAppSelector(pizzaReducerSelectors.pizzaId);
+    const isLoading = useAppSelector(pizzaReducerSelectors.isLoading);
+    const error = useAppSelector(pizzaReducerSelectors.error);
+    const selectedPizza = useAppSelector(pizzaReducerSelectors.selectedPizza);
+    const ingredients = useAppSelector(pizzaReducerSelectors.ingredients);
+    const title = useAppSelector(pizzaReducerSelectors.title);
+    const sourceUrl = useAppSelector(pizzaReducerSelectors.sourceUrl);
+    const imageUrl = useAppSelector(pizzaReducerSelectors.imageUrl);
+    const recipeId = useAppSelector(pizzaReducerSelectors.recipeId);
     const uid = useAppSelector((state) => state.authReducer.uid);
 
+    /**
+     * Handler functions
+     */
     const handleAddToCart = useCallback(() => {
         const pizza: ICartItem = {
             pizzaId: uuid(),
@@ -90,7 +78,6 @@ const Main: React.FC = () => {
         pizzaQuantity,
         updatableIngredients
     ]);
-
     // will add pizza to cart after modal is opened and order is confirmed
     const handleConfirmOrder = useCallback(() => {
         dispatch(addPizzaToCart({ pizza: createdPizza }));
@@ -125,53 +112,6 @@ const Main: React.FC = () => {
 
         handleSetIngredients(updatableIngredients);
     }, [ingredients, handleSetIngredients]);
-
-    // useEffect(() => {
-    //     const fetchPizzaRecipe = async () => {
-    //         const pizzaIdURL = API_ENDPOINTS.pizzaId;
-
-    //         try {
-    //             const response = await sendRequest({
-    //                 url: pizzaIdURL + selectedPizzaId,
-    //                 method: 'GET'
-    //             });
-
-    //             console.log('response', response);
-
-    //             if (response?.status !== 200) {
-    //                 return;
-    //             }
-
-    //             const convertedIngredients = convertIngredientsForRendering(
-    //                 response.data.recipe.ingredients
-    //             );
-
-    //             let updatableIngredients: IUpdatableIngredients = {};
-
-    //             convertedIngredients.forEach(({ id, title, quantity }) => {
-    //                 updatableIngredients = {
-    //                     ...updatableIngredients,
-    //                     [id]: {
-    //                         id,
-    //                         title,
-    //                         quantity
-    //                     }
-    //                 };
-    //             });
-
-    //             dispatch(
-    //                 savePizzaRecipe({ selectedPizza: response.data.recipe })
-    //             );
-    //             handleSetIngredients(updatableIngredients);
-    //         } catch (error) {
-    //             console.log('error fetching specific pizza', error);
-    //         }
-    //     };
-
-    //     if (selectedPizzaId) {
-    //         fetchPizzaRecipe();
-    //     }
-    // }, [selectedPizzaId, dispatch, sendRequest, handleSetIngredients]);
 
     return (
         <section className="main">

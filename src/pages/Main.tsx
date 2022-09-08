@@ -42,10 +42,10 @@ const Main: React.FC = () => {
     /**
      * pizzaSlice state
      */
+    const selectedPizza = useAppSelector(pizzaSelectors.selectedPizza);
     const selectedPizzaId = useAppSelector(pizzaSelectors.pizzaId);
     const isLoading = useAppSelector(pizzaSelectors.isLoading);
     const error = useAppSelector(pizzaSelectors.error);
-    const selectedPizza = useAppSelector(pizzaSelectors.selectedPizza);
     const ingredients = useAppSelector(pizzaSelectors.ingredients);
     const title = useAppSelector(pizzaSelectors.title);
     const sourceUrl = useAppSelector(pizzaSelectors.sourceUrl);
@@ -55,6 +55,8 @@ const Main: React.FC = () => {
 
     /**
      * Handler functions
+     * 1.handleAddToCart ===> will store modified pizza in state and open confirm order modal
+     * 2. handleConfirmOrder ===> will store confirmed order in cart reducer
      */
     const handleAddToCart = useCallback(() => {
         const pizza: ICartItem = {
@@ -84,8 +86,9 @@ const Main: React.FC = () => {
         dispatch(addPizzaToCart({ pizza: createdPizza }));
         dispatch(removePizzaId());
         dispatch(removePizzaRecipe());
+        handleChangePizzaQuantity('reset');
         setShowModal(false);
-    }, [createdPizza, dispatch]);
+    }, [createdPizza, dispatch, handleChangePizzaQuantity]);
 
     useEffect(() => {
         if (selectedPizzaId.trim() === '') return;

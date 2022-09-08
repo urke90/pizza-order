@@ -23,6 +23,10 @@ export const useIngredients = (): IUseIngredients => {
 
     const handleChangePizzaQuantity = useCallback(
         (type: TIngredientActionType) => {
+            if (type === 'reset') {
+                return setPizzaQuantity(1);
+            }
+
             setPizzaQuantity((prevQuantity) => {
                 return type === 'inc' ? prevQuantity + 1 : prevQuantity - 1;
             });

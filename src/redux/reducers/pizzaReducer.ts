@@ -122,7 +122,7 @@ const pizzaSlice = createSlice({
 //     selectedPizza: ({ selectedPizza }) => selectedPizza
 // };
 
-export const pizzaReducerSelectors = {
+export const pizzaSelectors = {
     pizzas: ({ pizzaReducer: { pizzas } }: RootState) => pizzas,
     pizzaId: ({ pizzaReducer: { pizzaId } }: RootState) => pizzaId,
     selectedPizza: ({ pizzaReducer: { selectedPizza } }: RootState) =>

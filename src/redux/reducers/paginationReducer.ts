@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'redux/store';
 
 interface IPaginationState {
     currentPage: number;
@@ -33,6 +34,13 @@ const paginationSlice = createSlice({
         }
     }
 });
+
+export const paginationSelectors = {
+    currentPage: ({ paginationReducer: { currentPage } }: RootState) =>
+        currentPage,
+    itemsPerPage: ({ paginationReducer: { itemsPerPage } }: RootState) =>
+        itemsPerPage
+};
 
 const paginationReducer = paginationSlice.reducer;
 

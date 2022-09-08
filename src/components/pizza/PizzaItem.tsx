@@ -5,25 +5,24 @@ import { savePizzaId } from 'redux/reducers/pizzaReducer';
 import './PizzaItem.scss';
 
 interface IPizzaItemProps {
-    image_url: string;
-    recipe_id: string;
+    imageUrl: string;
+    recipeId: string;
     title: string;
 }
 
 const PizzaItem: React.FC<IPizzaItemProps> = ({
-    recipe_id,
+    recipeId,
     title,
-    image_url
+    imageUrl
 }) => {
     const dispatch = useAppDispatch();
 
-    const handleGetPizzaId = () =>
-        dispatch(savePizzaId({ pizzaId: recipe_id }));
+    const handleGetPizzaId = () => dispatch(savePizzaId({ pizzaId: recipeId }));
 
     return (
         <li className="pizza__item" onClick={handleGetPizzaId}>
             <div className="pizza__img">
-                <img src={image_url} alt={title} width={150} />
+                <img src={imageUrl} alt={title} width={150} />
             </div>
             <div className="pizza__title">
                 <h3>{title}</h3>

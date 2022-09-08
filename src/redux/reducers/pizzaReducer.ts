@@ -1,17 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchPizzas, fetchPizzaById } from 'redux/actions/pizza-actions';
+import { RootState } from 'redux/store';
 import { IPizzas, ISelectedPizza } from '../../ts/pizzas';
-
-// export interface ISelectedPizza {
-//     image_url: string;
-//     ingredients: string[];
-//     publisher: string;
-//     publisher_url: string;
-//     recipe_id: string;
-//     social_rank: number;
-//     source_url: string;
-//     title: string;
-// }
 
 interface IInitialState {
     pizzas: IPizzas[];
@@ -112,7 +102,44 @@ const pizzaSlice = createSlice({
     }
 });
 
-// export const pizzaId = (state: IInitialState) => state.pizzaId;
+// type TPizzaReducerSelectorsReturnTypes =
+//     | IPizzas[]
+//     | string
+//     | ISelectedPizza
+//     | boolean
+//     | null;
+
+// interface IPizzaReducerSelectors {
+//     [key: string]: (state: IInitialState) => TPizzaReducerSelectorsReturnTypes;
+// }
+// interface IPizzaReducerSelectors {
+//     [key in initialState]: (state: IInitialState) => TPizzaReducerSelectorsReturnTypes;
+// }
+
+// export const pizzaReducerSelectors: IPizzaReducerSelectors = {
+//     pizzas: ({ pizzas }) => pizzas,
+//     pizzaId: ({ pizzaId }) => pizzaId,
+//     selectedPizza: ({ selectedPizza }) => selectedPizza
+// };
+
+export const pizzaReducerSelectors = {
+    pizzas: ({ pizzaReducer: { pizzas } }: RootState) => pizzas,
+    pizzaId: ({ pizzaReducer: { pizzaId } }: RootState) => pizzaId,
+    selectedPizza: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza,
+    isLoading: ({ pizzaReducer: { isLoading } }: RootState) => isLoading,
+    error: ({ pizzaReducer: { error } }: RootState) => error,
+    imageUrl: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.image_url,
+    ingredients: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.ingredients,
+    recipeId: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.recipe_id,
+    sourceUrl: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.source_url,
+    title: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.title
+};
 
 export const {
     savePizzaId,

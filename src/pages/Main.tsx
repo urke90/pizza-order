@@ -11,6 +11,7 @@ import { ICartItem } from 'ts/orders';
 import { emptyCartItem } from 'redux/reducers/cartReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { fetchPizzaById } from 'redux/actions/pizza-actions';
+import { generateClassName } from 'util/class-generators/main-page';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -134,27 +135,28 @@ const Main: React.FC = () => {
                     <h1 className="main__heading">Pick your favorite pizza</h1>
                 </div>
                 <div
-                    className={`main__content ${
-                        recipeId !== '' ? 'main__content--flex' : ''
-                    }`}
+                    className={`main__content ${generateClassName(
+                        recipeId,
+                        'main__content--flex'
+                    )}`}
                 >
                     <div
                         style={{
                             width: recipeId === '' ? '100%' : ''
                         }}
-                        className={`main__pizzas-list-wrapper ${
-                            recipeId !== ''
-                                ? 'main__pizzas-list-wrapper--column'
-                                : ''
-                        } `}
+                        className={`main__pizzas-list-wrapper ${generateClassName(
+                            recipeId,
+                            'main__pizzas-list-wrapper--column'
+                        )} `}
                     >
-                        <PizzasList />
+                        <PizzasList recipeId={recipeId} />
                         <Pagination />
                     </div>
                     <main
-                        className={`main__recipe ${
-                            recipeId !== '' ? 'main__recipe--display-block' : ''
-                        }`}
+                        className={`main__recipe ${generateClassName(
+                            recipeId,
+                            'main__recipe--display-block'
+                        )}`}
                     >
                         {selectedPizza && (
                             <PizzaRecipe
@@ -171,11 +173,10 @@ const Main: React.FC = () => {
                         )}
                     </main>
                     <div
-                        className={`main__ingredients ${
-                            recipeId !== ''
-                                ? 'main__ingredients--display-block'
-                                : ''
-                        }`}
+                        className={`main__ingredients ${generateClassName(
+                            recipeId,
+                            'main__ingredients--display-block'
+                        )}`}
                     >
                         {updatableIngredients && (
                             <Ingredients

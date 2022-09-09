@@ -3,7 +3,7 @@ import React from 'react';
 import './Input.scss';
 
 interface IInputProps {
-    type: 'email' | 'hidden' | 'number' | 'password';
+    type: 'text' | 'email' | 'hidden' | 'number' | 'password';
     name: string;
     id: string;
     label: string;

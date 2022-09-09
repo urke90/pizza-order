@@ -26,12 +26,12 @@ interface IUseLogin {
 export const useLogin = (): IUseLogin => {
     const navigate = useNavigate();
 
-    const handleGoogleSignIn = async () => {
+    const handleGoogleSignIn = async (): Promise<void> => {
         const provider = new GoogleAuthProvider();
 
         try {
-            await signInWithPopup(auth, provider);
-            navigate('/', { replace: true });
+            const respose = await signInWithPopup(auth, provider);
+            // navigate('/', { replace: true });
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +83,7 @@ export const useLogin = (): IUseLogin => {
             navigate('/', { replace: true });
             console.log('CREATE USER WITH EMAIL AND PW', response);
         } catch (error) {
-            console.log('error with creacte', error);
+            console.log('handleSignUpWithCredentials', error);
         }
     };
 

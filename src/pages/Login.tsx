@@ -9,10 +9,9 @@ import Button from 'shared/form/Button';
 
 import './Login.scss';
 
-type LoginProps = {};
-
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
+    // const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {
@@ -22,6 +21,7 @@ const Login: React.FC<LoginProps> = () => {
     } = useLogin();
 
     const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
+    // const handleSetName = (value: string) => setName(value);
     const handleSetEmail = (value: string) => setEmail(value);
     const handleSetPassword = (value: string) => setPassword(value);
 
@@ -36,8 +36,7 @@ const Login: React.FC<LoginProps> = () => {
             // console.log('user imaaaa', user);
         } else {
             // user is signed out
-
-            console.log('signed out', user);
+            // console.log('signed out', user);
         }
     });
 
@@ -51,6 +50,17 @@ const Login: React.FC<LoginProps> = () => {
                     onSubmit={(e) => handleSubmit(e, email, password)}
                     className="login__form"
                 >
+                    {/* <div className="login__form-control">
+                        <Input
+                            id="name"
+                            type="text"
+                            name="name"
+                            label="Name"
+                            placeholder="Name"
+                            onChange={handleSetEmail}
+                            initValue={email}
+                        />
+                    </div> */}
                     <div className="login__form-control">
                         <Input
                             id="email"
@@ -59,6 +69,7 @@ const Login: React.FC<LoginProps> = () => {
                             label="Email"
                             placeholder="Email"
                             onChange={handleSetEmail}
+                            initValue={email}
                         />
                     </div>
                     <div className="login__form-control">
@@ -69,6 +80,7 @@ const Login: React.FC<LoginProps> = () => {
                             label="Password"
                             placeholder="Password"
                             onChange={handleSetPassword}
+                            initValue={password}
                         />
                     </div>
                     <Button
@@ -80,7 +92,6 @@ const Login: React.FC<LoginProps> = () => {
                         {isSignUpMode ? 'sign up' : 'sign in'}
                     </Button>
                     <p className="login__text">
-                        Already have an account?{' '}
                         <span className="login__mode" onClick={toggleAuthMode}>
                             {isSignUpMode
                                 ? 'Sign in instead'

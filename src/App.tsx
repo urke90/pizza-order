@@ -33,7 +33,7 @@ function App() {
     });
 
     return (
-        <div>
+        <div className="app__container">
             {pathname !== '/login' && <Header />}
             <RoutesComponent />
         </div>

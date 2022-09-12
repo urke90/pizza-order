@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
-import { auth } from '../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 
 import Input from 'shared/form/Input';
 import Button from 'shared/form/Button';
@@ -11,7 +9,7 @@ import './Login.scss';
 
 const Login: React.FC = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
-    // const [name, setName] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {
@@ -21,24 +19,12 @@ const Login: React.FC = () => {
     } = useLogin();
 
     const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
-    // const handleSetName = (value: string) => setName(value);
-    const handleSetEmail = (value: string) => setEmail(value);
-    const handleSetPassword = (value: string) => setPassword(value);
 
     const handleSubmit = isSignUpMode
-        ? handleSignUpWithCredentials
-        : handleSignInWithCredentials;
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // console.log('user SIGN IN', user);
-            // user is logged in
-            // console.log('user imaaaa', user);
-        } else {
-            // user is signed out
-            // console.log('signed out', user);
-        }
-    });
+        ? (e: React.FormEvent<HTMLFormElement>) =>
+              handleSignUpWithCredentials(e, email, password, name)
+        : (e: React.FormEvent<HTMLFormElement>) =>
+              handleSignInWithCredentials(e, email, password);
 
     return (
         <div className="login">
@@ -46,21 +32,21 @@ const Login: React.FC = () => {
                 <h1 className="login__heading">
                     {isSignUpMode ? 'Sign up' : 'Sign in'}
                 </h1>
-                <form
-                    onSubmit={(e) => handleSubmit(e, email, password)}
-                    className="login__form"
-                >
-                    {/* <div className="login__form-control">
-                        <Input
-                            id="name"
-                            type="text"
-                            name="name"
-                            label="Name"
-                            placeholder="Name"
-                            onChange={handleSetEmail}
-                            initValue={email}
-                        />
-                    </div> */}
+                <form onSubmit={handleSubmit} className="login__form">
+                    {isSignUpMode && (
+                        <div className="login__form-control">
+                            <Input
+                                id="name"
+                                type="text"
+                                name="name"
+                                label="Name"
+                                placeholder="Name"
+                                onChange={setName}
+                                initValue={name}
+                            />
+                        </div>
+                    )}
+
                     <div className="login__form-control">
                         <Input
                             id="email"
@@ -68,7 +54,7 @@ const Login: React.FC = () => {
                             name="email"
                             label="Email"
                             placeholder="Email"
-                            onChange={handleSetEmail}
+                            onChange={setEmail}
                             initValue={email}
                         />
                     </div>
@@ -79,7 +65,7 @@ const Login: React.FC = () => {
                             name="password"
                             label="Password"
                             placeholder="Password"
-                            onChange={handleSetPassword}
+                            onChange={setPassword}
                             initValue={password}
                         />
                     </div>
@@ -99,26 +85,14 @@ const Login: React.FC = () => {
                         </span>
                     </p>
 
-                    <div className="login__btn-wrapper">
+                    <div className="login__button-wrapper">
                         <Button
                             type="button"
                             onClick={handleGoogleSignIn}
                             width="100%"
                         >
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignContent: 'center'
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        marginRight: '10px'
-                                    }}
-                                >
-                                    sign in with google
-                                </span>
+                            <div className="login__button-icon">
+                                <span>sign in with google</span>
                                 <FcGoogle size={18} />
                             </div>
                         </Button>

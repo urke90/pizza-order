@@ -29,6 +29,10 @@ p {
     font-size: 14px;
 }
 
+.app__container {
+    max-width: 1260px;
+}
+
 .ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;

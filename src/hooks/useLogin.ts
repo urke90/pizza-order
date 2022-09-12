@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import {
     GoogleAuthProvider,
     signInWithPopup,
@@ -6,6 +7,8 @@ import {
     createUserWithEmailAndPassword
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+import { db } from '../firebase/firebase';
+import { ref, set, child, get } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
 
 interface IUseLogin {
@@ -19,19 +22,59 @@ interface IUseLogin {
     handleSignUpWithCredentials: (
         e: React.FormEvent<HTMLFormElement>,
         email: string,
-        password: string
+        password: string,
+        userName: string
     ) => Promise<void>;
+    isLoading: boolean;
+}
+
+interface ICreatedUser {
+    userName: string;
+    email: string;
+    imageUrl?: string;
+    uid: string;
 }
 
 export const useLogin = (): IUseLogin => {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const createNewUserInDb = useCallback(async (userData: ICreatedUser) => {
+        const dbRef = ref(db);
+
+        const { uid, userName, email } = userData;
+
+        try {
+            const existingUser = await get(child(dbRef, `users/${uid}`));
+            if (!existingUser.exists()) {
+                const createdUser: ICreatedUser = {
+                    userName,
+                    email,
+                    imageUrl: '',
+                    uid
+                };
+                await set(ref(db, 'users/' + uid), createdUser);
+            }
+        } catch (error) {
+            console.log("error createing user if it doesn't exist", error);
+        }
+    }, []);
 
     const handleGoogleSignIn = async (): Promise<void> => {
         const provider = new GoogleAuthProvider();
 
         try {
-            const respose = await signInWithPopup(auth, provider);
-            // navigate('/', { replace: true });
+            const response = await signInWithPopup(auth, provider);
+
+            const { displayName, uid, email } = response.user;
+
+            await createNewUserInDb({
+                uid,
+                userName: displayName ? displayName : '',
+                email: email ? email : ''
+            });
+
+            navigate('/', { replace: true });
         } catch (error) {
             console.log(error);
         }
@@ -54,12 +97,7 @@ export const useLogin = (): IUseLogin => {
         e.preventDefault();
 
         try {
-            const response = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-            console.log('SIGN IN WITH EMAIL AND PW', response);
+            await signInWithEmailAndPassword(auth, email, password);
 
             navigate('/', { replace: true });
         } catch (error) {
@@ -70,7 +108,8 @@ export const useLogin = (): IUseLogin => {
     const handleSignUpWithCredentials = async (
         e: React.FormEvent<HTMLFormElement>,
         email: string,
-        password: string
+        password: string,
+        userName: string = ''
     ): Promise<void> => {
         e.preventDefault();
 
@@ -80,8 +119,16 @@ export const useLogin = (): IUseLogin => {
                 email,
                 password
             );
+
+            const { uid } = response.user;
+
+            await createNewUserInDb({
+                uid,
+                userName,
+                email
+            });
+
             navigate('/', { replace: true });
-            console.log('CREATE USER WITH EMAIL AND PW', response);
         } catch (error) {
             console.log('handleSignUpWithCredentials', error);
         }
@@ -91,6 +138,7 @@ export const useLogin = (): IUseLogin => {
         handleGoogleSignIn,
         handleUserLogout,
         handleSignInWithCredentials,
-        handleSignUpWithCredentials
+        handleSignUpWithCredentials,
+        isLoading
     };
 };

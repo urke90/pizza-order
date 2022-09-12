@@ -1,0 +1,16 @@
+@import '../assets/scss/colors';
+
+.footer {
+    display: flex;
+    color: $orange;
+    background-color: $dark;
+    padding: 10px 16px;
+    flex: 0 0 auto;
+    &__container {
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1260px;
+    }
+}

@@ -7,6 +7,7 @@ import { saveUser, removeUser } from 'redux/reducers/authReducer';
 import RoutesComponent from 'router/Routes';
 
 import Header from 'layout/Header';
+import Footer from 'layout/Footer';
 
 import './App.scss';
 
@@ -36,6 +37,7 @@ function App() {
         <div className="app__container">
             {pathname !== '/login' && <Header />}
             <RoutesComponent />
+            {pathname !== '/login' && <Footer />}
         </div>
     );
 }

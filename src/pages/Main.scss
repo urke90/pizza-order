@@ -3,7 +3,10 @@
 .main {
     background-color: $black;
     color: $orange;
+    display: flex;
+    flex: 1 1 auto;
     &__container {
+        width: 100%;
         max-width: 1260px;
         margin: 0px auto 0;
     }
@@ -21,7 +24,6 @@
     &__recipe--display-block {
         display: block;
     }
-
     &__ingredients {
         display: none;
         width: 100%;
@@ -37,14 +39,13 @@
             display: flex;
         }
         &__pizzas-list-wrapper {
-            // border: 1px solid yellow;
-            width: 27%;
+            width: 30%;
         }
         &__recipe {
-            width: 38%;
+            width: 40%;
         }
         &__ingredients {
-            width: 35%;
+            width: 30%;
         }
     }
     @media screen and (min-width: 1024px) {

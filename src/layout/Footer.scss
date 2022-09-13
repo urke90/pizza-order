@@ -1,0 +1,33 @@
+@import '../assets/scss/colors';
+
+.footer {
+    display: flex;
+    color: $orange;
+    background-color: $dark;
+    padding: 10px 16px;
+    height: 63px;
+    &__container {
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1260px;
+    }
+    &__link {
+        display: flex;
+        margin: 0 10px;
+    }
+    &__link-icon {
+        font-size: 17px;
+    }
+    @media screen and (min-width: 768px) {
+        height: 73px;
+        &__link {
+            font-size: 17px;
+            height: 20px;
+        }
+        &__link-icon {
+            font-size: 19px;
+        }
+    }
+}

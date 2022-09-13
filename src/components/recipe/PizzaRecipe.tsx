@@ -35,7 +35,7 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                 <img src={imageUrl} alt={title} />
             </div>
             <div className="recipe__link">
-                <a href={sourceUrl} target="_blank" rel="noopener">
+                <a href={sourceUrl} target="_blank" rel="noreferrer noopener">
                     Chech the recipe online
                 </a>
             </div>

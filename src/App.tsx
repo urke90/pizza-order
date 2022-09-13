@@ -34,7 +34,7 @@ function App() {
     });
 
     return (
-        <div className="app__container">
+        <div className="app">
             {pathname !== '/login' && <Header />}
             <RoutesComponent />
             {pathname !== '/login' && <Footer />}

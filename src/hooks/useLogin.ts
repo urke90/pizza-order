@@ -42,7 +42,7 @@ export const useLogin = (): IUseLogin => {
     const createNewUserInDb = useCallback(async (userData: ICreatedUser) => {
         const dbRef = ref(db);
 
-        const { uid, userName, email } = userData;
+        const { uid, userName, email, imageUrl } = userData;
 
         try {
             const existingUser = await get(child(dbRef, `users/${uid}`));
@@ -50,7 +50,7 @@ export const useLogin = (): IUseLogin => {
                 const createdUser: ICreatedUser = {
                     userName,
                     email,
-                    imageUrl: '',
+                    imageUrl,
                     uid
                 };
                 await set(ref(db, 'users/' + uid), createdUser);
@@ -64,28 +64,33 @@ export const useLogin = (): IUseLogin => {
         const provider = new GoogleAuthProvider();
 
         try {
+            setIsLoading(true);
             const response = await signInWithPopup(auth, provider);
-
-            const { displayName, uid, email } = response.user;
+            const { displayName, uid, email, photoURL } = response.user;
 
             await createNewUserInDb({
                 uid,
                 userName: displayName ? displayName : '',
-                email: email ? email : ''
+                email: email ? email : '',
+                imageUrl: photoURL ? photoURL : ''
             });
-
             navigate('/', { replace: true });
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     };
 
     const handleUserLogout = async (): Promise<void> => {
         try {
+            setIsLoading(true);
             await signOut(auth);
             navigate('/login', { replace: true });
+            setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            console.log('error sign out', error);
+            setIsLoading(false);
         }
     };
 
@@ -97,11 +102,13 @@ export const useLogin = (): IUseLogin => {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             await signInWithEmailAndPassword(auth, email, password);
-
             navigate('/', { replace: true });
+            setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            console.log('error with sign in with credentials', error);
+            setIsLoading(false);
         }
     };
 
@@ -114,6 +121,7 @@ export const useLogin = (): IUseLogin => {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const response = await createUserWithEmailAndPassword(
                 auth,
                 email,
@@ -125,12 +133,15 @@ export const useLogin = (): IUseLogin => {
             await createNewUserInDb({
                 uid,
                 userName,
-                email
+                email,
+                imageUrl: ''
             });
 
             navigate('/', { replace: true });
+            setIsLoading(false);
         } catch (error) {
             console.log('handleSignUpWithCredentials', error);
+            setIsLoading(false);
         }
     };
 

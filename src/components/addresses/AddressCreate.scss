@@ -1,0 +1,9 @@
+@import '../../assets/scss/colors';
+
+.address-create {
+    min-width: 260px;
+    padding: 20px;
+    &__form-control {
+        margin-bottom: 16px;
+    }
+}

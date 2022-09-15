@@ -1,17 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IAddress } from 'ts/address';
 
 interface IInitialState {
     addresses: IAddress[];
     isLoading: boolean;
     error: string | null;
-}
-
-interface IAddress {
-    id: string;
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string | number;
 }
 
 const initialState: IInitialState = {

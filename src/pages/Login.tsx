@@ -45,7 +45,7 @@ const Login: React.FC = () => {
                                     name="name"
                                     label="Name"
                                     placeholder="Name"
-                                    onChange={setName}
+                                    onChange={(e) => setName(e.target.value)}
                                     initValue={name}
                                 />
                             </div>
@@ -58,7 +58,7 @@ const Login: React.FC = () => {
                                 name="email"
                                 label="Email"
                                 placeholder="Email"
-                                onChange={setEmail}
+                                onChange={(e) => setName(e.target.value)}
                                 initValue={email}
                             />
                         </div>
@@ -69,7 +69,7 @@ const Login: React.FC = () => {
                                 name="password"
                                 label="Password"
                                 placeholder="Password"
-                                onChange={setPassword}
+                                onChange={(e) => setName(e.target.value)}
                                 initValue={password}
                             />
                         </div>

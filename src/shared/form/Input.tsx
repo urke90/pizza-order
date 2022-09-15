@@ -11,7 +11,9 @@ interface IInputProps {
     textarea?: boolean;
     rows?: number;
     cols?: number;
-    onChange?: (value: any) => void;
+    onChange?: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
     initValue?: string | number;
 }
 
@@ -41,7 +43,10 @@ const Input: React.FC<IInputProps> = ({
                     rows={rows}
                     placeholder={placeholder}
                     onChange={
-                        onChange ? (e) => onChange(e.target.value) : () => {}
+                        onChange
+                            ? (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                                  onChange(e)
+                            : () => {}
                     }
                 ></textarea>
             </div>
@@ -76,7 +81,12 @@ const Input: React.FC<IInputProps> = ({
                 id={id}
                 name={name}
                 placeholder={placeholder}
-                onChange={onChange ? (e) => onChange(e.target.value) : () => {}}
+                onChange={
+                    onChange
+                        ? (e: React.ChangeEvent<HTMLInputElement>) =>
+                              onChange(e)
+                        : () => {}
+                }
                 value={initValue ? initValue : ''}
             />
         </div>

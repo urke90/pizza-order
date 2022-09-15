@@ -34,9 +34,6 @@ p {
 }
 
 .app {
-    // height: calc(100% - 126px);
-    // min-height: calc(100% - 126px);
-    background-color: red;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -44,9 +41,13 @@ p {
     min-height: 100vh;
 }
 
-/*
- header small 63 ==> big ===> 73 px
-*/
+.addresses,
+.cart,
+.main {
+    background-color: $black;
+    color: $orange;
+    flex: 1 1 auto;
+}
 
 .ellipsis {
     overflow: hidden;

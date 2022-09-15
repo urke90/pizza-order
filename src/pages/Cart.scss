@@ -4,12 +4,17 @@
     background-color: $black;
     color: $orange;
     border: 1px solid blue;
+    flex: 1 1 auto;
     &__header {
         text-align: center;
         padding: 20px;
     }
     &__container {
         padding: 0 20px;
+    }
+    &__actions {
+        text-align: center;
+        margin: 10px 0 20px;
     }
     @media screen and (min-width: 768px) {
         &__list {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-
+import { createCartOrder } from 'redux/actions/cart-actions';
 import { ICartItem } from 'ts/orders';
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -7,10 +7,14 @@ interface IInitialState {
     cart: {
         [key: string]: ICartItem;
     };
+    isLoading: boolean;
+    error: string | null;
 }
 
 const initialState: IInitialState = {
-    cart: {}
+    cart: {},
+    isLoading: false,
+    error: null
 };
 
 export const emptyCartItem: ICartItem = {
@@ -123,6 +127,27 @@ const cartSlice = createSlice({
                 state.cart[pizzaId].quantity--;
             }
         }
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(createCartOrder.pending, (state, action) => {
+                console.log('pending');
+                state.isLoading = true;
+            })
+            .addCase(createCartOrder.fulfilled, (state, action) => {
+                console.log('fulfilled');
+                console.log(
+                    'FULFILLED ACTION PAYLOAD WHEN CREATE CART ORDER DISP',
+                    action
+                );
+
+                state.isLoading = false;
+            })
+            .addCase(createCartOrder.rejected, (state, action) => {
+                console.log('rejected');
+                state.isLoading = false;
+                // state.error =
+            });
     }
 });
 

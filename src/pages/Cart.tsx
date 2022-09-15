@@ -1,16 +1,27 @@
 import CartItem from 'components/cart/CartItem';
-import { useAppSelector } from 'hooks/useRedux';
+import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
+import { createCartOrder } from 'redux/actions/cart-actions';
 
+import Button from 'shared/form/Button';
 import './Cart.scss';
 
 interface ICartProps {}
 
 const Cart: React.FC<ICartProps> = () => {
+    const dispatch = useAppDispatch();
     const cart = useAppSelector((state) => state.cartReducer.cart);
+    const uid = useAppSelector((state) => state.authReducer.uid);
 
     console.log('cart', cart);
 
     const cartItems = Object.values(cart);
+
+    const handleCreateOrder = () => {
+        const cartItems = Object.values(cart);
+        console.log('cartItems', cartItems);
+
+        dispatch(createCartOrder({ uid, cartItems }));
+    };
 
     // console.log('cartItems', cartItems);
     return (
@@ -27,6 +38,13 @@ const Cart: React.FC<ICartProps> = () => {
                         ))}
                 </ul>
             </div>
+            {cartItems.length && (
+                <div className="cart__actions">
+                    <Button type="button" onClick={handleCreateOrder}>
+                        Create order
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

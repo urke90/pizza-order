@@ -19,5 +19,9 @@ export const NAVLINKS_CONFIG: INavLinksConfig[] = [
     {
         to: '/cart',
         text: 'cart'
+    },
+    {
+        to: '/addresses',
+        text: 'addresses'
     }
 ];

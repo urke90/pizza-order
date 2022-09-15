@@ -80,7 +80,7 @@ const AddressCreate: React.FC<AddressCreateProps> = () => {
                 className="address-create__form"
                 onSubmit={handleSubmitAddress}
             >
-                {ADDRESS_INPUTS_CONFIG &&
+                {/* {ADDRESS_INPUTS_CONFIG &&
                     ADDRESS_INPUTS_CONFIG.map(
                         ({ type, name, id, placeholder, label }) => (
                             <div className="address-create__form-control">
@@ -92,11 +92,11 @@ const AddressCreate: React.FC<AddressCreateProps> = () => {
                                     placeholder={placeholder}
                                     label={label}
                                     onChange={handleChangeAddress}
-                                    initValue={address[name]}
+                                    value={address[name]}
                                 />
                             </div>
                         )
-                    )}
+                    )} */}
             </form>
         </div>
     );

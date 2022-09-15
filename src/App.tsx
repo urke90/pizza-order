@@ -11,7 +11,7 @@ import Footer from 'layout/Footer';
 
 import './App.scss';
 
-function App() {
+const App = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
 
@@ -19,7 +19,7 @@ function App() {
         if (user) {
             // user is logged in
 
-            console.log('user in APP COMPONENET', user);
+            // console.log('user in APP COMPONENET', user);
 
             dispatch(
                 saveUser({
@@ -40,7 +40,7 @@ function App() {
             {pathname !== '/login' && <Footer />}
         </div>
     );
-}
+};
 
 //https://forkify-api.herokuapp.com/
 

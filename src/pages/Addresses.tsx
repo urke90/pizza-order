@@ -1,8 +1,44 @@
-import React from 'react';
+import { useState } from 'react';
+import Button from 'shared/form/Button';
+import Modal from 'shared/ui/Modal';
+// import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Addresses.scss';
 
 const Addresses: React.FC = () => {
-    return <div className="addresses">Addresses Page</div>;
+    const [showModal, setShowModal] = useState(false);
+
+    const addNewAddress = () => {
+        console.log('add address button clicked ');
+        setShowModal(true);
+    };
+
+    return (
+        <div className="addresses">
+            {showModal && (
+                <Modal
+                    headerTitle="Add New Address"
+                    onClose={() => setShowModal(false)}
+                >
+                    <p>ADD ADDRESS MODAL</p>
+                </Modal>
+            )}
+            <header className="addresses__header">
+                <h2>Addresses</h2>
+            </header>
+            <div className="addresses__container">
+                <div className="addresses__button-add">
+                    <Button type="button" onClick={addNewAddress}>
+                        Add address
+                    </Button>
+                </div>
+                <ul className="addresses__list">
+                    <li>address 1</li>
+                    <li>address 2</li>
+                    <li>address 3</li>
+                </ul>
+            </div>
+        </div>
+    );
 };
 export default Addresses;

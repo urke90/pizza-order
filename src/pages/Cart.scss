@@ -1,10 +1,6 @@
 @import '../assets/scss/colors';
 
 .cart {
-    background-color: $black;
-    color: $orange;
-    border: 1px solid blue;
-    flex: 1 1 auto;
     &__header {
         text-align: center;
         padding: 20px;

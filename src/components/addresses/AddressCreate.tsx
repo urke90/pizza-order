@@ -62,9 +62,6 @@ const AddressCreate: React.FC<AddressCreateProps> = () => {
     const handleChangeAddress = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        // console.log('handleChangeAddress', e);
-        // console.log('handleChangeAddress targe', e.target);
-        // console.log('handleChangeAddress name', e.target.name);
         console.log('handleChangeAddress value', e.target.value);
 
         setAddress((prevAddress) => ({

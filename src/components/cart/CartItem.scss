@@ -33,6 +33,10 @@
         justify-content: space-between;
         width: 62%;
     }
+    &__list-ingredients {
+        max-height: 340px;
+        overflow-y: scroll;
+    }
     &__title {
         margin-bottom: 10px;
     }

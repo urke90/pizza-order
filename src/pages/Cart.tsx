@@ -38,11 +38,13 @@ const Cart: React.FC<ICartProps> = () => {
                         ))}
                 </ul>
             </div>
-            <div className="cart__actions">
-                <Button type="button" onClick={handleCreateOrder}>
-                    Create order
-                </Button>
-            </div>
+            {cartItems.length && (
+                <div className="cart__actions">
+                    <Button type="button" onClick={handleCreateOrder}>
+                        Create order
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

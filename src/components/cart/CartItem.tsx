@@ -70,8 +70,8 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                     </div>
                 </div>
             </div>
-            <h4 className="cart-item__title--ingredients">Ingredients:</h4>
-            <ul className="cart-item__list--ingredients">
+            <h4 className="cart-item__title-ingredients">Ingredients:</h4>
+            <ul className="cart-item__list-ingredients">
                 {ingredientsToRender &&
                     ingredientsToRender.length &&
                     ingredientsToRender.map((ing) => (

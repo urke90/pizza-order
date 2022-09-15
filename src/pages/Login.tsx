@@ -46,11 +46,10 @@ const Login: React.FC = () => {
                                     label="Name"
                                     placeholder="Name"
                                     onChange={(e) => setName(e.target.value)}
-                                    initValue={name}
+                                    value={name}
                                 />
                             </div>
                         )}
-
                         <div className="login__form-control">
                             <Input
                                 id="email"
@@ -59,7 +58,7 @@ const Login: React.FC = () => {
                                 label="Email"
                                 placeholder="Email"
                                 onChange={(e) => setName(e.target.value)}
-                                initValue={email}
+                                value={email}
                             />
                         </div>
                         <div className="login__form-control">
@@ -69,8 +68,10 @@ const Login: React.FC = () => {
                                 name="password"
                                 label="Password"
                                 placeholder="Password"
-                                onChange={(e) => setName(e.target.value)}
-                                initValue={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                // isValid={false}
+                                errorMessage="Password must be at least 8 characters long!"
                             />
                         </div>
                         <Button

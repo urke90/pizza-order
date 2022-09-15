@@ -11,10 +11,12 @@ interface IInputProps {
     textarea?: boolean;
     rows?: number;
     cols?: number;
-    onChange?: (
+    onChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
-    initValue?: string | number;
+    value: string | number;
+    isValid?: boolean;
+    errorMessage?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -27,68 +29,66 @@ const Input: React.FC<IInputProps> = ({
     rows = 3,
     cols = 3,
     onChange,
-    initValue
+    value,
+    isValid = true,
+    errorMessage
 }) => {
     if (textarea) {
         return (
             <div className="input">
-                <label className="input__label" htmlFor={id}>
+                <label
+                    className={`input__label ${
+                        !isValid ? 'input__label--invalid' : ''
+                    }`}
+                    htmlFor={id}
+                >
                     {label}
                 </label>
                 <textarea
-                    className="input__textarea input__element"
+                    className={`input__textarea input__element ${
+                        !isValid ? 'input__element--invalid' : ''
+                    }`}
                     id={id}
                     name={name}
                     cols={cols}
                     rows={rows}
                     placeholder={placeholder}
-                    onChange={
-                        onChange
-                            ? (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                                  onChange(e)
-                            : () => {}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        onChange(e)
                     }
                 ></textarea>
+                {!isValid && (
+                    <p className="input__text--error">{errorMessage}</p>
+                )}
             </div>
         );
     }
-
-    // if (type === 'number') {
-    //     return (
-    //         <div className="input">
-    //             <label className="input__label" htmlFor={id}>
-    //                 {label}
-    //             </label>
-    //             <input
-    //                 className="input__element"
-    //                 type={type}
-    //                 id={id}
-    //                 name={name}
-    //                 placeholder={placeholder}
-    //             />
-    //         </div>
-    //     );
-    // }
+    console.log('isValid', isValid);
 
     return (
         <div className="input">
-            <label className="input__label" htmlFor={id}>
+            <label
+                className={`input__label ${
+                    !isValid ? 'input__label--invalid' : ''
+                }`}
+                htmlFor={id}
+            >
                 {label}
             </label>
             <input
-                className="input__element"
+                className={`input__element ${
+                    !isValid ? 'input__element--invalid' : ''
+                }`}
                 type={type}
                 id={id}
                 name={name}
                 placeholder={placeholder}
-                onChange={
-                    onChange
-                        ? (e: React.ChangeEvent<HTMLInputElement>) =>
-                              onChange(e)
-                        : () => {}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    onChange(e)
                 }
-                value={initValue ? initValue : ''}
+                value={value ? value : ''}
             />
+            {!isValid && <p className="input__text--error">{errorMessage}</p>}
         </div>
     );
 };

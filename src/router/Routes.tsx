@@ -4,8 +4,8 @@ import Main from 'pages/Main';
 import Login from 'pages/Login';
 import Orders from 'pages/Orders';
 import CustomPizza from 'pages/CustomPizza';
+import Addresses from 'pages/Addresses';
 import Cart from 'pages/Cart';
-import React from 'react';
 
 interface IRoutesConfig {
     name: string;
@@ -38,6 +38,11 @@ const ROUTES_CONFIG: IRoutesConfig[] = [
         name: 'Cart',
         path: 'cart',
         component: <Cart />
+    },
+    {
+        name: 'Addresses',
+        path: 'addresses',
+        component: <Addresses />
     },
     {
         name: 'Not-Found',

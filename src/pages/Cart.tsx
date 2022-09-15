@@ -38,7 +38,7 @@ const Cart: React.FC<ICartProps> = () => {
                         ))}
                 </ul>
             </div>
-            {cartItems.length && (
+            {cartItems.length > 0 && (
                 <div className="cart__actions">
                     <Button type="button" onClick={handleCreateOrder}>
                         Create order

@@ -14,7 +14,7 @@ interface IInputProps {
     onChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
-    value: string | number;
+    value: string;
     isValid?: boolean;
     errorMessage?: string;
 }
@@ -63,7 +63,6 @@ const Input: React.FC<IInputProps> = ({
             </div>
         );
     }
-    console.log('isValid', isValid);
 
     return (
         <div className="input">

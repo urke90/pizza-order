@@ -45,11 +45,6 @@ const reducer = (state: IFormState, action: TUseFormActions) => {
                 ({ isValid }) => isValid === true
             );
 
-            console.log(
-                'newState.formIsValid IN REDUCER FUNC',
-                newState.formIsValid
-            );
-
             return newState;
         }
         case TUseFormActionTypes.SET_INPUTS: {

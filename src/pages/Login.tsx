@@ -34,10 +34,6 @@ const Login: React.FC = () => {
         }
     }, [isSignUpMode, setInputFields]);
 
-    useEffect(() => {
-        console.log('state FORM IS VALID IN LOGIN ', state.formIsValid);
-    }, [state]);
-
     // const handleSubmit = isSignUpMode
     //     ? (e: React.FormEvent<HTMLFormElement>) =>
     //           handleSignUpWithCredentials(e, email, password, name)
@@ -52,7 +48,7 @@ const Login: React.FC = () => {
     return (
         <>
             {isLoading && <LoadingSpinner asOverlay />}
-            <div className="login">
+            <section className="login">
                 <div className="login__window">
                     <h1 className="login__heading">
                         {isSignUpMode ? 'Sign up' : 'Sign in'}
@@ -102,7 +98,6 @@ const Login: React.FC = () => {
                             />
                         </div>
                         <Button
-                            onClick={() => {}}
                             type="submit"
                             secondary
                             width="100%"
@@ -136,7 +131,7 @@ const Login: React.FC = () => {
                         </div>
                     </form>
                 </div>
-            </div>
+            </section>
         </>
     );
 };

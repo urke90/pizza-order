@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
-import AddressCreate from 'components/addresses/AddressCreate';
+import AddressCreateEdit from 'components/addresses/AddressCreate';
 // import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Addresses.scss';
 
 const Addresses: React.FC = () => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     const addNewAddress = () => {
         console.log('add address button clicked ');
@@ -21,7 +21,7 @@ const Addresses: React.FC = () => {
                     headerTitle="Add New Address"
                     onClose={() => setShowModal(false)}
                 >
-                    <AddressCreate />
+                    <AddressCreateEdit />
                 </Modal>
             )}
             <header className="addresses__header">

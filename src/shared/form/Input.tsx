@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Input.scss';
 
@@ -34,12 +34,18 @@ const Input: React.FC<IInputProps> = ({
     isValid = true,
     errorMessage
 }) => {
+    const [isTouched, setIsTouced] = useState(false);
+
+    const blurInputHandler = () => {
+        setIsTouced(true);
+    };
+
     if (textarea) {
         return (
             <div className="input">
                 <label
                     className={`input__label ${
-                        !isValid ? 'input__label--invalid' : ''
+                        !isValid && isTouched ? 'input__label--invalid' : ''
                     }`}
                     htmlFor={id}
                 >
@@ -47,7 +53,7 @@ const Input: React.FC<IInputProps> = ({
                 </label>
                 <textarea
                     className={`input__textarea input__element ${
-                        !isValid ? 'input__element--invalid' : ''
+                        !isValid && isTouched ? 'input__element--invalid' : ''
                     }`}
                     id={id}
                     name={name}
@@ -57,8 +63,10 @@ const Input: React.FC<IInputProps> = ({
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                         onChange(e)
                     }
+                    onBlur={blurInputHandler}
+                    value={value}
                 ></textarea>
-                {!isValid && (
+                {!isValid && isTouched && (
                     <p className="input__text--error">{errorMessage}</p>
                 )}
             </div>
@@ -69,7 +77,7 @@ const Input: React.FC<IInputProps> = ({
         <div className="input">
             <label
                 className={`input__label ${
-                    !isValid ? 'input__label--invalid' : ''
+                    !isValid && isTouched ? 'input__label--invalid' : ''
                 }`}
                 htmlFor={id}
             >
@@ -77,7 +85,7 @@ const Input: React.FC<IInputProps> = ({
             </label>
             <input
                 className={`input__element ${
-                    !isValid ? 'input__element--invalid' : ''
+                    !isValid && isTouched ? 'input__element--invalid' : ''
                 }`}
                 type={type}
                 id={id}
@@ -87,8 +95,11 @@ const Input: React.FC<IInputProps> = ({
                     onChange(e)
                 }
                 value={value ? value : ''}
+                onBlur={blurInputHandler}
             />
-            {!isValid && <p className="input__text--error">{errorMessage}</p>}
+            {!isValid && isTouched && (
+                <p className="input__text--error">{errorMessage}</p>
+            )}
         </div>
     );
 };

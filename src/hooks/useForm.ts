@@ -1,4 +1,5 @@
 import { useReducer, useCallback } from 'react';
+import { validateInput } from 'validators/validators';
 import { IFormState } from 'ts/form';
 
 /**
@@ -21,7 +22,7 @@ type TUseFormActions =
       }
     | {
           type: TUseFormActionTypes.SET_INPUTS;
-          payload: { inputs: IFormState };
+          payload: IFormState;
       };
 
 const reducer = (state: IFormState, action: TUseFormActions) => {
@@ -44,12 +45,15 @@ const reducer = (state: IFormState, action: TUseFormActions) => {
                 ({ isValid }) => isValid === true
             );
 
+            console.log(
+                'newState.formIsValid IN REDUCER FUNC',
+                newState.formIsValid
+            );
+
             return newState;
         }
         case TUseFormActionTypes.SET_INPUTS: {
-            return {
-                ...state
-            };
+            return action.payload;
         }
 
         default:
@@ -62,6 +66,7 @@ interface IUseForm {
     handleInputChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
+    setInputFields: (inputFields: IFormState) => void;
 }
 
 export const useForm = (formSchema: IFormState): IUseForm => {
@@ -71,7 +76,7 @@ export const useForm = (formSchema: IFormState): IUseForm => {
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const name = e.target.name;
             const value = e.target.value;
-            const isValid = true;
+            const isValid = validateInput(value, name);
 
             dispatch({
                 type: TUseFormActionTypes.CHANGE_INPUT_VALUE,
@@ -81,10 +86,16 @@ export const useForm = (formSchema: IFormState): IUseForm => {
         []
     );
 
-    const setInputFields = useCallback(() => {}, []);
+    const setInputFields = useCallback((inputFields: IFormState) => {
+        dispatch({
+            type: TUseFormActionTypes.SET_INPUTS,
+            payload: inputFields
+        });
+    }, []);
 
     return {
         state,
-        handleInputChange
+        handleInputChange,
+        setInputFields
     };
 };

@@ -33,6 +33,7 @@
         border: 2px solid $red;
         &::placeholder {
             color: $red;
+            font-size: 12px;
         }
     }
     &__text--error {
@@ -58,7 +59,11 @@
         &__element {
             font-size: 16px;
             padding: 6px;
+            &::placeholder {
+                font-size: 12px;
+            }
         }
+
         &__text--error {
             color: $red;
             font-size: 14px;

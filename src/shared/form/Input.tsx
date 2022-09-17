@@ -17,6 +17,7 @@ interface IInputProps {
     value: string;
     isValid?: boolean;
     errorMessage?: string;
+    validators?: boolean[];
 }
 
 const Input: React.FC<IInputProps> = ({

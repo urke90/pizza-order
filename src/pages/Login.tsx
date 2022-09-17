@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
 import { useForm } from 'hooks/useForm';
-import { IFormState } from 'ts/form';
+import { loginForm, signupForm } from 'util/form-data';
 
 import Input from 'shared/form/Input';
 import Button from 'shared/form/Button';
@@ -10,44 +10,33 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Login.scss';
 
-const loginFormSkelet: IFormState = {
-    inputs: {
-        name: {
-            value: '',
-            isValid: false
-        },
-        email: {
-            value: '',
-            isValid: false
-        },
-        password: {
-            value: '',
-            isValid: false
-        }
-    },
-    formIsValid: false
-};
-
 const Login: React.FC = () => {
     const [isSignUpMode, setSignUpMode] = useState(false);
-    const [name, setName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+    const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
     const {
         handleGoogleSignIn,
         handleSignInWithCredentials,
         handleSignUpWithCredentials,
         isLoading
     } = useLogin();
-    const { state, handleInputChange } = useForm(loginFormSkelet);
+
+    const { state, handleInputChange, setInputFields } = useForm(loginForm);
     const {
         formIsValid,
         inputs: { email, password }
     } = state;
 
-    const bla = email.value;
+    useEffect(() => {
+        if (isSignUpMode) {
+            setInputFields(signupForm);
+        } else {
+            setInputFields(loginForm);
+        }
+    }, [isSignUpMode, setInputFields]);
 
-    const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
+    useEffect(() => {
+        console.log('state FORM IS VALID IN LOGIN ', state.formIsValid);
+    }, [state]);
 
     // const handleSubmit = isSignUpMode
     //     ? (e: React.FormEvent<HTMLFormElement>) =>
@@ -59,10 +48,6 @@ const Login: React.FC = () => {
         e.preventDefault();
         console.log('state in LOGIN ', state);
     };
-
-    useEffect(() => {
-        console.log('bla', bla);
-    }, [bla]);
 
     return (
         <>
@@ -78,11 +63,15 @@ const Login: React.FC = () => {
                                 <Input
                                     id="name"
                                     type="text"
-                                    name="name"
+                                    name="userName"
                                     label="Name"
                                     placeholder="Name"
-                                    onChange={(e) => setName(e.target.value)}
-                                    value={name}
+                                    onChange={handleInputChange}
+                                    value={state.inputs.name?.value || ''}
+                                    isValid={
+                                        state.inputs.name?.isValid || false
+                                    }
+                                    errorMessage="Name must be at least 3 characters long!"
                                 />
                             </div>
                         )}
@@ -95,7 +84,8 @@ const Login: React.FC = () => {
                                 placeholder="Email"
                                 onChange={handleInputChange}
                                 value={email.value}
-                                errorMessage="Email address is not correct!"
+                                isValid={email.isValid}
+                                errorMessage="Email address is not valid!"
                             />
                         </div>
                         <div className="login__form-control">
@@ -107,8 +97,8 @@ const Login: React.FC = () => {
                                 placeholder="Password"
                                 onChange={handleInputChange}
                                 value={password.value}
-                                // isValid={false}
-                                errorMessage="Password must be at least 8 characters long!"
+                                isValid={password.isValid}
+                                errorMessage="Password must be at least 6 characters long!"
                             />
                         </div>
                         <Button
@@ -116,7 +106,7 @@ const Login: React.FC = () => {
                             type="submit"
                             secondary
                             width="100%"
-                            disabled={isLoading}
+                            disabled={!formIsValid}
                         >
                             {isSignUpMode ? 'sign up' : 'sign in'}
                         </Button>

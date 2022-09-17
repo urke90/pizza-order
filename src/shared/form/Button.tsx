@@ -28,6 +28,8 @@ const Button: React.FC<IButtonProps> = ({
     width,
     secondary
 }) => {
+    console.log('disabled', disabled);
+
     return (
         <button
             className={`button ${disabled ? 'button--disabled' : ''}`}

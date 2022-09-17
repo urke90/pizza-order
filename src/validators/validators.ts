@@ -28,7 +28,7 @@ export const validateInput = (value: string, name: string): boolean => {
             return HAS_MIN_LENGTH(3, value);
         }
         case addressKey: {
-            return HAS_MIN_LENGTH(4, value);
+            return IS_REQUIRED(value);
         }
 
         default:

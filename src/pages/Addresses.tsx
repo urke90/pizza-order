@@ -7,7 +7,7 @@ import AddressCreateEdit from 'components/addresses/AddressCreate';
 import './Addresses.scss';
 
 const Addresses: React.FC = () => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     const addNewAddress = () => {
         console.log('add address button clicked ');

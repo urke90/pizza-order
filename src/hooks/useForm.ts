@@ -57,7 +57,7 @@ const reducer = (state: IFormState, action: TUseFormActions) => {
 };
 
 interface IUseForm {
-    state: IFormState;
+    formState: IFormState;
     handleInputChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
@@ -65,13 +65,15 @@ interface IUseForm {
 }
 
 export const useForm = (formSchema: IFormState): IUseForm => {
-    const [state, dispatch] = useReducer(reducer, formSchema);
+    const [formState, dispatch] = useReducer(reducer, formSchema);
 
     const handleInputChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const name = e.target.name;
             const value = e.target.value;
             const isValid = validateInput(value, name);
+
+            console.log('handleInputChange USE FORM');
 
             dispatch({
                 type: TUseFormActionTypes.CHANGE_INPUT_VALUE,
@@ -89,7 +91,7 @@ export const useForm = (formSchema: IFormState): IUseForm => {
     }, []);
 
     return {
-        state,
+        formState,
         handleInputChange,
         setInputFields
     };

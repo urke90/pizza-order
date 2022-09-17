@@ -2,8 +2,16 @@
 
 .address-create {
     min-width: 260px;
-    padding: 20px;
+    padding: 10px;
+    &__form {
+        padding: 0 14px;
+        max-height: 380px;
+        overflow-y: scroll;
+    }
     &__form-control {
         margin-bottom: 16px;
+    }
+    @media screen and (min-width: 481px) {
+        min-width: 320px;
     }
 }

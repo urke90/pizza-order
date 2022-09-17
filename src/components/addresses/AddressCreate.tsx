@@ -1,74 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import Input from 'shared/form/Input';
-
+import { useForm } from 'hooks/useForm';
+import { IFormState } from 'ts/form';
+import { ADDRESS_INPUTS_CONFIG } from 'config/address.config';
 import { IAddress } from 'ts/address';
+
+import Input from 'shared/form/Input';
 
 import './AddressCreate.scss';
 
-type AddressCreateProps = {};
+/**
+ * THIS WILL BE REUSABLE COMPONENT FOR CREATING AND UPDATING ADDRESS SO WE MUST BE ABLE TO SET INITIAL VALUES
+ * WE WILL NEED TO SAVE ADDRESS TO REDUX
+ * WE WILL NEED TO SABVE ADDRSS TO DB
+ * CONFIRM BUTTON WILL BE IN MODAL (PARRENT COMPONENT) so we will need to pass callback func to update fields ===>
+ * CALL useForm() in PARENT COMPONENT ?!?!??!?!?!??!
+ */
 
-interface IADDRESS_INPUTS_CONFIG {
-    type: 'text' | 'email' | 'hidden' | 'number' | 'password';
-    name: 'state' | 'city' | 'street' | 'zipCode';
-    id: string;
-    placeholder: string;
-    label: string;
-}
+interface IAddressCreateEditProps {}
 
-const ADDRESS_INPUTS_CONFIG: IADDRESS_INPUTS_CONFIG[] = [
-    {
-        type: 'text',
-        name: 'state',
-        id: 'state',
-        placeholder: 'State',
-        label: 'State'
+export const addressForm: IFormState = {
+    inputs: {
+        city: {
+            value: '',
+            isValid: false
+        },
+        zipCode: {
+            value: '',
+            isValid: false
+        },
+        street: {
+            value: '',
+            isValid: false
+        },
+        floor: {
+            value: '',
+            isValid: false
+        },
+        apartment: {
+            value: '',
+            isValid: false
+        },
+        phone: {
+            value: '',
+            isValid: false
+        }
     },
-    {
-        type: 'text',
-        name: 'city',
-        id: 'city',
-        placeholder: 'City',
-        label: 'City'
-    },
-    {
-        type: 'text',
-        name: 'street',
-        id: 'street',
-        placeholder: 'Street',
-        label: 'Street'
-    },
-    {
-        type: 'text',
-        name: 'zipCode',
-        id: 'zip',
-        placeholder: 'Zip/Postal code',
-        label: 'Zip/Postal code'
-    }
-];
+    formIsValid: false
+};
 
-const AddressCreate: React.FC<AddressCreateProps> = () => {
-    const [address, setAddress] = useState<IAddress>({
-        id: '',
-        state: '',
-        city: '',
-        street: '',
-        zipCode: ''
-    });
-
-    useEffect(() => {
-        console.log('address', address);
-    }, [address]);
-
-    const handleChangeAddress = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        console.log('handleChangeAddress value', e.target.value);
-
-        setAddress((prevAddress) => ({
-            ...prevAddress,
-            [e.target.name]: e.target.value
-        }));
-    };
+const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
+    const { formState, handleInputChange } = useForm(addressForm);
 
     const handleSubmitAddress = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -80,25 +61,39 @@ const AddressCreate: React.FC<AddressCreateProps> = () => {
                 className="address-create__form"
                 onSubmit={handleSubmitAddress}
             >
-                {/* {ADDRESS_INPUTS_CONFIG &&
+                {ADDRESS_INPUTS_CONFIG.length > 0 &&
                     ADDRESS_INPUTS_CONFIG.map(
-                        ({ type, name, id, placeholder, label }) => (
-                            <div className="address-create__form-control">
+                        ({
+                            type,
+                            name,
+                            id,
+                            placeholder,
+                            label,
+                            errorMessage
+                        }) => (
+                            <div
+                                key={id}
+                                className="address-create__form-control"
+                            >
                                 <Input
-                                    key={id}
                                     type={type}
                                     name={name}
                                     id={id}
                                     placeholder={placeholder}
                                     label={label}
-                                    onChange={handleChangeAddress}
-                                    value={address[name]}
+                                    onChange={handleInputChange}
+                                    value={formState.inputs[name].value}
+                                    isValid={formState.inputs[name].isValid}
+                                    errorMessage={errorMessage}
                                 />
                             </div>
                         )
-                    )} */}
+                    )}
+                <div>
+                    <button disabled={!formState.formIsValid}> aaaaa </button>
+                </div>
             </form>
         </div>
     );
 };
-export default AddressCreate;
+export default AddressCreateEdit;

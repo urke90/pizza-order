@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from 'hooks/useLogin';
 import { useForm } from 'hooks/useForm';
-import { loginForm, signupForm } from 'util/form-data';
+import { loginForm, signupForm } from 'config/form.config';
 
 import Input from 'shared/form/Input';
 import Button from 'shared/form/Button';
@@ -20,11 +20,11 @@ const Login: React.FC = () => {
         isLoading
     } = useLogin();
 
-    const { state, handleInputChange, setInputFields } = useForm(loginForm);
+    const { formState, handleInputChange, setInputFields } = useForm(loginForm);
     const {
         formIsValid,
         inputs: { email, password }
-    } = state;
+    } = formState;
 
     useEffect(() => {
         if (isSignUpMode) {
@@ -42,7 +42,7 @@ const Login: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('state in LOGIN ', state);
+        console.log('state in LOGIN ', formState);
     };
 
     return (
@@ -63,9 +63,9 @@ const Login: React.FC = () => {
                                     label="Name"
                                     placeholder="Name"
                                     onChange={handleInputChange}
-                                    value={state.inputs.name?.value || ''}
+                                    value={formState.inputs.name?.value || ''}
                                     isValid={
-                                        state.inputs.name?.isValid || false
+                                        formState.inputs.name?.isValid || false
                                     }
                                     errorMessage="Name must be at least 3 characters long!"
                                 />

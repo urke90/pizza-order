@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 import './Input.scss';
 
 interface IInputProps {
@@ -8,7 +6,7 @@ interface IInputProps {
     id: string;
     label: string;
     placeholder: string;
-    textarea?: boolean;
+    isTextarea?: boolean;
     rows?: number;
     cols?: number;
     onChange: (
@@ -17,7 +15,10 @@ interface IInputProps {
     value: string;
     isValid?: boolean;
     errorMessage?: string;
-    validators?: boolean[];
+    onBlur: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    isTouched: boolean;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -26,21 +27,17 @@ const Input: React.FC<IInputProps> = ({
     label,
     name,
     placeholder,
-    textarea = false,
+    isTextarea = false,
     rows = 3,
     cols = 3,
     onChange,
     value,
     isValid = true,
-    errorMessage
+    onBlur,
+    errorMessage,
+    isTouched
 }) => {
-    const [isTouched, setIsTouced] = useState(false);
-
-    const blurInputHandler = () => {
-        setIsTouced(true);
-    };
-
-    if (textarea) {
+    if (isTextarea) {
         return (
             <div className="input">
                 <label
@@ -63,7 +60,7 @@ const Input: React.FC<IInputProps> = ({
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                         onChange(e)
                     }
-                    onBlur={blurInputHandler}
+                    onBlur={onBlur}
                     value={value}
                 ></textarea>
                 {!isValid && isTouched && (
@@ -95,7 +92,7 @@ const Input: React.FC<IInputProps> = ({
                     onChange(e)
                 }
                 value={value ? value : ''}
-                onBlur={blurInputHandler}
+                onBlur={onBlur}
             />
             {!isValid && isTouched && (
                 <p className="input__text--error">{errorMessage}</p>

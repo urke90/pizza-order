@@ -3,6 +3,7 @@ export interface IFormState {
         [key: string]: {
             value: string;
             isValid: boolean;
+            isTouched: boolean;
         };
     };
     formIsValid: boolean;

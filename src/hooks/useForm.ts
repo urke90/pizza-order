@@ -2,17 +2,10 @@ import { useReducer, useCallback } from 'react';
 import { validateInput } from 'validators/validators';
 import { IFormState } from 'ts/form';
 
-/**
- * 1. moramo imati skelet sa inputima ( formIsValid ) => prop koji ce da enable/disable submit button
- * 2. moramo da validiramo inpute
- * 3. func koja ce da setuje vrednosti inputa, da prepoluate ako se radi neki update
- * 4. ako su svi inputi isValid onda formIsValid === true;
- * 5. func handleChange koju prosledjujem inputu za onChange
- */
-
 enum TUseFormActionTypes {
     CHANGE_INPUT_VALUE = 'CHANGE_INPUT_VALUE',
-    SET_INPUTS = 'SET_INPUTS'
+    SET_INPUTS = 'SET_INPUTS',
+    BLUR_INPUT = 'BLUR_INPUT'
 }
 
 type TUseFormActions =
@@ -23,6 +16,10 @@ type TUseFormActions =
     | {
           type: TUseFormActionTypes.SET_INPUTS;
           payload: IFormState;
+      }
+    | {
+          type: TUseFormActionTypes.BLUR_INPUT;
+          payload: string;
       };
 
 const reducer = (state: IFormState, action: TUseFormActions) => {
@@ -35,6 +32,7 @@ const reducer = (state: IFormState, action: TUseFormActions) => {
                 inputs: {
                     ...state.inputs,
                     [name]: {
+                        ...state.inputs[name],
                         value,
                         isValid
                     }
@@ -50,6 +48,19 @@ const reducer = (state: IFormState, action: TUseFormActions) => {
         case TUseFormActionTypes.SET_INPUTS: {
             return action.payload;
         }
+        case TUseFormActionTypes.BLUR_INPUT: {
+            const name = action.payload;
+            return {
+                ...state,
+                inputs: {
+                    ...state.inputs,
+                    [name]: {
+                        ...state.inputs[name],
+                        isTouched: true
+                    }
+                }
+            };
+        }
 
         default:
             return state;
@@ -62,6 +73,9 @@ interface IUseForm {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     setInputFields: (inputFields: IFormState) => void;
+    handleInputBlurEvent: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
 }
 
 export const useForm = (formSchema: IFormState): IUseForm => {
@@ -73,11 +87,19 @@ export const useForm = (formSchema: IFormState): IUseForm => {
             const value = e.target.value;
             const isValid = validateInput(value, name);
 
-            console.log('handleInputChange USE FORM');
-
             dispatch({
                 type: TUseFormActionTypes.CHANGE_INPUT_VALUE,
                 payload: { name, value, isValid }
+            });
+        },
+        []
+    );
+
+    const handleInputBlurEvent = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            dispatch({
+                type: TUseFormActionTypes.BLUR_INPUT,
+                payload: e.target.name
             });
         },
         []
@@ -93,6 +115,7 @@ export const useForm = (formSchema: IFormState): IUseForm => {
     return {
         formState,
         handleInputChange,
+        handleInputBlurEvent,
         setInputFields
     };
 };

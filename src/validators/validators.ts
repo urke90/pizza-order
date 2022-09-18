@@ -10,9 +10,13 @@ const HAS_MIN_LENGTH = (charNum: number, value: string): boolean =>
 const IS_REQUIRED = (value: string): boolean => value.trim().length >= 1;
 
 export const validateInput = (value: string, name: string): boolean => {
-    const addressKey = ['city', 'zipCode', 'street', 'floor', 'apartment'].find(
-        (item) => item === name
-    );
+    const addressProp = [
+        'city',
+        'zipCode',
+        'street',
+        'floor',
+        'apartment'
+    ].find((item) => item === name);
 
     switch (name) {
         case 'email': {
@@ -27,10 +31,9 @@ export const validateInput = (value: string, name: string): boolean => {
         case 'username': {
             return HAS_MIN_LENGTH(3, value);
         }
-        case addressKey: {
+        case addressProp: {
             return IS_REQUIRED(value);
         }
-
         default:
             return false;
     }

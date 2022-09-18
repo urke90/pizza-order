@@ -22,34 +22,41 @@ export const addressForm: IFormState = {
     inputs: {
         city: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         },
         zipCode: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         },
         street: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         },
         floor: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         },
         apartment: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         },
         phone: {
             value: '',
-            isValid: false
+            isValid: false,
+            isTouched: false
         }
     },
     formIsValid: false
 };
 
 const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
-    const { formState, handleInputChange } = useForm(addressForm);
+    const { formState, handleInputChange, handleInputBlurEvent } =
+        useForm(addressForm);
 
     const handleSubmitAddress = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -82,8 +89,10 @@ const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
                                     placeholder={placeholder}
                                     label={label}
                                     onChange={handleInputChange}
+                                    onBlur={handleInputBlurEvent}
                                     value={formState.inputs[name].value}
                                     isValid={formState.inputs[name].isValid}
+                                    isTouched={formState.inputs[name].isTouched}
                                     errorMessage={errorMessage}
                                 />
                             </div>

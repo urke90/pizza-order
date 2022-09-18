@@ -1,3 +1,4 @@
+import { generateClassName } from 'util/class-generators/input';
 import './Input.scss';
 
 interface IInputProps {
@@ -41,17 +42,21 @@ const Input: React.FC<IInputProps> = ({
         return (
             <div className="input">
                 <label
-                    className={`input__label ${
-                        !isValid && isTouched ? 'input__label--invalid' : ''
-                    }`}
+                    className={`input__label  ${generateClassName(
+                        isValid,
+                        isTouched,
+                        'input__label--invalid'
+                    )}`}
                     htmlFor={id}
                 >
                     {label}
                 </label>
                 <textarea
-                    className={`input__textarea input__element ${
-                        !isValid && isTouched ? 'input__element--invalid' : ''
-                    }`}
+                    className={`input__textarea input__element ${generateClassName(
+                        isValid,
+                        isTouched,
+                        'input__element--invalid'
+                    )}`}
                     id={id}
                     name={name}
                     cols={cols}
@@ -73,17 +78,21 @@ const Input: React.FC<IInputProps> = ({
     return (
         <div className="input">
             <label
-                className={`input__label ${
-                    !isValid && isTouched ? 'input__label--invalid' : ''
-                }`}
+                className={`input__label ${generateClassName(
+                    isValid,
+                    isTouched,
+                    'input__label--invalid'
+                )}`}
                 htmlFor={id}
             >
                 {label}
             </label>
             <input
-                className={`input__element ${
-                    !isValid && isTouched ? 'input__element--invalid' : ''
-                }`}
+                className={`input__element ${generateClassName(
+                    isValid,
+                    isTouched,
+                    'input__element--invalid'
+                )}`}
                 type={type}
                 id={id}
                 name={name}

@@ -3,6 +3,7 @@ export interface IAddress {
     city: string;
     street: string;
     zipCode: string;
-    floor: number;
-    apartment: number;
+    floor: string;
+    apartment: string;
+    phone: string;
 }

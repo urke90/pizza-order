@@ -4,13 +4,13 @@ import { createAddress } from 'redux/actions/address-actions';
 import { IAddress } from 'ts/address';
 
 interface IInitialState {
-    addresses: IAddress[];
+    addresses: { [key: string]: IAddress };
     isLoading: boolean;
     error: string | null;
 }
 
 const initialState: IInitialState = {
-    addresses: [],
+    addresses: {},
     isLoading: false,
     error: null
 };
@@ -25,14 +25,23 @@ const addressSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(createAddress.pending, (state, action) => {
-                console.log('pending action', action);
+            .addCase(createAddress.pending, (state) => {
+                state.isLoading = true;
             })
-            .addCase(createAddress.fulfilled, (state, action) => {
-                console.log('fulfilled, action', action);
-            })
+            .addCase(
+                createAddress.fulfilled,
+                (
+                    state,
+                    action: PayloadAction<{ data: IAddress; addressId: string }>
+                ) => {
+                    console.log('fulfilled, action', action);
+                    const { addressId, data } = action.payload;
+
+                    state.isLoading = false;
+                }
+            )
             .addCase(createAddress.rejected, (state, action) => {
-                console.log('pending action', action);
+                console.log('rejected action', action);
             });
     }
 });

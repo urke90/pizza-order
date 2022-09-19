@@ -4,6 +4,7 @@ import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
 import { uidSelector } from 'redux/reducers/authReducer';
 import { useAppDispatch } from 'hooks/useRedux';
+import { IAddress } from 'ts/address';
 import { createAddress } from 'redux/actions/address-actions';
 
 import Button from 'shared/form/Button';
@@ -57,21 +58,23 @@ const Addresses: React.FC = () => {
         useForm(addressFormCreate);
     const uid = useAppSelector(uidSelector);
 
-    console.log('uid in addresses', uid);
-
     const addNewAddress = () => {
-        // const data = {
-        //     ...formState,
-        //     id: ''
-        // };
+        const { city, zipCode, street, floor, apartment, phone } =
+            formState.inputs;
+
+        const data: IAddress = {
+            city: city.value,
+            zipCode: zipCode.value,
+            street: street.value,
+            floor: floor.value,
+            apartment: apartment.value,
+            phone: phone.value,
+            id: ''
+        };
         console.log('add address button clicked ');
-        dispatch(createAddress({ uid, data: formState }));
+        dispatch(createAddress({ uid, data }));
         handleToggleModal();
     };
-
-    useEffect(() => {
-        console.log('formState.inputs IN ADDDRESSES', formState.inputs);
-    }, [formState]);
 
     return (
         <div className="addresses">
@@ -80,7 +83,11 @@ const Addresses: React.FC = () => {
                 headerTitle="Add New Address"
                 onClose={handleToggleModal}
                 footer={
-                    <Button type="button" onClick={addNewAddress}>
+                    <Button
+                        type="button"
+                        onClick={addNewAddress}
+                        disabled={!formState.formIsValid}
+                    >
                         Confirm
                     </Button>
                 }

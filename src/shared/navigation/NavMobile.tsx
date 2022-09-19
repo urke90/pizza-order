@@ -1,31 +1,47 @@
-import { useLogin } from 'hooks/useLogin';
+import { NAVLINKS_CONFIG } from 'util/navlinks-data';
+
 import Button from 'shared/form/Button';
 import NavLinkCustom from 'shared/links/NavLink';
-import { NAVLINKS_CONFIG } from 'util/navlinks-data';
+import Backdrop from 'shared/ui/Backdrop';
 
 import './NavMobile.scss';
 
-type NavMobileProps = {};
+interface INavMobileProps {
+    opened: boolean;
+    onClick: () => void;
+    onLogout: () => Promise<void>;
+}
 
-const NavMobile: React.FC<NavMobileProps> = () => {
-    const { handleUserLogout } = useLogin();
+const NavMobile: React.FC<INavMobileProps> = ({
+    onClick,
+    opened,
+    onLogout
+}) => {
+    if (!opened) return null;
 
     return (
-        <ul className="navigation__list--mobile">
-            {NAVLINKS_CONFIG.map((navLink) => {
-                const { to, text } = navLink;
-                return (
-                    <li key={to} className="navigation__item--mobile">
-                        <NavLinkCustom to={to} text={text} />
-                    </li>
-                );
-            })}
-            <li className="navigation__item--mobile">
-                <Button type="button" width={160} onClick={handleUserLogout}>
-                    logout
-                </Button>
-            </li>
-        </ul>
+        <>
+            <Backdrop show={opened} onClose={onClick} />
+            <ul className="navigation__list--mobile">
+                {NAVLINKS_CONFIG.map((navLink) => {
+                    const { to, text } = navLink;
+                    return (
+                        <li
+                            key={to}
+                            className="navigation__item--mobile"
+                            onClick={onClick}
+                        >
+                            <NavLinkCustom to={to} text={text} />
+                        </li>
+                    );
+                })}
+                <li className="navigation__item--mobile">
+                    <Button type="button" width="100%" onClick={onLogout}>
+                        logout
+                    </Button>
+                </li>
+            </ul>
+        </>
     );
 };
 export default NavMobile;

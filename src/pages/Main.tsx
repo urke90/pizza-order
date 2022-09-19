@@ -5,6 +5,7 @@ import { addPizzaToCart } from 'redux/reducers/cartReducer';
 import { removePizzaRecipe, removePizzaId } from 'redux/reducers/pizzaReducer';
 import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
 import { useIngredients } from 'hooks/useIngredients';
+import { useModal } from 'hooks/useModal';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders';
@@ -25,7 +26,7 @@ import Modal from 'shared/ui/Modal';
 import './Main.scss';
 
 const Main: React.FC = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [show, handleToggleModal] = useModal();
     const [createdPizza, setCreatedPizza] = useState<ICartItem>(emptyCartItem);
     const {
         updatableIngredients,
@@ -71,7 +72,7 @@ const Main: React.FC = () => {
         };
 
         setCreatedPizza(pizza);
-        setShowModal(true);
+        handleToggleModal();
     }, [
         uid,
         title,
@@ -87,7 +88,7 @@ const Main: React.FC = () => {
         dispatch(removePizzaId());
         dispatch(removePizzaRecipe());
         handleChangePizzaQuantity('reset');
-        setShowModal(false);
+        handleToggleModal();
     }, [createdPizza, dispatch, handleChangePizzaQuantity]);
 
     useEffect(() => {
@@ -119,19 +120,19 @@ const Main: React.FC = () => {
 
     return (
         <section className="main">
-            {showModal && (
-                <Modal
-                    headerTitle="Add pizza to your order"
-                    onClose={() => setShowModal(false)}
-                    footer={
-                        <Button type="button" onClick={handleConfirmOrder}>
-                            confirm
-                        </Button>
-                    }
-                >
-                    <OrderList createdPizza={createdPizza} />
-                </Modal>
-            )}
+            <Modal
+                show={show}
+                headerTitle="Add pizza to your order"
+                onClose={handleToggleModal}
+                footer={
+                    <Button type="button" onClick={handleConfirmOrder}>
+                        confirm
+                    </Button>
+                }
+            >
+                <OrderList createdPizza={createdPizza} />
+            </Modal>
+
             {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">

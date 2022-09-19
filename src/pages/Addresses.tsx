@@ -16,14 +16,13 @@ const Addresses: React.FC = () => {
 
     return (
         <div className="addresses">
-            {showModal && (
-                <Modal
-                    headerTitle="Add New Address"
-                    onClose={() => setShowModal(false)}
-                >
-                    <AddressCreateEdit />
-                </Modal>
-            )}
+            <Modal
+                show={showModal}
+                headerTitle="Add New Address"
+                onClose={() => setShowModal(false)}
+            >
+                <AddressCreateEdit />
+            </Modal>
             <header className="addresses__header">
                 <h2>Addresses</h2>
             </header>

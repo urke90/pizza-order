@@ -9,12 +9,27 @@
         width: 160px;
         top: 64px;
         right: 15px;
+        z-index: 100;
     }
     &__item--mobile {
         text-align: center;
         a {
             font-size: 12px;
             padding: 10px 10px;
+        }
+    }
+    &__item--mobile:last-child {
+        button {
+            border-radius: 0;
+        }
+    }
+
+    @media screen and (min-width: 481px) {
+        &__item--mobile {
+            a {
+                font-size: 14px;
+                padding: 10px 10px;
+            }
         }
     }
 }

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
 import { ADDRESS_INPUTS_CONFIG } from 'config/address.config';
-import { IAddress } from 'ts/address';
 
 import Input from 'shared/form/Input';
 
-import './AddressCreate.scss';
+import './AddressCreateEdit.scss';
 
 /**
  * THIS WILL BE REUSABLE COMPONENT FOR CREATING AND UPDATING ADDRESS SO WE MUST BE ABLE TO SET INITIAL VALUES
@@ -16,56 +13,29 @@ import './AddressCreate.scss';
  * CALL useForm() in PARENT COMPONENT ?!?!??!?!?!??!
  */
 
-interface IAddressCreateEditProps {}
+interface IAddressCreateEditProps {
+    formState: IFormState;
+    handleInputChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    handleInputBlur: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+}
 
-export const addressForm: IFormState = {
-    inputs: {
-        city: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        zipCode: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        street: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        floor: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        apartment: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        phone: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        }
-    },
-    formIsValid: false
-};
-
-const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
-    const { formState, handleInputChange, handleInputBlurEvent } =
-        useForm(addressForm);
-
+const AddressCreateEdit: React.FC<IAddressCreateEditProps> = ({
+    formState,
+    handleInputChange,
+    handleInputBlur
+}) => {
     const handleSubmitAddress = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
     return (
-        <div className="address-create">
+        <div className="address-create-edit">
             <form
-                className="address-create__form"
+                className="address-create-edit__form"
                 onSubmit={handleSubmitAddress}
             >
                 {ADDRESS_INPUTS_CONFIG.length > 0 &&
@@ -80,7 +50,7 @@ const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
                         }) => (
                             <div
                                 key={id}
-                                className="address-create__form-control"
+                                className="address-create-edit__form-control"
                             >
                                 <Input
                                     type={type}
@@ -89,7 +59,7 @@ const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
                                     placeholder={placeholder}
                                     label={label}
                                     onChange={handleInputChange}
-                                    onBlur={handleInputBlurEvent}
+                                    onBlur={handleInputBlur}
                                     value={formState.inputs[name].value}
                                     isValid={formState.inputs[name].isValid}
                                     isTouched={formState.inputs[name].isTouched}
@@ -98,9 +68,6 @@ const AddressCreateEdit: React.FC<IAddressCreateEditProps> = () => {
                             </div>
                         )
                     )}
-                <div>
-                    <button disabled={!formState.formIsValid}> aaaaa </button>
-                </div>
             </form>
         </div>
     );

@@ -73,7 +73,7 @@ interface IUseForm {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     setInputFields: (inputFields: IFormState) => void;
-    handleInputBlurEvent: (
+    handleInputBlur: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
 }
@@ -95,7 +95,7 @@ export const useForm = (formSchema: IFormState): IUseForm => {
         []
     );
 
-    const handleInputBlurEvent = useCallback(
+    const handleInputBlur = useCallback(
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             dispatch({
                 type: TUseFormActionTypes.BLUR_INPUT,
@@ -115,7 +115,7 @@ export const useForm = (formSchema: IFormState): IUseForm => {
     return {
         formState,
         handleInputChange,
-        handleInputBlurEvent,
+        handleInputBlur,
         setInputFields
     };
 };

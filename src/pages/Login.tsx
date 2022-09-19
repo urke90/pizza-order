@@ -20,12 +20,8 @@ const Login: React.FC = () => {
         isLoading
     } = useLogin();
 
-    const {
-        formState,
-        handleInputChange,
-        setInputFields,
-        handleInputBlurEvent
-    } = useForm(loginForm);
+    const { formState, handleInputChange, setInputFields, handleInputBlur } =
+        useForm(loginForm);
     const {
         formIsValid,
         inputs: { email, password }
@@ -68,7 +64,7 @@ const Login: React.FC = () => {
                                     label="Name"
                                     placeholder="Name"
                                     onChange={handleInputChange}
-                                    onBlur={handleInputBlurEvent}
+                                    onBlur={handleInputBlur}
                                     value={formState.inputs.name?.value || ''}
                                     isValid={
                                         formState.inputs.name?.isValid || false
@@ -89,7 +85,7 @@ const Login: React.FC = () => {
                                 label="Email"
                                 placeholder="Email"
                                 onChange={handleInputChange}
-                                onBlur={handleInputBlurEvent}
+                                onBlur={handleInputBlur}
                                 value={email.value}
                                 isValid={email.isValid}
                                 isTouched={email.isTouched}
@@ -104,7 +100,7 @@ const Login: React.FC = () => {
                                 label="Password"
                                 placeholder="Password"
                                 onChange={handleInputChange}
-                                onBlur={handleInputBlurEvent}
+                                onBlur={handleInputBlur}
                                 value={password.value}
                                 isValid={password.isValid}
                                 isTouched={password.isTouched}

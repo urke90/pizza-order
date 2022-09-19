@@ -1,6 +1,6 @@
 @import '../../assets/scss/colors';
 
-.address-create {
+.address-create-edit {
     min-width: 260px;
     padding: 10px;
     &__form {
@@ -13,5 +13,8 @@
     }
     @media screen and (min-width: 481px) {
         min-width: 320px;
+    }
+    @media screen and (min-width: 481px) {
+        min-width: 420px;
     }
 }

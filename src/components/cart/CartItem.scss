@@ -2,10 +2,10 @@
 
 .cart-item {
     background-color: $dark;
-    padding: 10px;
+    padding: 10px 5px;
     margin: 10px auto;
     border-radius: 5px;
-    border: 1px solid red;
+    border: 2px solid red;
     &__heading {
         display: flex;
         text-align: center;
@@ -33,12 +33,13 @@
         justify-content: space-between;
         width: 62%;
     }
-    &__list-ingredients {
+    &__ingredients-list {
+        padding: 0 10px;
         max-height: 340px;
         overflow-y: scroll;
     }
-    &__title {
-        margin-bottom: 10px;
+    &__ingredients-title {
+        margin: 0 0 10px 10px;
     }
     a {
         display: inline-block;
@@ -71,11 +72,11 @@
     }
     &__button--remove {
         text-align: center;
-        margin: 20px auto 10px;
+        margin: 20px auto 0;
     }
 
     @media screen and (min-width: 768px) {
-        width: 48%;
+        width: 49%;
     }
     @media screen and (min-width: 1024px) {
         width: 42%;

@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
+import { uidSelector } from 'redux/reducers/authReducer';
+import { useAppDispatch } from 'hooks/useRedux';
+import { createAddress } from 'redux/actions/address-actions';
 
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
@@ -9,6 +12,7 @@ import AddressCreateEdit from 'components/addresses/AddressCreateEdit';
 // import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Addresses.scss';
+import { useAppSelector } from 'hooks/useRedux';
 
 export const addressFormCreate: IFormState = {
     inputs: {
@@ -47,12 +51,21 @@ export const addressFormCreate: IFormState = {
 };
 
 const Addresses: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [showModal, handleToggleModal] = useModal();
     const { formState, handleInputBlur, handleInputChange } =
         useForm(addressFormCreate);
+    const uid = useAppSelector(uidSelector);
+
+    console.log('uid in addresses', uid);
 
     const addNewAddress = () => {
+        // const data = {
+        //     ...formState,
+        //     id: ''
+        // };
         console.log('add address button clicked ');
+        dispatch(createAddress({ uid, data: formState }));
         handleToggleModal();
     };
 
@@ -66,6 +79,11 @@ const Addresses: React.FC = () => {
                 show={showModal}
                 headerTitle="Add New Address"
                 onClose={handleToggleModal}
+                footer={
+                    <Button type="button" onClick={addNewAddress}>
+                        Confirm
+                    </Button>
+                }
             >
                 <AddressCreateEdit
                     formState={formState}
@@ -78,7 +96,7 @@ const Addresses: React.FC = () => {
             </header>
             <div className="addresses__container">
                 <div className="addresses__button-add">
-                    <Button type="button" onClick={addNewAddress}>
+                    <Button type="button" onClick={handleToggleModal}>
                         Add address
                     </Button>
                 </div>

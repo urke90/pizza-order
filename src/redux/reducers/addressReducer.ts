@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { createAddress } from 'redux/actions/address-actions';
 import { IAddress } from 'ts/address';
 
 interface IInitialState {
@@ -20,6 +22,18 @@ const addressSlice = createSlice({
         addAddress(state, action) {},
         updateAddress(state, action) {},
         removeAddress(state, action) {}
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(createAddress.pending, (state, action) => {
+                console.log('pending action', action);
+            })
+            .addCase(createAddress.fulfilled, (state, action) => {
+                console.log('fulfilled, action', action);
+            })
+            .addCase(createAddress.rejected, (state, action) => {
+                console.log('pending action', action);
+            });
     }
 });
 

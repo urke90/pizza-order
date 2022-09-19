@@ -6,6 +6,7 @@ import Backdrop from './Backdrop';
 import './Modal.scss';
 
 interface IModalProps {
+    show: boolean;
     headerTitle: string;
     children: React.ReactElement;
     footer?: React.ReactElement | null;
@@ -16,11 +17,14 @@ const Modal: React.FC<IModalProps> = ({
     headerTitle,
     children,
     footer,
-    onClose
+    onClose,
+    show
 }) => {
+    if (!show) return null;
+
     const content = (
         <>
-            <Backdrop onClose={onClose} />
+            <Backdrop onClose={onClose} show={show} />
             <div className="modal">
                 <header className="modal__header">
                     <h3>{headerTitle}</h3>

@@ -80,7 +80,8 @@ const Main: React.FC = () => {
         sourceUrl,
         recipeId,
         pizzaQuantity,
-        updatableIngredients
+        updatableIngredients,
+        handleToggleModal
     ]);
     // will add pizza to cart after modal is opened and order is confirmed
     const handleConfirmOrder = useCallback(() => {
@@ -89,7 +90,7 @@ const Main: React.FC = () => {
         dispatch(removePizzaRecipe());
         handleChangePizzaQuantity('reset');
         handleToggleModal();
-    }, [createdPizza, dispatch, handleChangePizzaQuantity]);
+    }, [createdPizza, dispatch, handleChangePizzaQuantity, handleToggleModal]);
 
     useEffect(() => {
         if (selectedPizzaId.trim() === '') return;

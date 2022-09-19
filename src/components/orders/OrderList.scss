@@ -1,7 +1,7 @@
 @import '../../assets/scss/colors';
 
 .order {
-    padding: 10px;
+    padding: 10px 0;
     min-width: 260px;
     &__heading {
         margin-bottom: 20px;
@@ -26,6 +26,7 @@
         }
     }
     &__list {
+        padding: 0 10px;
         max-height: 250px;
         overflow-y: scroll;
     }

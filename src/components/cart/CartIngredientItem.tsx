@@ -57,7 +57,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
             dispatch(removePizzaIngredient({ pizzaId, ingId: id }));
             handleToggleModal();
         },
-        [pizzaId, dispatch]
+        [pizzaId, dispatch, handleToggleModal]
     );
 
     return (

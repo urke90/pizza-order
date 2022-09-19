@@ -49,7 +49,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                         className="cart-item__link"
                         href={sourceUrl}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noreferrer noopener"
                     >
                         Check Online
                     </a>
@@ -70,8 +70,8 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                     </div>
                 </div>
             </div>
-            <h4 className="cart-item__title-ingredients">Ingredients:</h4>
-            <ul className="cart-item__list-ingredients">
+            <h4 className="cart-item__ingredients-title">Ingredients:</h4>
+            <ul className="cart-item__ingredients-list">
                 {ingredientsToRender &&
                     ingredientsToRender.length &&
                     ingredientsToRender.map((ing) => (

@@ -1,13 +1,6 @@
 interface IAddress_inputs_config {
     type: 'text' | 'email' | 'hidden' | 'number' | 'password';
-    name:
-        | 'state'
-        | 'city'
-        | 'street'
-        | 'zipCode'
-        | 'floor'
-        | 'apartment'
-        | 'phone';
+    name: 'city' | 'street' | 'zipCode' | 'floor' | 'apartment' | 'phone';
     id: string;
     placeholder: string;
     label: string;

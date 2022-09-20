@@ -28,7 +28,7 @@
     &__list {
         padding: 0 10px;
         max-height: 250px;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     &__item {
         display: flex;

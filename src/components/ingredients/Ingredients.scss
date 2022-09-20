@@ -9,12 +9,15 @@
         display: flex;
         justify-content: center;
         margin: 20px auto 40px;
+        button {
+            min-width: 52px;
+        }
         button:first-child {
             padding: 5px 12px;
         }
     }
     &__constant-value {
-        min-width: 72px;
+        min-width: 80px;
         text-align: center;
         display: inline-block;
         padding: 5px 18px;

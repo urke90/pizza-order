@@ -36,7 +36,7 @@
     &__ingredients-list {
         padding: 0 10px;
         max-height: 340px;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     &__ingredients-title {
         margin: 0 0 10px 10px;

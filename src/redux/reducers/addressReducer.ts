@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { createAddress } from 'redux/actions/address-actions';
+import { createAddress, getAddresses } from 'redux/actions/address-actions';
 import { RootState } from 'redux/store';
 import { IAddress } from 'ts/address';
 
@@ -17,7 +17,7 @@ const initialState: IInitialState = {
 };
 
 const addressSlice = createSlice({
-    name: 'address',
+    name: 'addresses',
     initialState,
     reducers: {
         addAddress(state, action) {},
@@ -35,17 +35,36 @@ const addressSlice = createSlice({
                     state,
                     action: PayloadAction<{ data: IAddress; addressId: string }>
                 ) => {
-                    console.log('fulfilled, action', action);
                     const { addressId, data } = action.payload;
-                    console.log('addressId', addressId);
-                    console.log('data', data);
                     state.addresses[addressId] = data;
                     state.isLoading = false;
                 }
             )
-            .addCase(createAddress.rejected, (state, action) => {
-                console.log('rejected action', action);
-            });
+            .addCase(
+                createAddress.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.error = action.payload;
+                    state.isLoading = false;
+                }
+            );
+        builder
+            .addCase(getAddresses.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                getAddresses.fulfilled,
+                (state, action: PayloadAction<{ [key: string]: IAddress }>) => {
+                    state.addresses = action.payload;
+                    state.isLoading = false;
+                }
+            )
+            .addCase(
+                getAddresses.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.isLoading = false;
+                    state.error = action.payload;
+                }
+            );
     }
 });
 

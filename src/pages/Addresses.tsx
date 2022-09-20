@@ -1,7 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useModal } from 'hooks/useModal';
 import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
+import { uidSelector } from 'redux/reducers/authReducer';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { IAddress } from 'ts/address';
+import { createAddress } from 'redux/actions/address-actions';
+import { addressesSelector } from 'redux/reducers/addressReducer';
 
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
@@ -9,6 +14,7 @@ import AddressCreateEdit from 'components/addresses/AddressCreateEdit';
 // import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Addresses.scss';
+import {} from 'hooks/useRedux';
 
 export const addressFormCreate: IFormState = {
     inputs: {
@@ -47,18 +53,31 @@ export const addressFormCreate: IFormState = {
 };
 
 const Addresses: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [showModal, handleToggleModal] = useModal();
     const { formState, handleInputBlur, handleInputChange } =
         useForm(addressFormCreate);
+    const uid = useAppSelector(uidSelector);
+    const addresses = useAppSelector(addressesSelector.addresses);
 
-    const addNewAddress = () => {
-        console.log('add address button clicked ');
+    console.log('addresses', addresses);
+
+    const addNewAddress = useCallback(() => {
+        const { city, zipCode, street, floor, apartment, phone } =
+            formState.inputs;
+
+        const data: IAddress = {
+            city: city.value,
+            zipCode: zipCode.value,
+            street: street.value,
+            floor: floor.value,
+            apartment: apartment.value,
+            phone: phone.value,
+            id: ''
+        };
+        dispatch(createAddress({ uid, data }));
         handleToggleModal();
-    };
-
-    useEffect(() => {
-        console.log('formState.inputs IN ADDDRESSES', formState.inputs);
-    }, [formState]);
+    }, [dispatch, formState.inputs, handleToggleModal, uid]);
 
     return (
         <div className="addresses">
@@ -66,6 +85,15 @@ const Addresses: React.FC = () => {
                 show={showModal}
                 headerTitle="Add New Address"
                 onClose={handleToggleModal}
+                footer={
+                    <Button
+                        type="button"
+                        onClick={addNewAddress}
+                        disabled={!formState.formIsValid}
+                    >
+                        Confirm
+                    </Button>
+                }
             >
                 <AddressCreateEdit
                     formState={formState}
@@ -78,7 +106,7 @@ const Addresses: React.FC = () => {
             </header>
             <div className="addresses__container">
                 <div className="addresses__button-add">
-                    <Button type="button" onClick={addNewAddress}>
+                    <Button type="button" onClick={handleToggleModal}>
                         Add address
                     </Button>
                 </div>

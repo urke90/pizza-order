@@ -10,7 +10,8 @@ export const PIZZA_ENDPOINTS: IAPI_Endpoints = {
     pizzaId: 'https://forkify-api.herokuapp.com/api/get?rId='
 };
 
-export const DB_ENDPOINTS = {
-    users: DB_BASE_ENDPOINT + 'users',
-    orders: DB_BASE_ENDPOINT + 'orders'
+export const DB_ENDPOINTS: IAPI_Endpoints = {
+    users: DB_BASE_ENDPOINT + 'users/',
+    orders: DB_BASE_ENDPOINT + 'orders/',
+    addresses: DB_BASE_ENDPOINT + 'addresses/'
 };

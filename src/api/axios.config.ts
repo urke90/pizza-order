@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const instance = axios.create({
     // baseURL: 'https://pizza-order-6d2f9-default-rtdb.firebaseio.com/'
@@ -33,4 +33,10 @@ instance.interceptors.response.use(
     }
 );
 
-export default instance;
+const axiosRequest = (
+    config: AxiosRequestConfig
+): Promise<AxiosResponse<any, any>> => {
+    return instance.request(config);
+};
+
+export default axiosRequest;

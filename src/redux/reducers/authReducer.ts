@@ -1,3 +1,4 @@
+import { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface IAuthUser {
@@ -30,6 +31,8 @@ const authSlice = createSlice({
         }
     }
 });
+
+export const uidSelector = (state: RootState) => state.authReducer.uid;
 
 export const { saveUser, removeUser } = authSlice.actions;
 

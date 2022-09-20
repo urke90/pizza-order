@@ -1,11 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useModal } from 'hooks/useModal';
 import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
 import { uidSelector } from 'redux/reducers/authReducer';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IAddress } from 'ts/address';
-import { createAddress } from 'redux/actions/address-actions';
+import { createAddress, getAddresses } from 'redux/actions/address-actions';
 import { addressesSelector } from 'redux/reducers/addressReducer';
 
 import Button from 'shared/form/Button';
@@ -60,7 +60,10 @@ const Addresses: React.FC = () => {
     const uid = useAppSelector(uidSelector);
     const addresses = useAppSelector(addressesSelector.addresses);
 
-    console.log('addresses', addresses);
+    useEffect(() => {
+        if (uid.trim() === '') return;
+        dispatch(getAddresses(uid));
+    }, [dispatch, uid]);
 
     const addNewAddress = useCallback(() => {
         const { city, zipCode, street, floor, apartment, phone } =

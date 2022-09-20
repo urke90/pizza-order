@@ -13,4 +13,12 @@
     &__button-add {
         margin-bottom: 20px;
     }
+
+    @media screen and (min-width: 768px) {
+        &__list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+    }
 }

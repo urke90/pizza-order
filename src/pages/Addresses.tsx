@@ -8,13 +8,13 @@ import { IAddress } from 'ts/address';
 import { createAddress, getAddresses } from 'redux/actions/address-actions';
 import { addressesSelector } from 'redux/reducers/addressReducer';
 
-import Button from 'shared/form/Button';
-import Modal from 'shared/ui/Modal';
+import AddressItem from 'components/addresses/AddressItem';
 import AddressCreateEdit from 'components/addresses/AddressCreateEdit';
-// import LoadingSpinner from 'shared/ui/LoadingSpinner';
+import LoadingSpinner from 'shared/ui/LoadingSpinner';
+import Modal from 'shared/ui/Modal';
+import Button from 'shared/form/Button';
 
 import './Addresses.scss';
-import {} from 'hooks/useRedux';
 
 export const addressFormCreate: IFormState = {
     inputs: {
@@ -59,6 +59,10 @@ const Addresses: React.FC = () => {
         useForm(addressFormCreate);
     const uid = useAppSelector(uidSelector);
     const addresses = useAppSelector(addressesSelector.addresses);
+    const isLoading = useAppSelector(addressesSelector.isLoading);
+    const error = useAppSelector(addressesSelector.error);
+
+    const addressesToRender = Object.values(addresses);
 
     useEffect(() => {
         if (uid.trim() === '') return;
@@ -81,6 +85,28 @@ const Addresses: React.FC = () => {
         dispatch(createAddress({ uid, data }));
         handleToggleModal();
     }, [dispatch, formState.inputs, handleToggleModal, uid]);
+
+    if (isLoading) {
+        return <LoadingSpinner asOverlay />;
+    } else if (!isLoading && addressesToRender.length === 0 && !!error) {
+        return (
+            <div className="addresses">
+                <header className="addresses__header">
+                    <h2>
+                        You have no addresses to show at the moment, please add
+                        an address.
+                    </h2>
+                </header>
+                <div className="addresses__container">
+                    <div className="addresses__button-add">
+                        <Button type="button" onClick={handleToggleModal}>
+                            Add address
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="addresses">
@@ -114,9 +140,10 @@ const Addresses: React.FC = () => {
                     </Button>
                 </div>
                 <ul className="addresses__list">
-                    <li>address 1</li>
-                    <li>address 2</li>
-                    <li>address 3</li>
+                    {addressesToRender.length > 0 &&
+                        addressesToRender.map((address) => (
+                            <AddressItem key={address.id} address={address} />
+                        ))}
                 </ul>
             </div>
         </div>

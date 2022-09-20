@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useModal } from 'hooks/useModal';
 import { useForm } from 'hooks/useForm';
 import { IFormState } from 'ts/form';
 import { uidSelector } from 'redux/reducers/authReducer';
-import { useAppDispatch } from 'hooks/useRedux';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IAddress } from 'ts/address';
 import { createAddress } from 'redux/actions/address-actions';
+import { addressesSelector } from 'redux/reducers/addressReducer';
 
 import Button from 'shared/form/Button';
 import Modal from 'shared/ui/Modal';
@@ -13,7 +14,7 @@ import AddressCreateEdit from 'components/addresses/AddressCreateEdit';
 // import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Addresses.scss';
-import { useAppSelector } from 'hooks/useRedux';
+import {} from 'hooks/useRedux';
 
 export const addressFormCreate: IFormState = {
     inputs: {
@@ -57,8 +58,11 @@ const Addresses: React.FC = () => {
     const { formState, handleInputBlur, handleInputChange } =
         useForm(addressFormCreate);
     const uid = useAppSelector(uidSelector);
+    const addresses = useAppSelector(addressesSelector.addresses);
 
-    const addNewAddress = () => {
+    console.log('addresses', addresses);
+
+    const addNewAddress = useCallback(() => {
         const { city, zipCode, street, floor, apartment, phone } =
             formState.inputs;
 
@@ -71,10 +75,9 @@ const Addresses: React.FC = () => {
             phone: phone.value,
             id: ''
         };
-        console.log('add address button clicked ');
         dispatch(createAddress({ uid, data }));
         handleToggleModal();
-    };
+    }, [dispatch, formState.inputs, handleToggleModal, uid]);
 
     return (
         <div className="addresses">

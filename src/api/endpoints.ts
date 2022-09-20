@@ -11,7 +11,7 @@ export const PIZZA_ENDPOINTS: IAPI_Endpoints = {
 };
 
 export const DB_ENDPOINTS: IAPI_Endpoints = {
-    users: DB_BASE_ENDPOINT + 'users',
-    orders: DB_BASE_ENDPOINT + 'orders',
-    addresses: DB_BASE_ENDPOINT + 'addresses'
+    users: DB_BASE_ENDPOINT + 'users/',
+    orders: DB_BASE_ENDPOINT + 'orders/',
+    addresses: DB_BASE_ENDPOINT + 'addresses/'
 };

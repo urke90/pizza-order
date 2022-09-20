@@ -4,8 +4,6 @@ import { IAddress } from 'ts/address';
 import { db } from '../../firebase/firebase';
 import { ref, push, set } from 'firebase/database';
 
-import { DB_ENDPOINTS } from 'api/endpoints';
-
 interface ICreateAddressData {
     uid: string;
     data: IAddress;

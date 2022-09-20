@@ -67,10 +67,9 @@ const pizzaSlice = createSlice({
             })
             .addCase(
                 fetchPizzas.fulfilled,
-                (state, action: PayloadAction<{ recipes: IPizzas[] }>) => {
-                    const { recipes } = action.payload;
+                (state, action: PayloadAction<IPizzas[]>) => {
+                    state.pizzas = action.payload;
                     state.isLoading = false;
-                    state.pizzas = recipes;
                 }
             )
             .addCase(
@@ -81,15 +80,14 @@ const pizzaSlice = createSlice({
                 }
             );
         builder
-            .addCase(fetchPizzaById.pending, (state, action) => {
+            .addCase(fetchPizzaById.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
                 fetchPizzaById.fulfilled,
-                (state, action: PayloadAction<{ recipe: ISelectedPizza }>) => {
-                    const { recipe } = action.payload;
+                (state, action: PayloadAction<ISelectedPizza>) => {
+                    state.selectedPizza = action.payload;
                     state.isLoading = false;
-                    state.selectedPizza = recipe;
                 }
             )
             .addCase(

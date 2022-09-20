@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { createAddress } from 'redux/actions/address-actions';
+import { RootState } from 'redux/store';
 import { IAddress } from 'ts/address';
 
 interface IInitialState {
@@ -36,7 +37,9 @@ const addressSlice = createSlice({
                 ) => {
                     console.log('fulfilled, action', action);
                     const { addressId, data } = action.payload;
-
+                    console.log('addressId', addressId);
+                    console.log('data', data);
+                    state.addresses[addressId] = data;
                     state.isLoading = false;
                 }
             )
@@ -45,6 +48,12 @@ const addressSlice = createSlice({
             });
     }
 });
+
+export const addressesSelector = {
+    addresses: (state: RootState) => state.addressReducer.addresses,
+    isLoading: (state: RootState) => state.addressReducer.isLoading,
+    error: (state: RootState) => state.addressReducer.error
+};
 
 export const { addAddress, removeAddress, updateAddress } =
     addressSlice.actions;

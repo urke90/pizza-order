@@ -9,7 +9,7 @@ interface ICreateAddressData {
     data: IAddress;
 }
 
-export const getAddresses = createAsyncThunk(
+export const asyncGetAddresses = createAsyncThunk(
     'addresses',
     async (uid: string, thunkAPI) => {
         try {
@@ -20,13 +20,15 @@ export const getAddresses = createAsyncThunk(
             if (addresses.exists()) {
                 return addresses.val();
             }
+
+            return {};
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
 
-export const createAddress = createAsyncThunk(
+export const asyncCreateAddress = createAsyncThunk(
     'addresses/createAddress',
     async ({ uid, data }: ICreateAddressData, thunkAPI) => {
         try {
@@ -51,21 +53,25 @@ interface IDeleteAddressData {
     addressId: string;
 }
 
-export const deleteAddress = createAsyncThunk(
+export const asyncDeleteAddress = createAsyncThunk(
     'addresses/deleteAddress',
     async ({ uid, addressId }: IDeleteAddressData, thunkAPI) => {
         try {
             const addressRef = ref(db, `addresses/${uid}/${addressId}`);
 
-            console.log('addressRef', addressRef);
-            console.log('addressRef PARENT', addressRef.parent);
-
-            const response = await remove(addressRef);
-            console.log('response removing address', response);
+            await remove(addressRef);
             return addressId;
         } catch (error: any) {
             console.log('error DELETING ADDRESS', error);
             return thunkAPI.rejectWithValue(error.message);
         }
+    }
+);
+
+export const asyncUpdateAddress = createAsyncThunk(
+    'addresses/updateAddress',
+    async (_, thunkAPI) => {
+        try {
+        } catch (error) {}
     }
 );

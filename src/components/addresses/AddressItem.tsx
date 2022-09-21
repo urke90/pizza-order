@@ -1,6 +1,6 @@
 import { IAddress } from 'ts/address';
 import { useAppDispatch } from 'hooks/useRedux';
-import { deleteAddress } from 'redux/actions/address-actions';
+import { asyncDeleteAddress } from 'redux/actions/address-actions';
 import Button from 'shared/form/Button';
 
 import './AddressItem.scss';
@@ -17,9 +17,7 @@ const AddressItem: React.FC<IAddressItemProps> = (props) => {
     const dispatch = useAppDispatch();
 
     const deleteAddressHandler = () => {
-        console.log('clicked REMOVE');
-
-        dispatch(deleteAddress({ uid, addressId: id }));
+        dispatch(asyncDeleteAddress({ uid, addressId: id }));
     };
 
     return (

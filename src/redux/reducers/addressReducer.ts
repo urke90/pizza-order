@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
-    createAddress,
-    getAddresses,
-    deleteAddress
+    asyncGetAddresses,
+    asyncCreateAddress,
+    asyncDeleteAddress,
+    asyncUpdateAddress
 } from 'redux/actions/address-actions';
 import { RootState } from 'redux/store';
 import { IAddress } from 'ts/address';
@@ -25,50 +26,50 @@ const addressSlice = createSlice({
     initialState,
     reducers: {
         addAddress(state, action) {},
-        updateAddress(state, action) {},
+        // updateAddress(state, action) {},
         removeAddress(state, action) {}
     },
     extraReducers(builder) {
         builder
-            .addCase(createAddress.pending, (state) => {
+            .addCase(asyncCreateAddress.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(createAddress.fulfilled, (state, action) => {
+            .addCase(asyncCreateAddress.fulfilled, (state, action) => {
                 const { addressId, data } = action.payload;
                 state.addresses[addressId] = data;
                 state.isLoading = false;
             })
             .addCase(
-                createAddress.rejected,
+                asyncCreateAddress.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.error = action.payload;
                     state.isLoading = false;
                 }
             );
         builder
-            .addCase(getAddresses.pending, (state, action) => {
+            .addCase(asyncGetAddresses.pending, (state, action) => {
                 state.isLoading = true;
             })
             .addCase(
-                getAddresses.fulfilled,
+                asyncGetAddresses.fulfilled,
                 (state, action: PayloadAction<{ [key: string]: IAddress }>) => {
                     state.addresses = action.payload;
                     state.isLoading = false;
                 }
             )
             .addCase(
-                getAddresses.rejected,
+                asyncGetAddresses.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;
                 }
             );
         builder
-            .addCase(deleteAddress.pending, (state) => {
+            .addCase(asyncDeleteAddress.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
-                deleteAddress.fulfilled,
+                asyncDeleteAddress.fulfilled,
                 (state, action: PayloadAction<string>) => {
                     const addressId = action.payload;
 
@@ -82,11 +83,31 @@ const addressSlice = createSlice({
                 }
             )
             .addCase(
-                deleteAddress.rejected,
+                asyncDeleteAddress.rejected,
                 (state, action: PayloadAction<any>) => {
                     console.log('rejected deleteAddress', action);
                     state.error = action.payload;
                     state.isLoading = false;
+                }
+            );
+        builder
+            .addCase(asyncUpdateAddress.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(asyncUpdateAddress.fulfilled, (state, action) => {
+                // const addressId = action.payload;
+                // if (state.addresses[addressId] === undefined) {
+                //     throw new Error(`Address with ${addressId} not found!`);
+                // }
+                // delete state.addresses[addressId];
+                // state.isLoading = false;
+            })
+            .addCase(
+                asyncUpdateAddress.rejected,
+                (state, action: PayloadAction<any>) => {
+                    // console.log('rejected deleteAddress', action);
+                    // state.error = action.payload;
+                    // state.isLoading = false;
                 }
             );
     }
@@ -98,8 +119,7 @@ export const addressesSelector = {
     error: (state: RootState) => state.addressReducer.error
 };
 
-export const { addAddress, removeAddress, updateAddress } =
-    addressSlice.actions;
+export const { addAddress, removeAddress } = addressSlice.actions;
 
 const addressReducer = addressSlice.reducer;
 export default addressReducer;

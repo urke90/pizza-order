@@ -5,7 +5,10 @@ import { IFormState } from 'ts/form';
 import { uidSelector } from 'redux/reducers/authReducer';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IAddress } from 'ts/address';
-import { createAddress, getAddresses } from 'redux/actions/address-actions';
+import {
+    asyncCreateAddress,
+    asyncGetAddresses
+} from 'redux/actions/address-actions';
 import { addressesSelector } from 'redux/reducers/addressReducer';
 
 import AddressItem from 'components/addresses/AddressItem';
@@ -70,7 +73,7 @@ const Addresses: React.FC = () => {
 
     useEffect(() => {
         if (uid.trim() === '') return;
-        dispatch(getAddresses(uid));
+        dispatch(asyncGetAddresses(uid));
     }, [dispatch, uid]);
 
     const addNewAddress = useCallback(() => {
@@ -86,7 +89,7 @@ const Addresses: React.FC = () => {
             phone: phone.value,
             id: ''
         };
-        dispatch(createAddress({ uid, data }));
+        dispatch(asyncCreateAddress({ uid, data }));
         handleToggleModal();
     }, [dispatch, formState.inputs, handleToggleModal, uid]);
 

@@ -7,3 +7,5 @@ export interface IAddress {
     apartment: string;
     phone: string;
 }
+
+export type TAddressMode = 'create' | 'edit';

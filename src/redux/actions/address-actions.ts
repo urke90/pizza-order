@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { IAddress } from 'ts/address';
 import { db } from '../../firebase/firebase';
-import { ref, push, set, get, remove } from 'firebase/database';
+import { ref, push, set, get, remove, update } from 'firebase/database';
 
 interface ICreateAddressData {
     uid: string;
@@ -68,10 +68,26 @@ export const asyncDeleteAddress = createAsyncThunk(
     }
 );
 
+interface IUpdateAddressData {
+    uid: string;
+    data: IAddress;
+    addressId: string;
+}
+
 export const asyncUpdateAddress = createAsyncThunk(
     'addresses/updateAddress',
-    async (_, thunkAPI) => {
+    async ({ uid, data, addressId }: IUpdateAddressData, thunkAPI) => {
         try {
-        } catch (error) {}
+            const addressRef = ref(db, `addresses/${uid}/${addressId}`);
+
+            await update(addressRef, data);
+
+            return {
+                data,
+                addressId
+            };
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
     }
 );

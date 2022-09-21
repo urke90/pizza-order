@@ -1,13 +1,15 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import { useForm } from 'hooks/useForm';
-import { IFormState } from 'ts/form';
-import { uidSelector } from 'redux/reducers/authReducer';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { addressCreateForm, addressUpdateForm } from 'config/form.config';
+import { uidSelector } from 'redux/reducers/authReducer';
 import { IAddress } from 'ts/address';
+import type { TAddressMode } from 'ts/address';
 import {
     asyncCreateAddress,
-    asyncGetAddresses
+    asyncGetAddresses,
+    asyncUpdateAddress
 } from 'redux/actions/address-actions';
 import { addressesSelector } from 'redux/reducers/addressReducer';
 
@@ -19,80 +21,103 @@ import Button from 'shared/form/Button';
 
 import './Addresses.scss';
 
-export const addressFormCreate: IFormState = {
-    inputs: {
-        city: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        zipCode: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        street: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        floor: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        apartment: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        },
-        phone: {
-            value: '',
-            isValid: false,
-            isTouched: false
-        }
-    },
-    formIsValid: false
-};
-
 const Addresses: React.FC = () => {
+    /**
+     * HOOKS
+     */
     const dispatch = useAppDispatch();
+    const [isCreateAddressMode, setIsCreateMode] = useState(true);
+    const [addressId, setAddressId] = useState('');
     const [showModal, handleToggleModal] = useModal();
-    const { formState, handleInputBlur, handleInputChange } =
-        useForm(addressFormCreate);
+    const { formState, handleInputBlur, handleInputChange, setInputFields } =
+        useForm(addressCreateForm);
+
+    /**
+     * SELECTORS
+     */
+
     const uid = useAppSelector(uidSelector);
     const addresses = useAppSelector(addressesSelector.addresses);
     const isLoading = useAppSelector(addressesSelector.isLoading);
     const error = useAppSelector(addressesSelector.error);
 
+    const { city, zipCode, street, floor, apartment, phone } = formState.inputs;
     const addressesToRender = Object.values(addresses);
 
-    useEffect(() => {
-        console.log('addresses', addresses);
-    }, [addresses]);
+    // data used for creating new or updating existing address
+    const data: IAddress = {
+        city: city.value,
+        zipCode: zipCode.value,
+        street: street.value,
+        floor: floor.value,
+        apartment: apartment.value,
+        phone: phone.value,
+        id: addressId
+    };
 
+    // toggles between create address and edit address and opens modal
+    const onToggleAddressMode = useCallback(
+        (type: TAddressMode, addressId: string = '') => {
+            if (type === 'edit') {
+                setIsCreateMode(false);
+                setAddressId(addressId);
+                handleToggleModal();
+                return;
+            }
+
+            setIsCreateMode(true);
+            setAddressId('');
+            handleToggleModal();
+        },
+        [handleToggleModal]
+    );
+
+    // updates or creates new address based on isCreatedAddressMode
+    const handleSubmitAddress = useCallback(
+        (data: IAddress, isCreateAddressMode: boolean, addressId: string) => {
+            if (isCreateAddressMode) {
+                dispatch(asyncCreateAddress({ uid, data }));
+                handleToggleModal();
+                return;
+            }
+
+            dispatch(asyncUpdateAddress({ uid, data, addressId }));
+
+            handleToggleModal();
+        },
+        [dispatch, handleToggleModal, uid]
+    );
+
+    /**
+     * updates inputs in useForm() hook
+     * if action is update then it will have prepopulated values
+     */
+    useEffect(() => {
+        if (isCreateAddressMode && addressId.trim() === '') {
+            setInputFields(addressCreateForm);
+        } else {
+            if (!addressId) {
+                throw new Error('No address id provided');
+            }
+
+            const updateAddressForm = addressUpdateForm(addresses[addressId]);
+            setInputFields(updateAddressForm);
+        }
+    }, [
+        isCreateAddressMode,
+        addressId,
+        handleToggleModal,
+        addresses,
+        setInputFields
+    ]);
+
+    // Fetch Addresses on load if we have user ID (uid)
     useEffect(() => {
         if (uid.trim() === '') return;
         dispatch(asyncGetAddresses(uid));
     }, [dispatch, uid]);
 
-    const addNewAddress = useCallback(() => {
-        const { city, zipCode, street, floor, apartment, phone } =
-            formState.inputs;
-
-        const data: IAddress = {
-            city: city.value,
-            zipCode: zipCode.value,
-            street: street.value,
-            floor: floor.value,
-            apartment: apartment.value,
-            phone: phone.value,
-            id: ''
-        };
-        dispatch(asyncCreateAddress({ uid, data }));
-        handleToggleModal();
-    }, [dispatch, formState.inputs, handleToggleModal, uid]);
-
+    // fallback content
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
     } else if (!isLoading && addressesToRender.length === 0 && !!error) {
@@ -124,7 +149,13 @@ const Addresses: React.FC = () => {
                 footer={
                     <Button
                         type="button"
-                        onClick={addNewAddress}
+                        onClick={() =>
+                            handleSubmitAddress(
+                                data,
+                                isCreateAddressMode,
+                                addressId
+                            )
+                        }
                         disabled={!formState.formIsValid}
                     >
                         Confirm
@@ -142,7 +173,10 @@ const Addresses: React.FC = () => {
             </header>
             <div className="addresses__container">
                 <div className="addresses__button-add">
-                    <Button type="button" onClick={handleToggleModal}>
+                    <Button
+                        type="button"
+                        onClick={() => onToggleAddressMode('create')}
+                    >
                         Add address
                     </Button>
                 </div>
@@ -153,6 +187,7 @@ const Addresses: React.FC = () => {
                                 key={address.id}
                                 address={address}
                                 uid={uid}
+                                onAddressUpdate={onToggleAddressMode}
                             />
                         ))}
                 </ul>

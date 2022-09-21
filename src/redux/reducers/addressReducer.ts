@@ -94,20 +94,25 @@ const addressSlice = createSlice({
             .addCase(asyncUpdateAddress.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(asyncUpdateAddress.fulfilled, (state, action) => {
-                // const addressId = action.payload;
-                // if (state.addresses[addressId] === undefined) {
-                //     throw new Error(`Address with ${addressId} not found!`);
-                // }
-                // delete state.addresses[addressId];
-                // state.isLoading = false;
-            })
+            .addCase(
+                asyncUpdateAddress.fulfilled,
+                (
+                    state,
+                    action: PayloadAction<{ data: IAddress; addressId: string }>
+                ) => {
+                    const { data, addressId } = action.payload;
+                    if (state.addresses[addressId] === undefined) {
+                        throw new Error(`Address with ${addressId} not found!`);
+                    }
+                    state.addresses[addressId] = data;
+                    state.isLoading = false;
+                }
+            )
             .addCase(
                 asyncUpdateAddress.rejected,
                 (state, action: PayloadAction<any>) => {
-                    // console.log('rejected deleteAddress', action);
-                    // state.error = action.payload;
-                    // state.isLoading = false;
+                    state.error = action.payload;
+                    state.isLoading = false;
                 }
             );
     }

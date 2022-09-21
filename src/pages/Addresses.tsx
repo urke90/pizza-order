@@ -65,6 +65,10 @@ const Addresses: React.FC = () => {
     const addressesToRender = Object.values(addresses);
 
     useEffect(() => {
+        console.log('addresses', addresses);
+    }, [addresses]);
+
+    useEffect(() => {
         if (uid.trim() === '') return;
         dispatch(getAddresses(uid));
     }, [dispatch, uid]);
@@ -142,7 +146,11 @@ const Addresses: React.FC = () => {
                 <ul className="addresses__list">
                     {addressesToRender.length > 0 &&
                         addressesToRender.map((address) => (
-                            <AddressItem key={address.id} address={address} />
+                            <AddressItem
+                                key={address.id}
+                                address={address}
+                                uid={uid}
+                            />
                         ))}
                 </ul>
             </div>

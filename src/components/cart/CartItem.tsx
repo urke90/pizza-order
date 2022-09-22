@@ -1,5 +1,5 @@
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
-import { ICartItem } from 'ts/orders';
+import { ICartItem } from 'ts/orders-cart';
 import { useAppDispatch } from 'hooks/useRedux';
 import type { TIngredientActionType } from 'ts/ingredients';
 import {

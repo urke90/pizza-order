@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-import { createCartOrder } from 'redux/actions/cart-actions';
-import { ICartItem } from 'ts/orders';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createCartOrder } from 'redux/actions/cartActions';
+import { ICartItem } from 'ts/orders-cart';
 import type { TIngredientActionType } from 'ts/ingredients';
 
 interface IInitialState {
@@ -19,7 +19,7 @@ const initialState: IInitialState = {
 
 export const emptyCartItem: ICartItem = {
     pizzaId: '',
-    uid: '',
+    userId: '',
     title: '',
     recipeId: '',
     quantity: 0,
@@ -29,7 +29,7 @@ export const emptyCartItem: ICartItem = {
 };
 
 const cartSlice = createSlice({
-    name: 'orders',
+    name: 'cart',
     initialState,
     reducers: {
         /**

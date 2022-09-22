@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ref, set, push } from 'firebase/database';
 import { db } from '../../firebase/firebase';
-import { ICartItem } from 'ts/orders';
+import { ICartItem } from 'ts/orders-cart';
 
 export const createCartOrder = createAsyncThunk(
     'cart/createCartOrder',

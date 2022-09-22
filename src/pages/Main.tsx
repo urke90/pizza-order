@@ -8,7 +8,7 @@ import { useIngredients } from 'hooks/useIngredients';
 import { useModal } from 'hooks/useModal';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IUpdatableIngredients } from 'ts/ingredients';
-import { ICartItem } from 'ts/orders';
+import { ICartItem } from 'ts/orders-cart';
 import { emptyCartItem } from 'redux/reducers/cartReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { fetchPizzaById } from 'redux/actions/pizza-actions';
@@ -62,7 +62,7 @@ const Main: React.FC = () => {
     const handleAddToCart = useCallback(() => {
         const pizza: ICartItem = {
             pizzaId: uuid(),
-            uid,
+            userId: uid,
             title,
             quantity: pizzaQuantity,
             imageUrl,

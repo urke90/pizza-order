@@ -1,7 +1,7 @@
-import CartItem from 'components/cart/CartItem';
 import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
-import { createCartOrder } from 'redux/actions/cart-actions';
+import { createCartOrder } from 'redux/actions/cartActions';
 
+import CartItem from 'components/cart/CartItem';
 import Button from 'shared/form/Button';
 import './Cart.scss';
 

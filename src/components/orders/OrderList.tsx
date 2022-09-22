@@ -1,5 +1,5 @@
 import OrderItem from './OrderItem';
-import { ICartItem } from 'ts/orders';
+import { ICartItem } from 'ts/orders-cart';
 
 import './OrderList.scss';
 

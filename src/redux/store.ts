@@ -4,6 +4,7 @@ import pizzaReducer from './reducers/pizzaReducer';
 import paginationReducer from './reducers/paginationReducer';
 import cartReducer from './reducers/cartReducer';
 import addressReducer from './reducers/addressReducer';
+import ordersReducer from './reducers/ordersReducer';
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         pizzaReducer,
         paginationReducer,
         cartReducer,
-        addressReducer
+        addressReducer,
+        ordersReducer
     }
 });
 

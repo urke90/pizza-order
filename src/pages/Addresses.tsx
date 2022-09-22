@@ -10,7 +10,7 @@ import {
     asyncCreateAddress,
     asyncGetAddresses,
     asyncUpdateAddress
-} from 'redux/actions/address-actions';
+} from 'redux/actions/addressActions';
 import { addressesSelector } from 'redux/reducers/addressReducer';
 
 import AddressItem from 'components/addresses/AddressItem';

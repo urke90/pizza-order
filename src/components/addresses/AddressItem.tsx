@@ -1,7 +1,7 @@
 import { IAddress } from 'ts/address';
 import type { TAddressMode } from 'ts/address';
 import { useAppDispatch } from 'hooks/useRedux';
-import { asyncDeleteAddress } from 'redux/actions/address-actions';
+import { asyncDeleteAddress } from 'redux/actions/addressActions';
 import Button from 'shared/form/Button';
 
 import './AddressItem.scss';

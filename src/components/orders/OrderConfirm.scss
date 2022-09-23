@@ -1,0 +1,8 @@
+.order-confirm {
+    padding: 10px;
+    min-width: 260px;
+    &__list {
+        margin-bottom: 20px;
+        overflow-y: auto;
+    }
+}

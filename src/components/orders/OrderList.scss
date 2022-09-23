@@ -30,33 +30,4 @@
         max-height: 250px;
         overflow-y: auto;
     }
-    &__item {
-        display: flex;
-        justify-content: space-between;
-        background-color: $gray;
-        padding: 3px 8px;
-        border-radius: 5px;
-        margin: 6px auto;
-        font-size: 12px;
-    }
-    &__item--title {
-        margin-right: 6px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    &__item--quantity {
-        color: $red;
-    }
-
-    @media screen and (min-width: 768px) {
-        &__item {
-            font-size: 14px;
-        }
-    }
-    @media screen and (min-width: 1024px) {
-        &__item {
-            font-size: 15px;
-        }
-    }
 }

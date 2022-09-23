@@ -11,12 +11,14 @@ import { IAddress } from 'ts/address';
 
 interface IInitialState {
     addresses: { [key: string]: IAddress };
+    selectedAddress: string;
     isLoading: boolean;
     error: string | null;
 }
 
 const initialState: IInitialState = {
     addresses: {},
+    selectedAddress: '',
     isLoading: false,
     error: null
 };
@@ -25,9 +27,9 @@ const addressSlice = createSlice({
     name: 'addresses',
     initialState,
     reducers: {
-        addAddress(state, action) {},
-        // updateAddress(state, action) {},
-        removeAddress(state, action) {}
+        selectAddressForCart(state, action: PayloadAction<string>) {
+            state.selectedAddress = action.payload;
+        }
     },
     extraReducers(builder) {
         builder
@@ -121,10 +123,11 @@ const addressSlice = createSlice({
 export const addressesSelector = {
     addresses: (state: RootState) => state.addressReducer.addresses,
     isLoading: (state: RootState) => state.addressReducer.isLoading,
-    error: (state: RootState) => state.addressReducer.error
+    error: (state: RootState) => state.addressReducer.error,
+    selectedAddress: (state: RootState) => state.addressReducer.selectedAddress
 };
 
-export const { addAddress, removeAddress } = addressSlice.actions;
+export const { selectAddressForCart } = addressSlice.actions;
 
 const addressReducer = addressSlice.reducer;
 export default addressReducer;

@@ -1,8 +1,12 @@
 import { useState } from 'react';
+
 import {
     BsFillArrowDownCircleFill,
     BsFillArrowUpCircleFill
 } from 'react-icons/bs';
+import { useAppDispatch } from 'hooks/useRedux';
+import { IAddress } from 'ts/address';
+import { selectAddressForCart } from 'redux/reducers/addressReducer';
 
 import Button from 'shared/form/Button';
 
@@ -10,17 +14,23 @@ import './Accordion.scss';
 
 interface IAccordionProps {
     contentType: 'pizzaIngredients' | 'cartIngredients' | 'addresses';
-    items: any[];
+    addresses: IAddress[];
     title: string;
 }
 
-const Accordion: React.FC<IAccordionProps> = ({ title, items }) => {
+const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
+    const dispatch = useAppDispatch();
     const [showAccordion, setShowAccordion] = useState(false);
 
     const handleToggleAccordion = () =>
         setShowAccordion((prevShowState) => !prevShowState);
 
-    const arrowButton = showAccordion ? (
+    const handleSelectAddress = (addressId: string) => {
+        dispatch(selectAddressForCart(addressId));
+        handleToggleAccordion();
+    };
+
+    const arrowIcon = showAccordion ? (
         <BsFillArrowUpCircleFill className="accordion__arrow-icon" />
     ) : (
         <BsFillArrowDownCircleFill className="accordion__arrow-icon" />
@@ -37,20 +47,29 @@ const Accordion: React.FC<IAccordionProps> = ({ title, items }) => {
                         <div className="">
                             <p>{title}</p>
                         </div>{' '}
-                        <div>{arrowButton}</div>
+                        <div>{arrowIcon}</div>
                     </div>
                 </Button>
             </header>
 
-            <div
-                className={`accordion__content ${
-                    showAccordion ? 'accordion__content--show' : ''
+            <ul
+                className={`accordion__list ${
+                    showAccordion ? 'accordion__list--show' : ''
                 }`}
             >
-                <p>111111111111111</p>
-                <p>222222222222222</p>
-                <p>33333333</p>
-            </div>
+                {addresses.length > 0 &&
+                    addresses.map(({ id, street }) => {
+                        return (
+                            <li
+                                className="accordion__item"
+                                key={id}
+                                onClick={() => handleSelectAddress(id)}
+                            >
+                                {street}
+                            </li>
+                        );
+                    })}
+            </ul>
         </div>
     );
 };

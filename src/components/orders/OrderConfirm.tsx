@@ -28,8 +28,6 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({
     // console.log('addresses in OrderConfirm component', addresses);
     //e: React.ChangeEvent<HTMLSelectElement>
 
-    console.log('addresses in orderConfirm', addresses);
-
     return (
         <div className="order-confirm">
             <ul className="order-confirm__list">
@@ -46,7 +44,7 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({
             <div className="order-confirm__addresses">
                 <Accordion
                     contentType="addresses"
-                    items={addresses}
+                    addresses={addresses}
                     title="Choose Address"
                 />
             </div>

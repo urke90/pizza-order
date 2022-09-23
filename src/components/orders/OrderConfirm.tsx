@@ -1,32 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ICartItem } from 'ts/orders-cart';
 import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
 import { asyncGetAddresses } from 'redux/actions/addressActions';
 
 import { addressesSelector } from 'redux/reducers/addressReducer';
-import { uidSelector } from 'redux/reducers/authReducer';
+import { IAddress } from 'ts/address';
 
+import Accordion from 'shared/ui/Accordion';
 import OrderItem from './OrderItem';
-import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './OrderConfirm.scss';
 
 interface IOrderConfirmProps {
     cartItems: ICartItem[];
+    addresses: IAddress[];
+    // onAddressChange:
 }
 
-/**
- *
- * Figure out a way to render addresses, should i fetch them here in OrderConfirm or in Cart and pass them through props
- */
-
-const OrderConfirm: React.FC<IOrderConfirmProps> = ({ cartItems }) => {
+const OrderConfirm: React.FC<IOrderConfirmProps> = ({
+    cartItems,
+    addresses
+}) => {
     // const dispatch = useAppDispatch();
     // const addresses = useAppSelector(addressesSelector.addresses);
-    // const isLoading = useAppSelector(addressesSelector.isLoading);
     // const addressesToRender = Object.values(addresses);
     // const uid = useAppSelector(uidSelector);
     // console.log('addresses in OrderConfirm component', addresses);
+    //e: React.ChangeEvent<HTMLSelectElement>
+
+    console.log('addresses in orderConfirm', addresses);
 
     return (
         <div className="order-confirm">
@@ -42,7 +44,11 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({ cartItems }) => {
                     ))}
             </ul>
             <div className="order-confirm__addresses">
-                <select name="addresses" id="addresses"></select>
+                <Accordion
+                    contentType="addresses"
+                    items={addresses}
+                    title="Choose Address"
+                />
             </div>
         </div>
     );

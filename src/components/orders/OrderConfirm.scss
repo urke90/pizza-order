@@ -1,8 +1,22 @@
+@import '../../assets/scss/colors';
+
 .order-confirm {
     padding: 10px;
     min-width: 260px;
+
     &__list {
         margin-bottom: 20px;
         overflow-y: auto;
+    }
+    &__addresses-title {
+        text-align: center;
+    }
+
+    @media screen and (min-width: 481px) {
+        min-width: 320px;
+    }
+
+    @media screen and (min-width: 481px) {
+        min-width: 420px;
     }
 }

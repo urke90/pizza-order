@@ -24,10 +24,10 @@ const Cart: React.FC = () => {
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
 
-    console.log('addresses', addresses);
-    console.log('uid', uid);
+    // console.log('addresses', addresses);
+    // console.log('uid', uid);
 
-    console.log('cartItems', cart);
+    // console.log('cartItems', cart);
 
     useEffect(() => {
         if (!!uid) {
@@ -98,7 +98,10 @@ const Cart: React.FC = () => {
                     </Button>
                 }
             >
-                <OrderConfirm cartItems={cartItems} />
+                <OrderConfirm
+                    cartItems={cartItems}
+                    addresses={addressesItems}
+                />
             </Modal>
             <div className="cart">
                 <header className="cart__header">

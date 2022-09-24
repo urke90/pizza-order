@@ -11,7 +11,7 @@ import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders-cart';
 import { emptyCartItem } from 'redux/reducers/cartReducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
-import { fetchPizzaById } from 'redux/actions/pizza-actions';
+import { fetchPizzaById } from 'redux/actions/pizzaActions';
 import { generateClassName } from 'util/class-generators/main-page';
 
 import Pagination from 'components/pagination/Pagination';

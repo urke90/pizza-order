@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
 import { useModal } from 'hooks/useModal';
 import { addressesSelector } from 'redux/reducers/addressReducer';
-import { createCartOrder } from 'redux/actions/cartActions';
+import { asyncCreateOrder } from 'redux/actions/ordersActions';
 import { asyncGetAddresses } from 'redux/actions/addressActions';
+import { IOrderItem } from 'ts/orders-cart';
+import { removeSelectedAddressId } from 'redux/reducers/addressReducer';
+import { resetCart } from 'redux/reducers/cartReducer';
 
 import CartItem from 'components/cart/CartItem';
 import OrderConfirm from 'components/orders/OrderConfirm';
@@ -19,16 +22,11 @@ const Cart: React.FC = () => {
     const [showModal, handleToggleModal] = useModal();
     const cart = useAppSelector((state) => state.cartReducer.cart);
     const uid = useAppSelector((state) => state.authReducer.uid);
-    const isLoading = useAppSelector(addressesSelector.isLoading);
+    const isLoadingAddresses = useAppSelector(addressesSelector.isLoading);
     const addresses = useAppSelector(addressesSelector.addresses);
-    const selectedAddress = useAppSelector(addressesSelector.selectedAddress);
+    const selectedAddressId = useAppSelector(addressesSelector.selectedAddress);
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
-
-    // console.log('addresses', addresses);
-    console.log('selectedAddress', selectedAddress);
-
-    // console.log('cartItems', cart);
 
     useEffect(() => {
         if (!!uid) {
@@ -36,12 +34,37 @@ const Cart: React.FC = () => {
         }
     }, [dispatch, uid]);
 
-    const handleCreateOrder = () => {
-        const cartItems = Object.values(cart);
-        console.log('cartItems', cartItems);
+    const handleCreateOrder = useCallback(() => {
+        const address = addresses[selectedAddressId];
 
-        // dispatch(createCartOrder({ uid, cartItems }));
-    };
+        console.log('addresses in handleCreaate order', addresses);
+        console.log(
+            'addresses in handleCreaate order AAAAAAAAAAAAAAAAAAAAAAAAA',
+            addresses[selectedAddressId]
+        );
+        console.log('selectedAddressId', selectedAddressId);
+        console.log('addresses', addresses);
+
+        const data: IOrderItem[] = cartItems.map((cartItem) => ({
+            ...cartItem,
+            address
+        }));
+
+        console.log('data, handleCreateOrder', data);
+        console.log('address, handleCreateOrder', address);
+
+        dispatch(asyncCreateOrder({ uid, data }));
+        dispatch(removeSelectedAddressId());
+        dispatch(resetCart());
+        handleToggleModal();
+    }, [
+        dispatch,
+        handleToggleModal,
+        selectedAddressId,
+        addresses,
+        cartItems,
+        uid
+    ]);
 
     let orderButton: React.ReactNode | null = null;
 
@@ -68,9 +91,9 @@ const Cart: React.FC = () => {
         );
     }
 
-    if (isLoading) {
+    if (isLoadingAddresses) {
         return <LoadingSpinner asOverlay />;
-    } else if (!isLoading && cartItems.length === 0) {
+    } else if (!isLoadingAddresses && cartItems.length === 0) {
         return (
             <div className="cart">
                 <header className="cart__header">
@@ -94,7 +117,11 @@ const Cart: React.FC = () => {
                 onClose={handleToggleModal}
                 show={showModal}
                 footer={
-                    <Button type="button" onClick={handleCreateOrder}>
+                    <Button
+                        type="button"
+                        onClick={handleCreateOrder}
+                        disabled={!selectedAddressId}
+                    >
                         Confirm
                     </Button>
                 }

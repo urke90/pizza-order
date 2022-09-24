@@ -126,6 +126,9 @@ const cartSlice = createSlice({
 
                 state.cart[pizzaId].quantity--;
             }
+        },
+        resetCart(state) {
+            state.cart = {};
         }
     },
     extraReducers(builder) {
@@ -156,7 +159,8 @@ export const {
     removePizzaFromCart,
     changeIngredientQuantity,
     removePizzaIngredient,
-    changePizzaQuantity
+    changePizzaQuantity,
+    resetCart
 } = cartSlice.actions;
 
 const cartReducer = cartSlice.reducer;

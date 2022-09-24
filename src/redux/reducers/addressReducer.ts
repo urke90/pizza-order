@@ -29,6 +29,9 @@ const addressSlice = createSlice({
     reducers: {
         selectAddressForCart(state, action: PayloadAction<string>) {
             state.selectedAddress = action.payload;
+        },
+        removeSelectedAddressId(state) {
+            state.selectedAddress = '';
         }
     },
     extraReducers(builder) {
@@ -127,7 +130,8 @@ export const addressesSelector = {
     selectedAddress: (state: RootState) => state.addressReducer.selectedAddress
 };
 
-export const { selectAddressForCart } = addressSlice.actions;
+export const { selectAddressForCart, removeSelectedAddressId } =
+    addressSlice.actions;
 
 const addressReducer = addressSlice.reducer;
 export default addressReducer;

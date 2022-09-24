@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
 import { useModal } from 'hooks/useModal';
@@ -21,13 +21,14 @@ const Cart: React.FC = () => {
     const uid = useAppSelector((state) => state.authReducer.uid);
     const isLoading = useAppSelector(addressesSelector.isLoading);
     const addresses = useAppSelector(addressesSelector.addresses);
+    const selectedAddress = useAppSelector(addressesSelector.selectedAddress);
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
 
-    console.log('addresses', addresses);
-    console.log('uid', uid);
+    // console.log('addresses', addresses);
+    console.log('selectedAddress', selectedAddress);
 
-    console.log('cartItems', cart);
+    // console.log('cartItems', cart);
 
     useEffect(() => {
         if (!!uid) {
@@ -98,7 +99,10 @@ const Cart: React.FC = () => {
                     </Button>
                 }
             >
-                <OrderConfirm cartItems={cartItems} />
+                <OrderConfirm
+                    cartItems={cartItems}
+                    addresses={addressesItems}
+                />
             </Modal>
             <div className="cart">
                 <header className="cart__header">

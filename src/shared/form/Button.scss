@@ -11,6 +11,10 @@
     text-transform: uppercase;
     cursor: pointer;
     font-size: 12px;
+    transition: all 0.2s;
+    &:active {
+        transform: translateY(4px);
+    }
     &--secondary {
         background-color: $orange;
         border-color: $orange;

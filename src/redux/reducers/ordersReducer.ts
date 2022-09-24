@@ -27,7 +27,6 @@ const ordersSlice = createSlice({
             .addCase(
                 asyncCreateOrder.fulfilled,
                 (state, action: PayloadAction<IOrderItem[]>) => {
-                    console.log('create order fulfilled');
                     const data = action.payload;
                     const orders = [...state.orders, ...data].flat();
 
@@ -37,6 +36,29 @@ const ordersSlice = createSlice({
             )
             .addCase(
                 asyncCreateOrder.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.isLoading = false;
+                    state.error = action.payload;
+                }
+            );
+        builder
+            .addCase(asyncGetOrders.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                asyncGetOrders.fulfilled,
+                (
+                    state,
+                    action: PayloadAction<{ [key: string]: IOrderItem[] }>
+                ) => {
+                    const orders = Object.values(action.payload).flat();
+
+                    state.orders = orders;
+                    state.isLoading = false;
+                }
+            )
+            .addCase(
+                asyncGetOrders.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;

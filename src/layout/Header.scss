@@ -17,6 +17,7 @@
     &__logo-img {
         color: $orange;
         font-size: 40px;
+        animation: logo-rotate 3s linear infinite;
     }
     &__logo a {
         border: none;
@@ -33,6 +34,7 @@
         margin-right: 10px;
         font-size: 40px;
         color: $orange;
+        cursor: pointer;
     }
 
     @media screen and (min-width: 768px) {
@@ -46,5 +48,11 @@
         &__logo-img {
             font-size: 50px;
         }
+    }
+}
+
+@keyframes logo-rotate {
+    0% {
+        transform: rotateZ(360deg);
     }
 }

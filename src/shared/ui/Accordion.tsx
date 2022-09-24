@@ -58,7 +58,9 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
 
             <ul
                 className={`accordion__list ${
-                    showAccordion ? 'accordion__list--show' : ''
+                    showAccordion
+                        ? 'accordion__list--slide-down'
+                        : 'accordion__list--slide-up'
                 }`}
             >
                 {addresses.length > 0 &&

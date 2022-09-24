@@ -25,10 +25,15 @@
     }
     &__item {
         padding: 4px;
+        cursor: pointer;
         &:hover {
             background-color: $dark;
             color: $orange;
         }
+    }
+    &__item--active {
+        background-color: $dark;
+        color: $orange;
     }
     @media screen and (min-width: 481px) {
         &__arrow-icon {
@@ -44,7 +49,7 @@
 
 @keyframes accordion-height {
     from {
-        transform: translateY(-40%);
+        transform: translateY(-20%);
         opacity: 0;
     }
     to {

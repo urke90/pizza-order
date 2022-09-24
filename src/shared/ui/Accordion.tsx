@@ -1,10 +1,10 @@
 import { useState } from 'react';
-
+import { addressesSelector } from 'redux/reducers/addressReducer';
 import {
     BsFillArrowDownCircleFill,
     BsFillArrowUpCircleFill
 } from 'react-icons/bs';
-import { useAppDispatch } from 'hooks/useRedux';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { IAddress } from 'ts/address';
 import { selectAddressForCart } from 'redux/reducers/addressReducer';
 
@@ -20,6 +20,8 @@ interface IAccordionProps {
 
 const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
     const dispatch = useAppDispatch();
+    const selectedAddress = useAppSelector(addressesSelector.selectedAddress);
+
     const [showAccordion, setShowAccordion] = useState(false);
 
     const handleToggleAccordion = () =>
@@ -39,11 +41,13 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
     return (
         <div className="accordion">
             <header className="accordion__header">
-                <Button type="button" width="100%" secondary>
-                    <div
-                        className="accordion__button-content"
-                        onClick={handleToggleAccordion}
-                    >
+                <Button
+                    type="button"
+                    width="100%"
+                    secondary
+                    onClick={handleToggleAccordion}
+                >
+                    <div className="accordion__button-content">
                         <div className="">
                             <p>{title}</p>
                         </div>{' '}
@@ -61,7 +65,11 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
                     addresses.map(({ id, street }) => {
                         return (
                             <li
-                                className="accordion__item"
+                                className={`accordion__item ${
+                                    id === selectedAddress
+                                        ? 'accordion__item--active'
+                                        : ''
+                                }`}
                                 key={id}
                                 onClick={() => handleSelectAddress(id)}
                             >

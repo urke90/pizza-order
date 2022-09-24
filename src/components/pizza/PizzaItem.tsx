@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppDispatch } from 'hooks/useRedux';
 import { savePizzaId } from 'redux/reducers/pizzaReducer';
 

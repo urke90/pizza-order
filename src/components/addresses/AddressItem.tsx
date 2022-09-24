@@ -52,10 +52,15 @@ const AddressItem: React.FC<IAddressItemProps> = (props) => {
                 <Button
                     type="button"
                     onClick={() => onAddressUpdate('edit', id)}
+                    disabled={!id}
                 >
                     Update
                 </Button>
-                <Button type="button" onClick={deleteAddressHandler}>
+                <Button
+                    type="button"
+                    onClick={deleteAddressHandler}
+                    disabled={!uid || !id}
+                >
                     Remove
                 </Button>
             </div>

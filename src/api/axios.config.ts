@@ -1,10 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const instance = axios.create({
-    // baseURL: 'https://pizza-order-6d2f9-default-rtdb.firebaseio.com/'
-    //
-    // timeout: 1000,
-    // headers: {'X-Custom-Header': 'foobar'}
+    baseURL: 'https://forkify-api.herokuapp.com/api/'
 });
 
 // Add a request interceptor

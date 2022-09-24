@@ -33,12 +33,6 @@ const PizzasList: React.FC<{ recipeId: string }> = ({ recipeId }) => {
 
     // TODO FIGURE OUT A BEST WAY TO SHOW FALLBACK CONTENT IN REACT
 
-    // const fallbackContent = (
-    //     <h2 style={{ textAlign: 'center' }}>
-    //         Sorry there are no pizzas we can offer at the moment :(
-    //     </h2>
-    // );
-
     return (
         <>
             <ul
@@ -47,9 +41,7 @@ const PizzasList: React.FC<{ recipeId: string }> = ({ recipeId }) => {
                     'main__pizzas-list--column'
                 )}`}
             >
-                {!isLoading &&
-                    !error &&
-                    pizzasToRender.length > 0 &&
+                {pizzasToRender.length > 0 &&
                     pizzasToRender.map(({ recipe_id, title, image_url }) => (
                         <PizzaItem
                             key={recipe_id}

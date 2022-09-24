@@ -2,6 +2,7 @@ import { BsFillCartPlusFill } from 'react-icons/bs';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 import type { TIngredientActionType } from 'ts/ingredients';
+
 import PizzaRecipeItem from './PizzaRecipeItem';
 import Button from 'shared/form/Button';
 
@@ -40,12 +41,13 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                 </a>
             </div>
             <ul className="recipe__ingredients-list">
-                {ingredients.map((ingredient) => (
-                    <PizzaRecipeItem
-                        key={ingredient + Math.random()}
-                        ingredient={ingredient}
-                    />
-                ))}
+                {ingredients.length > 0 &&
+                    ingredients.map((ingredient) => (
+                        <PizzaRecipeItem
+                            key={ingredient + Math.random()}
+                            ingredient={ingredient}
+                        />
+                    ))}
             </ul>
             <div className="recipe__buttons-wrapper">
                 <h4 className="recipe__quantity">Quantity:</h4>

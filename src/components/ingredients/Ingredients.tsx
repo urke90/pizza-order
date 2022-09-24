@@ -41,15 +41,16 @@ const Ingredients: React.FC<IIngredientsProps> = ({
             />
             <h4 className="ingredients__list-title">Ingredients</h4>
             <ul className="ingredients__list">
-                {ingredientsToRender.map((ingredient) => (
-                    <IngredientItem
-                        key={ingredient.id}
-                        ingredient={ingredient}
-                        onIngredientQtyChange={onIngredientQtyChange}
-                        onIngredientRemove={onIngredientRemove}
-                        ingValueConstant={ingValueConstant}
-                    />
-                ))}
+                {ingredientsToRender.length > 0 &&
+                    ingredientsToRender.map((ingredient) => (
+                        <IngredientItem
+                            key={ingredient.id}
+                            ingredient={ingredient}
+                            onIngredientQtyChange={onIngredientQtyChange}
+                            onIngredientRemove={onIngredientRemove}
+                            ingValueConstant={ingValueConstant}
+                        />
+                    ))}
             </ul>
         </div>
     );

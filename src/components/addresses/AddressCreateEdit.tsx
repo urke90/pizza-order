@@ -5,14 +5,6 @@ import Input from 'shared/form/Input';
 
 import './AddressCreateEdit.scss';
 
-/**
- * THIS WILL BE REUSABLE COMPONENT FOR CREATING AND UPDATING ADDRESS SO WE MUST BE ABLE TO SET INITIAL VALUES
- * WE WILL NEED TO SAVE ADDRESS TO REDUX
- * WE WILL NEED TO SABVE ADDRSS TO DB
- * CONFIRM BUTTON WILL BE IN MODAL (PARRENT COMPONENT) so we will need to pass callback func to update fields ===>
- * CALL useForm() in PARENT COMPONENT ?!?!??!?!?!??!
- */
-
 interface IAddressCreateEditProps {
     formState: IFormState;
     handleInputChange: (

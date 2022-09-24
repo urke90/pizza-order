@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { getPizzasToRender } from 'util/pagination-data';
-import { fetchPizzas } from 'redux/actions/pizza-actions';
+import { fetchPizzas } from 'redux/actions/pizzaActions';
 import { generateClassName } from 'util/class-generators/main-page';
 import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
 import { paginationSelectors } from 'redux/reducers/paginationReducer';

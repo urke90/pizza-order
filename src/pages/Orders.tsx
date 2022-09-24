@@ -1,47 +1,30 @@
-import React, { useEffect } from 'react';
-import axiosRequest from 'api/axios.config';
-import { DB_ENDPOINTS } from 'api/endpoints';
-import { useAppSelector } from 'hooks/useRedux';
+import { useEffect } from 'react';
+import { asyncGetOrders } from 'redux/actions/ordersActions';
+import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
 import { uidSelector } from 'redux/reducers/authReducer';
+import { ordersSelectors } from 'redux/reducers/ordersReducer';
+
+import './Orders.scss';
 
 const Orders: React.FC = () => {
+    const dispatch = useAppDispatch();
     const uid = useAppSelector(uidSelector);
-    console.log('uid in orders', uid);
+    const isLoading = useAppSelector(ordersSelectors.isLoading);
+    const orders = useAppSelector(ordersSelectors.orders);
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            const url = DB_ENDPOINTS.orders + uid + '.json';
-
-            try {
-                const response = await axiosRequest({ url, method: 'GET' });
-                // console.log('response FETHCED ORDERS', response);
-
-                const fetchedArrays: any[] = Object.values(response.data);
-                console.log('arrays', fetchedArrays);
-
-                let fletArr = fetchedArrays.flat();
-                console.log('fletArr', fletArr);
-
-                let forEachArray: any[] = [];
-
-                fetchedArrays.forEach((arr) => {
-                    arr.forEach((nestArr: any[]) => {
-                        forEachArray.push(nestArr);
-                    });
-                });
-
-                console.log('forEachArray', forEachArray);
-            } catch (error) {
-                console.log('error', error);
-            }
-        };
-
-        if (uid.trim() !== '') {
-            fetchOrders();
+        if (uid) {
+            dispatch(asyncGetOrders(uid));
         }
-    }, [uid]);
+    }, [dispatch, uid]);
 
-    return <div>Orders page</div>;
+    return (
+        <section className="orders">
+            <header className="orders__header">
+                <h2>Your Orders</h2>
+            </header>
+        </section>
+    );
 };
 export default Orders;
 

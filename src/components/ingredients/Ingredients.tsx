@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import IngredientConstValue from './IngredientConstValue';

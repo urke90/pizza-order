@@ -10,8 +10,8 @@
     text-transform: uppercase;
     cursor: pointer;
     font-size: 12px;
-    transition: all 0.2s;
     &:active {
+        transition: all 0.2s;
         transform: translateY(4px);
     }
     &--secondary {

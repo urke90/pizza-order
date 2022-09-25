@@ -3,7 +3,7 @@
 .recipe {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex-grow: 1 1 auto;
     padding: 20px;
     &__heading {
         text-align: center;
@@ -58,5 +58,11 @@
         border: 2px dotted $orange;
         border-radius: 5px;
         margin: 0 15px;
+    }
+    @media screen and (min-width: 481px) {
+        padding: 40px;
+    }
+    @media screen and (min-width: 781px) {
+        padding: 20px;
     }
 }

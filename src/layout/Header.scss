@@ -49,10 +49,9 @@
             font-size: 50px;
         }
     }
-}
-
-@keyframes logo-rotate {
-    0% {
-        transform: rotateZ(360deg);
+    @keyframes logo-rotate {
+        0% {
+            transform: rotateZ(360deg);
+        }
     }
 }

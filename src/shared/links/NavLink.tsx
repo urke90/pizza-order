@@ -2,12 +2,12 @@ import { NavLink } from 'react-router-dom';
 
 import './NavLink.scss';
 
-type NavLinkProps = {
+interface INavLinkProps {
     text: string;
     to: string;
-};
+}
 
-const NavLinkCustom: React.FC<NavLinkProps> = ({ text, to }) => {
+const NavLinkCustom: React.FC<INavLinkProps> = ({ text, to }) => {
     return (
         <NavLink
             to={to}

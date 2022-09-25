@@ -2,10 +2,6 @@
 const HAS_MIN_LENGTH = (charNum: number, value: string): boolean =>
     charNum <= value.trim().length;
 
-// string has max number of chars
-// export const HAS_MAX_LENGTH = (charNum: number, value: string): boolean =>
-//     charNum >= value.trim().length;
-
 // string should have at least 1 char
 const IS_REQUIRED = (value: string): boolean => value.trim().length >= 1;
 

@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom';
+
 import './Backdrop.scss';
 
 interface IBackdropProps {
@@ -9,7 +10,7 @@ interface IBackdropProps {
 const Backdrop: React.FC<IBackdropProps> = ({ onClose, show }) => {
     if (!show) return null;
 
-    const content = <div className="backdrop" onClick={onClose}></div>;
+    const content = <div className="backdrop" onClick={onClose} />;
 
     return createPortal(
         content,

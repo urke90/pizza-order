@@ -3,11 +3,7 @@ import { NAVLINKS_CONFIG } from 'util/navlinks-data';
 
 import './NavDesktop.scss';
 
-import React from 'react';
-
-type NavDesktopProps = {};
-
-const NavDesktop: React.FC<NavDesktopProps> = () => {
+const NavDesktop: React.FC = () => {
     return (
         <ul className="header__navigation-list">
             {NAVLINKS_CONFIG.map((navLink) => {

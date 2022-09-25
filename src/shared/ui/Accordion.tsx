@@ -5,6 +5,7 @@ import {
     BsFillArrowUpCircleFill
 } from 'react-icons/bs';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { generateGeneralClassName } from 'util/classGenerators';
 import { IAddress } from 'ts/address';
 import { selectAddressForCart } from 'redux/reducers/addressReducer';
 
@@ -48,7 +49,7 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
                     onClick={handleToggleAccordion}
                 >
                     <div className="accordion__button-content">
-                        <div className="">
+                        <div>
                             <p>{title}</p>
                         </div>{' '}
                         <div>{arrowIcon}</div>
@@ -57,21 +58,21 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
             </header>
 
             <ul
-                className={`accordion__list ${
-                    showAccordion
-                        ? 'accordion__list--slide-down'
-                        : 'accordion__list--slide-up'
-                }`}
+                className={`accordion__list ${generateGeneralClassName(
+                    showAccordion,
+                    'accordion__list--slide-down',
+                    'accordion__list--slide-up'
+                )}`}
             >
                 {addresses.length > 0 &&
                     addresses.map(({ id, street }) => {
                         return (
                             <li
-                                className={`accordion__item ${
-                                    id === selectedAddress
-                                        ? 'accordion__item--active'
-                                        : ''
-                                }`}
+                                className={`accordion__item ${generateGeneralClassName(
+                                    id === selectedAddress,
+                                    'accordion__item--active',
+                                    ''
+                                )}`}
                                 key={id}
                                 onClick={() => handleSelectAddress(id)}
                             >

@@ -1,3 +1,4 @@
+import { generateGeneralClassName } from 'util/classGenerators';
 import './Button.scss';
 
 interface IButtonProps {
@@ -17,20 +18,30 @@ const Button: React.FC<IButtonProps> = ({
     width,
     secondary
 }) => {
+    const buttonClassName = `button ${generateGeneralClassName(
+        !!secondary,
+        'button--secondary'
+    )} ${generateGeneralClassName(!!disabled, 'button--disabled')}`;
+
     return (
-        <button
-            className={`button ${secondary ? 'button--secondary' : ''} ${
-                disabled ? 'button--disabled' : ''
-            }`}
-            type={type}
-            disabled={disabled}
-            onClick={onClick}
-            style={{
-                width
-            }}
+        <div
+            className={generateGeneralClassName(
+                !!disabled,
+                'cursor-not-allowed'
+            )}
         >
-            {children}
-        </button>
+            <button
+                className={buttonClassName}
+                type={type}
+                disabled={disabled}
+                onClick={onClick}
+                style={{
+                    width
+                }}
+            >
+                {children}
+            </button>
+        </div>
     );
 };
 

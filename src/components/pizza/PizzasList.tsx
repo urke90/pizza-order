@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { getPizzasToRender } from 'util/pagination-data';
 import { fetchPizzas } from 'redux/actions/pizzaActions';
-import { generateClassName } from 'util/class-generators/main-page';
+import { generateRecipeClassName } from 'util/classGenerators';
 import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
 import { paginationSelectors } from 'redux/reducers/paginationReducer';
 import PizzaItem from './PizzaItem';
@@ -36,7 +36,7 @@ const PizzasList: React.FC<{ recipeId: string }> = ({ recipeId }) => {
     return (
         <>
             <ul
-                className={`main__pizzas-list ${generateClassName(
+                className={`main__pizzas-list ${generateRecipeClassName(
                     recipeId,
                     'main__pizzas-list--column'
                 )}`}

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { addPizzaToCart } from 'redux/reducers/cartReducer';

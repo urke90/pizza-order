@@ -10,7 +10,7 @@ const PizzaRecipeItem: React.FC<IPizzaRecipeItemProps> = ({ ingredient }) => {
     return (
         <li className="recipe__ingredient-item">
             <span className="recipe__ingredient-icon">
-                <IoFastFood color="#c80037" />
+                <IoFastFood />
             </span>{' '}
             <span>{ingredient}</span>
         </li>

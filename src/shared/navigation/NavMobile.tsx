@@ -17,13 +17,10 @@ const NavMobile: React.FC<INavMobileProps> = ({
     opened,
     onLogout
 }) => {
-    // if (!opened) return null;
-
     return (
         <>
             <Backdrop show={opened} onClose={onClick} />
             <ul
-                // className="navigation__list--mobile"
                 className={`navigation__list--mobile ${
                     opened
                         ? 'navigation__list--slide-down'

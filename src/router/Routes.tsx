@@ -53,20 +53,11 @@ const ROUTES_CONFIG: IRoutesConfig[] = [
 
 const RoutesComponent: React.FC = () => {
     return (
-        <>
-            <Routes>
-                {ROUTES_CONFIG.map(({ path, component }) => (
-                    <Route key={path} path={path} element={component} />
-                ))}
-
-                {/* <Route path="/" element={<Main />} />
-                <Route path="login" element={<Login />} />
-                <Route path="orders" element={<Orders />} />
-                <Route path="custom-pizza" element={<CustomPizza />} />
-                <Route path="cart" element={<Cart />} />
-                <Route path="*" element={<Navigate to="/" />} /> */}
-            </Routes>
-        </>
+        <Routes>
+            {ROUTES_CONFIG.map(({ path, component }) => (
+                <Route key={path} path={path} element={component} />
+            ))}
+        </Routes>
     );
 };
 export default RoutesComponent;

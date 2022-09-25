@@ -26,7 +26,7 @@ const OrderList: React.FC<IOrderListProps> = ({ createdPizza }) => {
                 </h4>
             </div>
             <ul className="order__list">
-                {ingredientsToRender &&
+                {ingredientsToRender.length > 0 &&
                     ingredientsToRender.map(({ id, title, quantity }) => (
                         <OrderItem key={id} title={title} quantity={quantity} />
                     ))}

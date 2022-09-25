@@ -1,11 +1,12 @@
-import Button from 'shared/form/Button';
-import { IConvertedIngredients } from 'ts/ingredients';
 import {
     AiOutlinePlus,
     AiOutlineMinus,
     AiFillMinusCircle
 } from 'react-icons/ai';
+import { IConvertedIngredients } from 'ts/ingredients';
 import type { TIngredientActionType } from 'ts/ingredients';
+
+import Button from 'shared/form/Button';
 
 import './IngredientItem.scss';
 

@@ -1,17 +1,16 @@
 import { useState, useCallback } from 'react';
-
-import Button from 'shared/form/Button';
-import Modal from 'shared/ui/Modal';
-import IngredientItem from 'components/ingredients/IngredientItem';
-import IngredientConstValue from 'components/ingredients/IngredientConstValue';
 import { useAppDispatch } from 'hooks/useRedux';
 import { useModal } from 'hooks/useModal';
 import {
     changeIngredientQuantity,
     removePizzaIngredient
 } from 'redux/reducers/cartReducer';
-
 import type { TIngredientActionType } from 'ts/ingredients';
+
+import Button from 'shared/form/Button';
+import Modal from 'shared/ui/Modal';
+import IngredientItem from 'components/ingredients/IngredientItem';
+import IngredientConstValue from 'components/ingredients/IngredientConstValue';
 
 import './CartIngredientItem.scss';
 

@@ -20,12 +20,12 @@ const Modal: React.FC<IModalProps> = ({
     onClose,
     show
 }) => {
-    if (!show) return null;
-
     const content = (
         <>
             <Backdrop onClose={onClose} show={show} />
-            <div className="modal">
+            <div
+                className={`modal ${show ? 'modal--visible' : 'modal--hidden'}`}
+            >
                 <header className="modal__header">
                     <h3>{headerTitle}</h3>
                 </header>

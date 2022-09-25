@@ -27,7 +27,7 @@ const Input: React.FC<IInputProps> = ({
     id,
     label,
     name,
-    placeholder,
+    placeholder = '',
     isTextarea = false,
     rows = 3,
     cols = 3,
@@ -35,7 +35,7 @@ const Input: React.FC<IInputProps> = ({
     value,
     isValid = true,
     onBlur,
-    errorMessage,
+    errorMessage = '',
     isTouched
 }) => {
     if (isTextarea) {

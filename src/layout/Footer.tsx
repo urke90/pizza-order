@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { AiFillLinkedin } from 'react-icons/ai';
 
 import './Footer.scss';

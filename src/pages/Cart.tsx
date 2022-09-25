@@ -29,7 +29,7 @@ const Cart: React.FC = () => {
     const cartItems = Object.values(cart);
 
     useEffect(() => {
-        if (!!uid) {
+        if (uid) {
             dispatch(asyncGetAddresses(uid));
         }
     }, [dispatch, uid]);
@@ -37,21 +37,10 @@ const Cart: React.FC = () => {
     const handleCreateOrder = useCallback(() => {
         const address = addresses[selectedAddressId];
 
-        console.log('addresses in handleCreaate order', addresses);
-        console.log(
-            'addresses in handleCreaate order AAAAAAAAAAAAAAAAAAAAAAAAA',
-            addresses[selectedAddressId]
-        );
-        console.log('selectedAddressId', selectedAddressId);
-        console.log('addresses', addresses);
-
         const data: IOrderItem[] = cartItems.map((cartItem) => ({
             ...cartItem,
             address
         }));
-
-        console.log('data, handleCreateOrder', data);
-        console.log('address, handleCreateOrder', address);
 
         dispatch(asyncCreateOrder({ uid, data }));
         dispatch(removeSelectedAddressId());
@@ -137,8 +126,7 @@ const Cart: React.FC = () => {
                 </header>
                 <div className="cart__container">
                     <ul className="cart__list">
-                        {cartItems &&
-                            cartItems.length > 0 &&
+                        {cartItems.length > 0 &&
                             cartItems.map((cartItem) => (
                                 <CartItem
                                     key={cartItem.pizzaId}

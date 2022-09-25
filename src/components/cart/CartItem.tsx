@@ -17,14 +17,9 @@ interface ICartItemProps {
 }
 
 const CartItem: React.FC<ICartItemProps> = ({ item }) => {
-    // console.log('item in cartItem', item);
     const dispatch = useAppDispatch();
-
     const { pizzaId, imageUrl, title, sourceUrl, quantity, ingredients } = item;
-
     const ingredientsToRender = Object.values(ingredients);
-
-    // console.log('ingredientsToRender', ingredientsToRender);
 
     const handlePizzaQuantityChange = (
         pizzaId: string,
@@ -72,8 +67,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
             </div>
             <h4 className="cart-item__ingredients-title">Ingredients:</h4>
             <ul className="cart-item__ingredients-list">
-                {ingredientsToRender &&
-                    ingredientsToRender.length &&
+                {ingredientsToRender.length > 0 &&
                     ingredientsToRender.map((ing) => (
                         <CartIngredientItem
                             key={ing.id}

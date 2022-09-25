@@ -113,8 +113,9 @@ const Addresses: React.FC = () => {
 
     // Fetch Addresses on load if we have user ID (uid)
     useEffect(() => {
-        if (uid.trim() === '') return;
-        dispatch(asyncGetAddresses(uid));
+        if (uid) {
+            dispatch(asyncGetAddresses(uid));
+        }
     }, [dispatch, uid]);
 
     // fallback content

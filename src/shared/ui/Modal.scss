@@ -10,14 +10,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px 10px 10px 10px;
-    &--visible {
-        visibility: visible;
-        animation: modal-animation-fade-in 0.3s ease-in;
-    }
-    &--hidden {
-        visibility: hidden;
-        animation: modal-animation-fade-out 0.3s ease-out;
-    }
+    animation: modal-animation-fade-in 0.3s ease-in;
     &__header {
         background-color: $dark;
         color: $yellow;
@@ -50,16 +43,6 @@
         100% {
             opacity: 1;
             top: 50%;
-        }
-    }
-    @keyframes modal-animation-fade-out {
-        0% {
-            opacity: 1;
-            top: 50%;
-        }
-        100% {
-            opacity: 0;
-            top: 46%;
         }
     }
 }

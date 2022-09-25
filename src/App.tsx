@@ -19,8 +19,6 @@ const App = () => {
         if (user) {
             // user is logged in
 
-            // console.log('user in APP COMPONENET', user);
-
             dispatch(
                 saveUser({
                     uid: user.uid,

@@ -1,4 +1,5 @@
 import { NAVLINKS_CONFIG } from 'util/navlinks-data';
+import { generateGeneralClassName } from 'util/classGenerators';
 
 import Button from 'shared/form/Button';
 import NavLinkCustom from 'shared/links/NavLink';
@@ -21,11 +22,11 @@ const NavMobile: React.FC<INavMobileProps> = ({
         <>
             <Backdrop show={opened} onClose={onClick} />
             <ul
-                className={`navigation__list--mobile ${
-                    opened
-                        ? 'navigation__list--slide-down'
-                        : 'navigation__list--slide-up'
-                }`}
+                className={`navigation__list--mobile ${generateGeneralClassName(
+                    opened,
+                    'navigation__list--slide-down',
+                    'navigation__list--slide-up'
+                )}`}
             >
                 {NAVLINKS_CONFIG.map((navLink) => {
                     const { to, text } = navLink;

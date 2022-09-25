@@ -7,6 +7,7 @@ import {
 } from 'redux/reducers/paginationReducer';
 import { paginationSelectors } from 'redux/reducers/paginationReducer';
 import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
+import { generateGeneralClassName } from 'util/classGenerators';
 
 import './Pagination.scss';
 
@@ -41,11 +42,10 @@ const Pagination: React.FC = () => {
                     {numberButtons.map((numBtn) => (
                         <li
                             key={numBtn}
-                            className={`pagination__numbers-item ${
-                                numBtn === currentPage
-                                    ? 'pagination__numbers-item--active'
-                                    : ''
-                            }`}
+                            className={`pagination__numbers-item ${generateGeneralClassName(
+                                numBtn === currentPage,
+                                'pagination__numbers-item--active'
+                            )}`}
                             onClick={() => handlePageChange(numBtn)}
                         >
                             {numBtn}

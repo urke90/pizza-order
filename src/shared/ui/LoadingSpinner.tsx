@@ -1,3 +1,4 @@
+import { generateGeneralClassName } from 'util/classGenerators';
 import './LoadingSpinner.scss';
 
 interface ILoadingSpinner {
@@ -7,7 +8,10 @@ interface ILoadingSpinner {
 const LoadingSpinner: React.FC<ILoadingSpinner> = ({ asOverlay }) => {
     return (
         <div
-            className={`loader__wrapper ${asOverlay ? 'loader__overlay' : ''}`}
+            className={`loader__wrapper ${generateGeneralClassName(
+                !!asOverlay,
+                'loader__overlay'
+            )}`}
         >
             <div className="lds-roller">
                 <div></div>

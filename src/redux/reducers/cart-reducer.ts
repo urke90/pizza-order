@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { isUndefined } from 'util/check-statments';
 import { ICartItem } from 'ts/orders-cart';
@@ -40,6 +41,7 @@ const cartSlice = createSlice({
 
             if (pizza.pizzaId && !isEmptyObject) {
                 state.cart[pizza.pizzaId] = pizza;
+                toast.success('Item added to cart successfully!');
             }
         },
         removePizzaFromCart(state, action: PayloadAction<string>) {
@@ -50,6 +52,7 @@ const cartSlice = createSlice({
             }
 
             delete state.cart[pizzaId];
+            toast.success('Item removed from cart successfully!');
         },
         changeIngredientQuantity(
             state,
@@ -118,6 +121,7 @@ const cartSlice = createSlice({
             } else {
                 if (state.cart[pizzaId].quantity <= 1) {
                     delete state.cart[pizzaId];
+                    toast.success('Item removed from cart successfully!');
                     return;
                 }
 

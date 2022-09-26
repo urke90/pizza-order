@@ -1,7 +1,6 @@
-import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
+import { useAppSelector } from 'hooks/use-redux';
 import { getPizzasToRender } from 'util/pagination-data';
 import { generateRecipeClassName } from 'util/className-generators';
-import { pizzaSelectors } from 'redux/reducers/pizza-reducer';
 import { paginationSelectors } from 'redux/reducers/pagination-reducer';
 import PizzaItem from './PizzaItem';
 import { IPizzas } from 'ts/pizzas';

@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import { addPizzaToCart } from 'redux/reducers/cart-reducer';
@@ -147,16 +148,23 @@ const Main: React.FC = () => {
         ingredients.length === 0 &&
         !imageUrl.trim() &&
         !sourceUrl.trim() &&
+        !title.trim() &&
         !error
     ) {
         return (
             <section className="main">
                 <div className="main__container">
                     <div className="main__heading-wrapper">
-                        <h1 className="main__heading">
+                        <h1
+                            className="main__heading"
+                            style={{ marginBottom: '20px' }}
+                        >
                             Something went wrong! We can't show details for
                             choosen pizza.
                         </h1>
+                        <Link to="/main">
+                            <Button type="button">Choose again</Button>
+                        </Link>
                     </div>
                 </div>
             </section>

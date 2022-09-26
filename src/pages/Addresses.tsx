@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useModal } from 'hooks/useModal';
-import { useForm } from 'hooks/useForm';
-import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { useModal } from 'hooks/use-modal';
+import { useForm } from 'hooks/use-form';
+import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
 import { addressCreateForm, addressUpdateForm } from 'config/form.config';
-import { uidSelector } from 'redux/reducers/authReducer';
+import { uidSelector } from 'redux/reducers/auth-reducer';
 import { IAddress } from 'ts/address';
 import type { TAddressMode } from 'ts/address';
 import {
     asyncCreateAddress,
     asyncGetAddresses,
     asyncUpdateAddress
-} from 'redux/actions/addressActions';
-import { addressesSelector } from 'redux/reducers/addressReducer';
+} from 'redux/actions/address-actions';
+import { addressesSelector } from 'redux/reducers/address-reducer';
 
 import AddressItem from 'components/addresses/AddressItem';
 import AddressCreateEdit from 'components/addresses/AddressCreateEdit';

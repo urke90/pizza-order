@@ -1,5 +1,5 @@
-import { useAppDispatch } from 'hooks/useRedux';
-import { savePizzaId } from 'redux/reducers/pizzaReducer';
+import { useAppDispatch } from 'hooks/use-redux';
+import { savePizzaId } from 'redux/reducers/pizza-reducer';
 
 import './PizzaItem.scss';
 

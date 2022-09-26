@@ -1,13 +1,13 @@
 import { useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
-import { useModal } from 'hooks/useModal';
-import { addressesSelector } from 'redux/reducers/addressReducer';
-import { asyncCreateOrder } from 'redux/actions/ordersActions';
-import { asyncGetAddresses } from 'redux/actions/addressActions';
+import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
+import { useModal } from 'hooks/use-modal';
+import { addressesSelector } from 'redux/reducers/address-reducer';
+import { asyncCreateOrder } from 'redux/actions/orders-actions';
+import { asyncGetAddresses } from 'redux/actions/address-actions';
 import { IOrderItem } from 'ts/orders-cart';
-import { removeSelectedAddressId } from 'redux/reducers/addressReducer';
-import { resetCart } from 'redux/reducers/cartReducer';
+import { removeSelectedAddressId } from 'redux/reducers/address-reducer';
+import { resetCart } from 'redux/reducers/cart-reducer';
 
 import CartItem from 'components/cart/CartItem';
 import OrderConfirm from 'components/orders/OrderConfirm';

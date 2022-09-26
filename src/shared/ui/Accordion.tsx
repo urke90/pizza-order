@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { addressesSelector } from 'redux/reducers/addressReducer';
+import { addressesSelector } from 'redux/reducers/address-reducer';
 import {
     BsFillArrowDownCircleFill,
     BsFillArrowUpCircleFill
 } from 'react-icons/bs';
-import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import { generateGeneralClassName } from 'util/classGenerators';
+import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
+import { generateGeneralClassName } from 'util/className-generators';
 import { IAddress } from 'ts/address';
-import { selectAddressForCart } from 'redux/reducers/addressReducer';
+import { selectAddressForCart } from 'redux/reducers/address-reducer';
 
 import Button from 'shared/form/Button';
 

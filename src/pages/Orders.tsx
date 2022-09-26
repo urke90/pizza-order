@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { asyncGetOrders } from 'redux/actions/ordersActions';
-import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
-import { uidSelector } from 'redux/reducers/authReducer';
-import { ordersSelectors } from 'redux/reducers/ordersReducer';
+import { asyncGetOrders } from 'redux/actions/orders-actions';
+import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
+import { uidSelector } from 'redux/reducers/auth-reducer';
+import { ordersSelectors } from 'redux/reducers/orders-reducer';
 
 import './Orders.scss';
 

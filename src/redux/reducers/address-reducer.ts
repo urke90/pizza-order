@@ -5,7 +5,7 @@ import {
     asyncCreateAddress,
     asyncDeleteAddress,
     asyncUpdateAddress
-} from 'redux/actions/addressActions';
+} from 'redux/actions/address-actions';
 import { RootState } from 'redux/store';
 import { IAddress } from 'ts/address';
 

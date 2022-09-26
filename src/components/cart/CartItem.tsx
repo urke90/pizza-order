@@ -1,11 +1,11 @@
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import { ICartItem } from 'ts/orders-cart';
-import { useAppDispatch } from 'hooks/useRedux';
+import { useAppDispatch } from 'hooks/use-redux';
 import type { TIngredientActionType } from 'ts/ingredients';
 import {
     changePizzaQuantity,
     removePizzaFromCart
-} from 'redux/reducers/cartReducer';
+} from 'redux/reducers/cart-reducer';
 
 import CartIngredientItem from './CartIngredientItem';
 import Button from 'shared/form/Button';

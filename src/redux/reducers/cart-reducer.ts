@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createCartOrder } from 'redux/actions/cartActions';
+import { createCartOrder } from 'redux/actions/cart-actions';
 import { ICartItem } from 'ts/orders-cart';
 import type { TIngredientActionType } from 'ts/ingredients';
 

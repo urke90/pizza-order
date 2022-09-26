@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
-import { useAppDispatch } from 'hooks/useRedux';
-import { useModal } from 'hooks/useModal';
+import { useAppDispatch } from 'hooks/use-redux';
+import { useModal } from 'hooks/use-modal';
 import {
     changeIngredientQuantity,
     removePizzaIngredient
-} from 'redux/reducers/cartReducer';
+} from 'redux/reducers/cart-reducer';
 import type { TIngredientActionType } from 'ts/ingredients';
 
 import Button from 'shared/form/Button';

@@ -97,7 +97,7 @@ const Addresses: React.FC = () => {
             setInputFields(addressCreateForm);
         } else {
             if (!addressId) {
-                throw new Error('No address id provided');
+                return;
             }
 
             const updateAddressForm = addressUpdateForm(addresses[addressId]);

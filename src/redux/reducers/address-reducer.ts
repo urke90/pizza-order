@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { isUndefined } from 'util/check-statments';
 import { RootState } from 'redux/store';
@@ -16,13 +17,15 @@ interface IInitialState {
     selectedAddressId: string;
     isLoading: boolean;
     error: string | null;
+    isBtnDisabled: boolean;
 }
 
 const initialState: IInitialState = {
     addresses: {},
     selectedAddressId: '',
     isLoading: false,
-    error: null
+    error: null,
+    isBtnDisabled: false
 };
 
 const addressSlice = createSlice({
@@ -37,28 +40,6 @@ const addressSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder
-            .addCase(asyncCreateAddress.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(
-                asyncCreateAddress.fulfilled,
-                (
-                    state,
-                    action: PayloadAction<{ addressId: string; data: IAddress }>
-                ) => {
-                    const { addressId, data } = action.payload;
-                    state.addresses[addressId] = data;
-                    state.isLoading = false;
-                }
-            )
-            .addCase(
-                asyncCreateAddress.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.error = action.payload;
-                    state.isLoading = false;
-                }
-            );
         builder
             .addCase(asyncGetAddresses.pending, (state) => {
                 state.isLoading = true;
@@ -75,36 +56,40 @@ const addressSlice = createSlice({
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;
+                    toast.error('Something went wrong!');
                 }
             );
         builder
-            .addCase(asyncDeleteAddress.pending, (state) => {
-                state.isLoading = true;
+            .addCase(asyncCreateAddress.pending, (state) => {
+                toast.info('Creating new address...');
+                state.isBtnDisabled = true;
             })
             .addCase(
-                asyncDeleteAddress.fulfilled,
-                (state, action: PayloadAction<string>) => {
-                    const addressId = action.payload;
-
-                    if (isUndefined(state.addresses[addressId])) {
-                        throw new Error(`Address with ${addressId} not found!`);
-                    }
-
-                    delete state.addresses[addressId];
-
-                    state.isLoading = false;
+                asyncCreateAddress.fulfilled,
+                (
+                    state,
+                    action: PayloadAction<{ addressId: string; data: IAddress }>
+                ) => {
+                    const { addressId, data } = action.payload;
+                    state.addresses[addressId] = data;
+                    toast.success('Address created successfully!');
+                    state.isBtnDisabled = false;
                 }
             )
             .addCase(
-                asyncDeleteAddress.rejected,
+                asyncCreateAddress.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.error = action.payload;
-                    state.isLoading = false;
+                    toast.error(
+                        'Something went wrong! Address is not created!'
+                    );
+                    state.isBtnDisabled = false;
                 }
             );
         builder
             .addCase(asyncUpdateAddress.pending, (state) => {
-                state.isLoading = true;
+                toast.info('Updating address...');
+                state.isBtnDisabled = true;
             })
             .addCase(
                 asyncUpdateAddress.fulfilled,
@@ -117,14 +102,46 @@ const addressSlice = createSlice({
                         throw new Error(`Address with ${addressId} not found!`);
                     }
                     state.addresses[addressId] = data;
-                    state.isLoading = false;
+                    toast.success('Address updated successfully!');
+                    state.isBtnDisabled = false;
                 }
             )
             .addCase(
                 asyncUpdateAddress.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.error = action.payload;
-                    state.isLoading = false;
+                    toast.error(
+                        'Something went wrong! Address is not updated!'
+                    );
+                    state.isBtnDisabled = false;
+                }
+            );
+        builder
+            .addCase(asyncDeleteAddress.pending, (state) => {
+                toast.info('Deleting address...');
+                state.isBtnDisabled = true;
+            })
+            .addCase(
+                asyncDeleteAddress.fulfilled,
+                (state, action: PayloadAction<string>) => {
+                    const addressId = action.payload;
+
+                    if (isUndefined(state.addresses[addressId])) {
+                        throw new Error(`Address with ${addressId} not found!`);
+                    }
+
+                    delete state.addresses[addressId];
+
+                    toast.success('Address deleted successfully!');
+                    state.isBtnDisabled = false;
+                }
+            )
+            .addCase(
+                asyncDeleteAddress.rejected,
+                (state, action: PayloadAction<any>) => {
+                    state.error = action.payload;
+                    toast.error('Something went wrong! Address is not deleted');
+                    state.isBtnDisabled = false;
                 }
             );
     }
@@ -135,7 +152,8 @@ export const addressesSelector = {
     isLoading: (state: RootState) => state.addressReducer.isLoading,
     error: (state: RootState) => state.addressReducer.error,
     selectedAddressId: (state: RootState) =>
-        state.addressReducer.selectedAddressId
+        state.addressReducer.selectedAddressId,
+    isBtnDisabled: (state: RootState) => state.addressReducer.isBtnDisabled
 };
 
 export const { selectAddressForCart, removeSelectedAddressId } =

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { useLogin } from 'hooks/useLogin';
-import { useForm } from 'hooks/useForm';
+import { useLogin } from 'hooks/use-login';
+import { useForm } from 'hooks/use-form';
 import { loginForm, signupForm } from 'config/form.config';
 
 import Input from 'shared/form/Input';

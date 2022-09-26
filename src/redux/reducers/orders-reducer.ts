@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { asyncGetOrders, asyncCreateOrder } from 'redux/actions/ordersActions';
+import { asyncGetOrders, asyncCreateOrder } from 'redux/actions/orders-actions';
 import { RootState } from 'redux/store';
 import { IOrderItem } from 'ts/orders-cart';
 

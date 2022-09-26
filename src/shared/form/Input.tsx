@@ -1,5 +1,5 @@
 // import { generateClassName } from 'util/class-generators/input';
-import { generateInputClassName } from 'util/classGenerators';
+import { generateInputClassName } from 'util/className-generators';
 import './Input.scss';
 
 interface IInputProps {

@@ -1,4 +1,4 @@
-import { generateGeneralClassName } from 'util/classGenerators';
+import { generateGeneralClassName } from 'util/className-generators';
 import './Button.scss';
 
 interface IButtonProps {

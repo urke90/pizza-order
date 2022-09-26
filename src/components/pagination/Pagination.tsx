@@ -1,13 +1,13 @@
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
-import { useAppSelector, useAppDispatch } from 'hooks/useRedux';
+import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
 import {
     incrementPaginationPage,
     decrementPaginationPage,
     selectPaginationPage
-} from 'redux/reducers/paginationReducer';
-import { paginationSelectors } from 'redux/reducers/paginationReducer';
-import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
-import { generateGeneralClassName } from 'util/classGenerators';
+} from 'redux/reducers/pagination-reducer';
+import { paginationSelectors } from 'redux/reducers/pagination-reducer';
+import { pizzaSelectors } from 'redux/reducers/pizza-reducer';
+import { generateGeneralClassName } from 'util/className-generators';
 
 import './Pagination.scss';
 

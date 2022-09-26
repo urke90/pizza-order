@@ -1,18 +1,21 @@
 import { useEffect, useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { addPizzaToCart } from 'redux/reducers/cartReducer';
-import { removePizzaRecipe, removePizzaId } from 'redux/reducers/pizzaReducer';
-import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
-import { useIngredients } from 'hooks/useIngredients';
-import { useModal } from 'hooks/useModal';
-import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { addPizzaToCart } from 'redux/reducers/cart-reducer';
+import {
+    removePizzaRecipe,
+    removePizzaId,
+    pizzaSelectors
+} from 'redux/reducers/pizza-reducer';
+import { useIngredients } from 'hooks/use-ingredients';
+import { useModal } from 'hooks/use-modal';
+import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders-cart';
-import { emptyCartItem } from 'redux/reducers/cartReducer';
+import { emptyCartItem } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
-import { fetchPizzaById } from 'redux/actions/pizzaActions';
-import { generateRecipeClassName } from 'util/classGenerators';
+import { fetchPizzaById } from 'redux/actions/pizza-actions';
+import { generateRecipeClassName } from 'util/className-generators';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';

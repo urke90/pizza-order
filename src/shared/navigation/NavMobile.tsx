@@ -1,5 +1,5 @@
 import { NAVLINKS_CONFIG } from 'util/navlinks-data';
-import { generateGeneralClassName } from 'util/classGenerators';
+import { generateGeneralClassName } from 'util/className-generators';
 
 import Button from 'shared/form/Button';
 import NavLinkCustom from 'shared/links/NavLink';

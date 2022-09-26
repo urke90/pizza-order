@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPizzas, fetchPizzaById } from 'redux/actions/pizzaActions';
+import { fetchPizzas, fetchPizzaById } from 'redux/actions/pizza-actions';
 import { RootState } from 'redux/store';
 import { IPizzas, ISelectedPizza } from '../../ts/pizzas';
 

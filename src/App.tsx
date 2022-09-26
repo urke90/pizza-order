@@ -2,8 +2,8 @@ import { useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from './firebase/firebase';
-import { useAppDispatch } from 'hooks/useRedux';
-import { saveUser, removeUser } from 'redux/reducers/authReducer';
+import { useAppDispatch } from 'hooks/use-redux';
+import { saveUser, removeUser } from 'redux/reducers/auth-reducer';
 import RoutesComponent from 'router/Routes';
 
 import Header from 'layout/Header';
@@ -39,7 +39,5 @@ const App = () => {
         </div>
     );
 };
-
-//https://forkify-api.herokuapp.com/
 
 export default App;

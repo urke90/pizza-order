@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
 import { getPizzasToRender } from 'util/pagination-data';
-import { fetchPizzas } from 'redux/actions/pizzaActions';
-import { generateRecipeClassName } from 'util/classGenerators';
-import { pizzaSelectors } from 'redux/reducers/pizzaReducer';
-import { paginationSelectors } from 'redux/reducers/paginationReducer';
+import { fetchPizzas } from 'redux/actions/pizza-actions';
+import { generateRecipeClassName } from 'util/className-generators';
+import { pizzaSelectors } from 'redux/reducers/pizza-reducer';
+import { paginationSelectors } from 'redux/reducers/pagination-reducer';
 import PizzaItem from './PizzaItem';
 
 import './PizzasList.scss';

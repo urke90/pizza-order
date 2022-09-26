@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { isUndefined } from 'util/check-statments';
 import { ICartItem } from 'ts/orders-cart';
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -43,7 +45,7 @@ const cartSlice = createSlice({
         removePizzaFromCart(state, action: PayloadAction<string>) {
             const pizzaId = action.payload;
 
-            if (state.cart[pizzaId] === undefined) {
+            if (isUndefined(state.cart[pizzaId])) {
                 throw new Error(`pizza with ID: ${pizzaId} not found!`);
             }
 
@@ -60,11 +62,11 @@ const cartSlice = createSlice({
         ) {
             const { pizzaId, ingId, value, type } = action.payload;
 
-            if (state.cart[pizzaId] === undefined) {
+            if (isUndefined(state.cart[pizzaId])) {
                 throw new Error(`Pizza with ID: ${pizzaId} is not found!!!`);
             }
 
-            if (state.cart[pizzaId].ingredients[ingId] === undefined) {
+            if (isUndefined(state.cart[pizzaId].ingredients[ingId])) {
                 throw new Error(`Ingredient with ID: ${ingId} is not found!!!`);
             }
 
@@ -82,11 +84,11 @@ const cartSlice = createSlice({
         ) {
             const { ingId, pizzaId } = action.payload;
 
-            if (state.cart[pizzaId] === undefined) {
+            if (isUndefined(state.cart[pizzaId])) {
                 throw new Error(`Pizza with ID: ${pizzaId} not found`);
             }
 
-            if (state.cart[pizzaId].ingredients[ingId] === undefined) {
+            if (isUndefined(state.cart[pizzaId].ingredients[ingId])) {
                 throw new Error(`Ingredient with ID: ${ingId} doesn't exist`);
             }
 
@@ -105,7 +107,7 @@ const cartSlice = createSlice({
         ) {
             const { pizzaId, type } = action.payload;
 
-            if (state.cart[pizzaId] === undefined) {
+            if (isUndefined(state.cart[pizzaId])) {
                 throw new Error(`Can't find pizza with ID: ${pizzaId}`);
             }
 

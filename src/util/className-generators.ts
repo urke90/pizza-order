@@ -14,4 +14,4 @@ export const generateInputClassName = (
 
 // generate class if pizza is fetched by ID
 export const generateRecipeClassName = (recipeId: string, classToAdd: string) =>
-    recipeId.trim() ? classToAdd : '';
+    !!recipeId.trim() ? classToAdd : '';

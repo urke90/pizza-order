@@ -2,7 +2,6 @@ import { useEffect, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
-import { addPizzaToCart } from 'redux/reducers/cart-reducer';
 import {
     removePizzaRecipe,
     removePizzaId,
@@ -13,10 +12,11 @@ import { useModal } from 'hooks/use-modal';
 import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders-cart';
-import { emptyCartItem } from 'redux/reducers/cart-reducer';
+import { emptyCartItem, addPizzaToCart } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { getPizzaById, getPizzas } from 'redux/actions/pizza-actions';
 import { generateRecipeClassName } from 'util/className-generators';
+import { isPizzaFetchedSuccessfully } from 'util/check-statments';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -46,7 +46,6 @@ const Main: React.FC = () => {
      * pizzaSlice state
      */
     const fetchedPizzas = useAppSelector(pizzaSelectors.pizzas);
-    const selectedPizza = useAppSelector(pizzaSelectors.selectedPizza);
     const selectedPizzaId = useAppSelector(pizzaSelectors.pizzaId);
     const isLoading = useAppSelector(pizzaSelectors.isLoading);
     const error = useAppSelector(pizzaSelectors.error);
@@ -56,9 +55,6 @@ const Main: React.FC = () => {
     const imageUrl = useAppSelector(pizzaSelectors.imageUrl);
     const recipeId = useAppSelector(pizzaSelectors.recipeId);
     const uid = useAppSelector((state) => state.authReducer.uid);
-
-    console.log('recipeId', recipeId);
-    console.log('selectedPizza', selectedPizza);
 
     /**
      * Handler functions
@@ -143,13 +139,15 @@ const Main: React.FC = () => {
             </section>
         );
     } else if (
-        !isLoading &&
-        recipeId.trim() &&
-        ingredients.length === 0 &&
-        !imageUrl.trim() &&
-        !sourceUrl.trim() &&
-        !title.trim() &&
-        !error
+        isPizzaFetchedSuccessfully(
+            isLoading,
+            recipeId,
+            ingredients,
+            imageUrl,
+            sourceUrl,
+            title,
+            error
+        )
     ) {
         return (
             <section className="main">

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createCartOrder } from 'redux/actions/cart-actions';
 import { ICartItem } from 'ts/orders-cart';
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -32,12 +31,8 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        /**
-         * key should be uuidV4
-         * object should be pizza
-         */
-        addPizzaToCart(state, action: PayloadAction<{ pizza: ICartItem }>) {
-            const { pizza } = action.payload;
+        addPizzaToCart(state, action: PayloadAction<ICartItem>) {
+            const pizza = action.payload;
 
             const isEmptyObject = Object.keys(pizza).length === 0;
 
@@ -45,8 +40,8 @@ const cartSlice = createSlice({
                 state.cart[pizza.pizzaId] = pizza;
             }
         },
-        removePizzaFromCart(state, action: PayloadAction<{ pizzaId: string }>) {
-            const { pizzaId } = action.payload;
+        removePizzaFromCart(state, action: PayloadAction<string>) {
+            const pizzaId = action.payload;
 
             if (state.cart[pizzaId] === undefined) {
                 throw new Error(`pizza with ID: ${pizzaId} not found!`);
@@ -130,27 +125,6 @@ const cartSlice = createSlice({
         resetCart(state) {
             state.cart = {};
         }
-    },
-    extraReducers(builder) {
-        builder
-            .addCase(createCartOrder.pending, (state, action) => {
-                console.log('pending');
-                state.isLoading = true;
-            })
-            .addCase(createCartOrder.fulfilled, (state, action) => {
-                console.log('fulfilled');
-                console.log(
-                    'FULFILLED ACTION PAYLOAD WHEN CREATE CART ORDER DISP',
-                    action
-                );
-
-                state.isLoading = false;
-            })
-            .addCase(createCartOrder.rejected, (state, action) => {
-                console.log('rejected');
-                state.isLoading = false;
-                // state.error =
-            });
     }
 });
 

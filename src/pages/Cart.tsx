@@ -24,7 +24,9 @@ const Cart: React.FC = () => {
     const uid = useAppSelector((state) => state.authReducer.uid);
     const isLoadingAddresses = useAppSelector(addressesSelector.isLoading);
     const addresses = useAppSelector(addressesSelector.addresses);
-    const selectedAddressId = useAppSelector(addressesSelector.selectedAddress);
+    const selectedAddressId = useAppSelector(
+        addressesSelector.selectedAddressId
+    );
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
 

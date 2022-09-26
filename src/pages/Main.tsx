@@ -14,7 +14,7 @@ import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders-cart';
 import { emptyCartItem } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
-import { getPizzaById } from 'redux/actions/pizza-actions';
+import { getPizzaById, getPizzas } from 'redux/actions/pizza-actions';
 import { generateRecipeClassName } from 'util/className-generators';
 
 import Pagination from 'components/pagination/Pagination';
@@ -41,11 +41,10 @@ const Main: React.FC = () => {
     } = useIngredients();
     const dispatch = useAppDispatch();
 
-    // TODO figure out best way to shorten these selectors
-    // ? IS THIS RIGHT APROACH?!??!?!??!?!??!??!
     /**
      * pizzaSlice state
      */
+    const fetchedPizzas = useAppSelector(pizzaSelectors.pizzas);
     const selectedPizza = useAppSelector(pizzaSelectors.selectedPizza);
     const selectedPizzaId = useAppSelector(pizzaSelectors.pizzaId);
     const isLoading = useAppSelector(pizzaSelectors.isLoading);
@@ -56,6 +55,9 @@ const Main: React.FC = () => {
     const imageUrl = useAppSelector(pizzaSelectors.imageUrl);
     const recipeId = useAppSelector(pizzaSelectors.recipeId);
     const uid = useAppSelector((state) => state.authReducer.uid);
+
+    console.log('recipeId', recipeId);
+    console.log('selectedPizza', selectedPizza);
 
     /**
      * Handler functions
@@ -86,7 +88,6 @@ const Main: React.FC = () => {
         updatableIngredients,
         handleToggleModal
     ]);
-    // will add pizza to cart after modal is opened and order is confirmed
     const handleConfirmOrder = useCallback(() => {
         dispatch(addPizzaToCart(createdPizza));
         dispatch(removePizzaId());
@@ -94,6 +95,10 @@ const Main: React.FC = () => {
         handleChangePizzaQuantity('reset');
         handleToggleModal();
     }, [createdPizza, dispatch, handleChangePizzaQuantity, handleToggleModal]);
+
+    useEffect(() => {
+        dispatch(getPizzas());
+    }, [dispatch]);
 
     useEffect(() => {
         if (selectedPizzaId.trim() === '') return;
@@ -122,6 +127,42 @@ const Main: React.FC = () => {
         handleSetIngredients(updatableIngredients);
     }, [ingredients, handleSetIngredients]);
 
+    if (isLoading) {
+        return <LoadingSpinner asOverlay />;
+    } else if (!isLoading && fetchedPizzas.length === 0 && !error) {
+        return (
+            <section className="main">
+                <div className="main__container">
+                    <div className="main__heading-wrapper">
+                        <h1 className="main__heading">
+                            There are no pizzas to offer at the moment.
+                        </h1>
+                    </div>
+                </div>
+            </section>
+        );
+    } else if (
+        !isLoading &&
+        recipeId.trim() &&
+        ingredients.length === 0 &&
+        !imageUrl.trim() &&
+        !sourceUrl.trim() &&
+        !error
+    ) {
+        return (
+            <section className="main">
+                <div className="main__container">
+                    <div className="main__heading-wrapper">
+                        <h1 className="main__heading">
+                            Something went wrong! We can't show details for
+                            choosen pizza.
+                        </h1>
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
     return (
         <section className="main">
             <Modal
@@ -136,8 +177,6 @@ const Main: React.FC = () => {
             >
                 <OrderList createdPizza={createdPizza} />
             </Modal>
-
-            {isLoading && !error && <LoadingSpinner asOverlay />}
             <div className="main__container">
                 <div className="main__heading-wrapper">
                     <h1 className="main__heading">Pick your favorite pizza</h1>
@@ -157,7 +196,10 @@ const Main: React.FC = () => {
                             'main__pizzas-list-wrapper--column'
                         )} `}
                     >
-                        <PizzasList recipeId={recipeId} />
+                        <PizzasList
+                            pizzas={fetchedPizzas}
+                            recipeId={recipeId}
+                        />
                         <Pagination />
                     </div>
                     <main
@@ -166,19 +208,15 @@ const Main: React.FC = () => {
                             'main__recipe--display-block'
                         )}`}
                     >
-                        {selectedPizza && (
-                            <PizzaRecipe
-                                ingredients={ingredients}
-                                title={title}
-                                sourceUrl={sourceUrl}
-                                imageUrl={imageUrl}
-                                onAddToCart={handleAddToCart}
-                                pizzaQuantity={pizzaQuantity}
-                                onChangePizzaQuantity={
-                                    handleChangePizzaQuantity
-                                }
-                            />
-                        )}
+                        <PizzaRecipe
+                            ingredients={ingredients}
+                            title={title}
+                            sourceUrl={sourceUrl}
+                            imageUrl={imageUrl}
+                            onAddToCart={handleAddToCart}
+                            pizzaQuantity={pizzaQuantity}
+                            onChangePizzaQuantity={handleChangePizzaQuantity}
+                        />
                     </main>
                     <div
                         className={`main__ingredients ${generateRecipeClassName(
@@ -186,15 +224,11 @@ const Main: React.FC = () => {
                             'main__ingredients--display-block'
                         )}`}
                     >
-                        {updatableIngredients && (
-                            <Ingredients
-                                onIngredientQtyChange={
-                                    handleIngredientQtyChange
-                                }
-                                onIngredientRemove={handleIngredientRemove}
-                                ingredients={updatableIngredients}
-                            />
-                        )}
+                        <Ingredients
+                            ingredients={updatableIngredients}
+                            onIngredientQtyChange={handleIngredientQtyChange}
+                            onIngredientRemove={handleIngredientRemove}
+                        />
                     </div>
                 </div>
             </div>

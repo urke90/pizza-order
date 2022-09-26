@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { auth } from './firebase/firebase';
 import { useAppDispatch } from 'hooks/use-redux';
@@ -33,6 +35,15 @@ const App = () => {
 
     return (
         <div className="app">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                draggable
+            />
             {pathname !== '/login' && <Header />}
             <RoutesComponent />
             {pathname !== '/login' && <Footer />}
@@ -41,3 +52,9 @@ const App = () => {
 };
 
 export default App;
+
+/**
+ * https://fkhadra.github.io/react-toastify/installation
+ * https://www.npmjs.com/package/react-toastify
+ * https://www.geeksforgeeks.org/reactjs-toast-notification/
+ */

@@ -1,7 +1,9 @@
 import { IAddress } from 'ts/address';
 import type { TAddressMode } from 'ts/address';
-import { useAppDispatch } from 'hooks/use-redux';
+import { useAppDispatch, useAppSelector } from 'hooks/use-redux';
 import { asyncDeleteAddress } from 'redux/actions/address-actions';
+import { addressesSelector } from 'redux/reducers/address-reducer';
+
 import Button from 'shared/form/Button';
 
 import './AddressItem.scss';
@@ -17,6 +19,7 @@ const AddressItem: React.FC<IAddressItemProps> = (props) => {
         props.address;
     const { onAddressUpdate, uid } = props;
     const dispatch = useAppDispatch();
+    const isBtnDisabled = useAppSelector(addressesSelector.isBtnDisabled);
 
     const deleteAddressHandler = () => {
         dispatch(asyncDeleteAddress({ uid, addressId: id }));
@@ -52,14 +55,14 @@ const AddressItem: React.FC<IAddressItemProps> = (props) => {
                 <Button
                     type="button"
                     onClick={() => onAddressUpdate('edit', id)}
-                    disabled={!id}
+                    disabled={!id || isBtnDisabled}
                 >
                     Update
                 </Button>
                 <Button
                     type="button"
                     onClick={deleteAddressHandler}
-                    disabled={!uid || !id}
+                    disabled={!uid || !id || isBtnDisabled}
                 >
                     Remove
                 </Button>

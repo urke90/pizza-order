@@ -25,7 +25,7 @@ const Pagination: React.FC = () => {
     const handleIncrementPage = () => dispatch(incrementPaginationPage());
     const handleDecrementPage = () => dispatch(decrementPaginationPage());
     const handlePageChange = (numBtn: number) =>
-        dispatch(selectPaginationPage({ selectedPage: numBtn }));
+        dispatch(selectPaginationPage(numBtn));
 
     return (
         <div className="pagination">

@@ -30,32 +30,17 @@ const initialState: IInitialState = {
     error: null
 };
 
-/**
- * * https://www.youtube.com/watch?v=80c33x2ne20 ===> youtube video for async actions with TS
- * 1. 1st arg is type of the action: pizzas ===> slice name, /fetchPizzas ===> manually added
- * 2. 2nd arg is async function: 1st arg is data, second is thunkAPI
- * ! investigate 2nd argument for createAsyncThunk
- */
-
 const pizzaSlice = createSlice({
     name: 'pizzas',
     initialState,
     reducers: {
-        savePizzaId(state, action: PayloadAction<{ pizzaId: string }>) {
-            const { pizzaId } = action.payload;
-
-            state.pizzaId = pizzaId;
+        savePizzaId(state, action: PayloadAction<string>) {
+            state.pizzaId = action.payload;
         },
         removePizzaId(state) {
             state.pizzaId = '';
         },
-        savePizzaRecipe(
-            state,
-            action: PayloadAction<{ selectedPizza: ISelectedPizza }>
-        ) {
-            const { selectedPizza } = action.payload;
-            state.selectedPizza = selectedPizza;
-        },
+
         removePizzaRecipe(state) {
             state.selectedPizza = emptySelectedPizza;
         }
@@ -100,26 +85,6 @@ const pizzaSlice = createSlice({
     }
 });
 
-// type TPizzaReducerSelectorsReturnTypes =
-//     | IPizzas[]
-//     | string
-//     | ISelectedPizza
-//     | boolean
-//     | null;
-
-// interface IPizzaReducerSelectors {
-//     [key: string]: (state: IInitialState) => TPizzaReducerSelectorsReturnTypes;
-// }
-// interface IPizzaReducerSelectors {
-//     [key in initialState]: (state: IInitialState) => TPizzaReducerSelectorsReturnTypes;
-// }
-
-// export const pizzaReducerSelectors: IPizzaReducerSelectors = {
-//     pizzas: ({ pizzas }) => pizzas,
-//     pizzaId: ({ pizzaId }) => pizzaId,
-//     selectedPizza: ({ selectedPizza }) => selectedPizza
-// };
-
 export const pizzaSelectors = {
     pizzas: ({ pizzaReducer: { pizzas } }: RootState) => pizzas,
     pizzaId: ({ pizzaReducer: { pizzaId } }: RootState) => pizzaId,
@@ -139,12 +104,8 @@ export const pizzaSelectors = {
         selectedPizza.title
 };
 
-export const {
-    savePizzaId,
-    savePizzaRecipe,
-    removePizzaId,
-    removePizzaRecipe
-} = pizzaSlice.actions;
+export const { savePizzaId, removePizzaId, removePizzaRecipe } =
+    pizzaSlice.actions;
 
 const pizzaReducer = pizzaSlice.reducer;
 

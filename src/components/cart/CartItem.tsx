@@ -29,7 +29,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
     };
 
     const handleRemovePizzaFromCart = (pizzaId: string) => {
-        dispatch(removePizzaFromCart({ pizzaId }));
+        dispatch(removePizzaFromCart(pizzaId));
     };
 
     return (

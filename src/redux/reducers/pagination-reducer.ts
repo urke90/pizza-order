@@ -1,16 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
 
 interface IPaginationState {
     currentPage: number;
     itemsPerPage: number;
-}
-
-interface IPaginationAction {
-    type: string;
-    payload: {
-        selectedPage: number;
-    };
 }
 
 const initialState: IPaginationState = {
@@ -28,9 +21,8 @@ const paginationSlice = createSlice({
         decrementPaginationPage(state) {
             state.currentPage--;
         },
-        selectPaginationPage(state, action: IPaginationAction) {
-            const { selectedPage } = action.payload;
-            state.currentPage = selectedPage;
+        selectPaginationPage(state, action: PayloadAction<number>) {
+            state.currentPage = action.payload;
         }
     }
 });
@@ -41,13 +33,12 @@ export const paginationSelectors = {
     itemsPerPage: ({ paginationReducer: { itemsPerPage } }: RootState) =>
         itemsPerPage
 };
-
-const paginationReducer = paginationSlice.reducer;
-
 export const {
     incrementPaginationPage,
     decrementPaginationPage,
     selectPaginationPage
 } = paginationSlice.actions;
+
+const paginationReducer = paginationSlice.reducer;
 
 export default paginationReducer;

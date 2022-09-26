@@ -88,7 +88,7 @@ const Main: React.FC = () => {
     ]);
     // will add pizza to cart after modal is opened and order is confirmed
     const handleConfirmOrder = useCallback(() => {
-        dispatch(addPizzaToCart({ pizza: createdPizza }));
+        dispatch(addPizzaToCart(createdPizza));
         dispatch(removePizzaId());
         dispatch(removePizzaRecipe());
         handleChangePizzaQuantity('reset');

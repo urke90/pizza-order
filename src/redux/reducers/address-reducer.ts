@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'redux/store';
+import { IAddress } from 'ts/address';
 
 import {
     asyncGetAddresses,
@@ -6,19 +8,17 @@ import {
     asyncDeleteAddress,
     asyncUpdateAddress
 } from 'redux/actions/address-actions';
-import { RootState } from 'redux/store';
-import { IAddress } from 'ts/address';
 
 interface IInitialState {
     addresses: { [key: string]: IAddress };
-    selectedAddress: string;
+    selectedAddressId: string;
     isLoading: boolean;
     error: string | null;
 }
 
 const initialState: IInitialState = {
     addresses: {},
-    selectedAddress: '',
+    selectedAddressId: '',
     isLoading: false,
     error: null
 };
@@ -28,10 +28,10 @@ const addressSlice = createSlice({
     initialState,
     reducers: {
         selectAddressForCart(state, action: PayloadAction<string>) {
-            state.selectedAddress = action.payload;
+            state.selectedAddressId = action.payload;
         },
         removeSelectedAddressId(state) {
-            state.selectedAddress = '';
+            state.selectedAddressId = '';
         }
     },
     extraReducers(builder) {
@@ -39,11 +39,17 @@ const addressSlice = createSlice({
             .addCase(asyncCreateAddress.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(asyncCreateAddress.fulfilled, (state, action) => {
-                const { addressId, data } = action.payload;
-                state.addresses[addressId] = data;
-                state.isLoading = false;
-            })
+            .addCase(
+                asyncCreateAddress.fulfilled,
+                (
+                    state,
+                    action: PayloadAction<{ addressId: string; data: IAddress }>
+                ) => {
+                    const { addressId, data } = action.payload;
+                    state.addresses[addressId] = data;
+                    state.isLoading = false;
+                }
+            )
             .addCase(
                 asyncCreateAddress.rejected,
                 (state, action: PayloadAction<any>) => {
@@ -52,7 +58,7 @@ const addressSlice = createSlice({
                 }
             );
         builder
-            .addCase(asyncGetAddresses.pending, (state, action) => {
+            .addCase(asyncGetAddresses.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
@@ -90,7 +96,6 @@ const addressSlice = createSlice({
             .addCase(
                 asyncDeleteAddress.rejected,
                 (state, action: PayloadAction<any>) => {
-                    console.log('rejected deleteAddress', action);
                     state.error = action.payload;
                     state.isLoading = false;
                 }
@@ -127,7 +132,8 @@ export const addressesSelector = {
     addresses: (state: RootState) => state.addressReducer.addresses,
     isLoading: (state: RootState) => state.addressReducer.isLoading,
     error: (state: RootState) => state.addressReducer.error,
-    selectedAddress: (state: RootState) => state.addressReducer.selectedAddress
+    selectedAddressId: (state: RootState) =>
+        state.addressReducer.selectedAddressId
 };
 
 export const { selectAddressForCart, removeSelectedAddressId } =

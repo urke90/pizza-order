@@ -16,7 +16,7 @@ const PizzaItem: React.FC<IPizzaItemProps> = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    const handleGetPizzaId = () => dispatch(savePizzaId({ pizzaId: recipeId }));
+    const handleGetPizzaId = () => dispatch(savePizzaId(recipeId));
 
     return (
         <li className="pizza__item" onClick={handleGetPizzaId}>

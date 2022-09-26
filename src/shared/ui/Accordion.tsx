@@ -21,7 +21,7 @@ interface IAccordionProps {
 
 const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
     const dispatch = useAppDispatch();
-    const selectedAddress = useAppSelector(addressesSelector.selectedAddress);
+    const selectedAddress = useAppSelector(addressesSelector.selectedAddressId);
 
     const [showAccordion, setShowAccordion] = useState(false);
 

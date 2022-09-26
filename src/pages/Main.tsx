@@ -14,7 +14,7 @@ import { IUpdatableIngredients } from 'ts/ingredients';
 import { ICartItem } from 'ts/orders-cart';
 import { emptyCartItem } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
-import { fetchPizzaById } from 'redux/actions/pizza-actions';
+import { getPizzaById } from 'redux/actions/pizza-actions';
 import { generateRecipeClassName } from 'util/className-generators';
 
 import Pagination from 'components/pagination/Pagination';
@@ -97,7 +97,7 @@ const Main: React.FC = () => {
 
     useEffect(() => {
         if (selectedPizzaId.trim() === '') return;
-        dispatch(fetchPizzaById(selectedPizzaId));
+        dispatch(getPizzaById(selectedPizzaId));
     }, [dispatch, selectedPizzaId]);
 
     useEffect(() => {

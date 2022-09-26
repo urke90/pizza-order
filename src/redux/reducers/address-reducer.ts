@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { isUndefined } from 'util/check-statments';
 import { RootState } from 'redux/store';
 import { IAddress } from 'ts/address';
 
@@ -84,7 +86,7 @@ const addressSlice = createSlice({
                 (state, action: PayloadAction<string>) => {
                     const addressId = action.payload;
 
-                    if (state.addresses[addressId] === undefined) {
+                    if (isUndefined(state.addresses[addressId])) {
                         throw new Error(`Address with ${addressId} not found!`);
                     }
 
@@ -111,7 +113,7 @@ const addressSlice = createSlice({
                     action: PayloadAction<{ data: IAddress; addressId: string }>
                 ) => {
                     const { data, addressId } = action.payload;
-                    if (state.addresses[addressId] === undefined) {
+                    if (isUndefined(state.addresses[addressId])) {
                         throw new Error(`Address with ${addressId} not found!`);
                     }
                     state.addresses[addressId] = data;

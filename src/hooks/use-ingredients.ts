@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 
+import { isUndefined } from 'util/check-statments';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -46,7 +47,7 @@ export const useIngredients = (): IUseIngredients => {
             if (id && type) {
                 if (type === 'inc') {
                     return setUpdatableIngredients((prevIngredients) => {
-                        if (prevIngredients[id] === undefined) {
+                        if (isUndefined(prevIngredients[id])) {
                             return {
                                 ...prevIngredients
                             };
@@ -63,7 +64,7 @@ export const useIngredients = (): IUseIngredients => {
                 }
 
                 return setUpdatableIngredients((prevIngredients) => {
-                    if (prevIngredients[id] === undefined) {
+                    if (isUndefined(prevIngredients[id])) {
                         return {
                             ...prevIngredients
                         };
@@ -90,7 +91,7 @@ export const useIngredients = (): IUseIngredients => {
         }
 
         setUpdatableIngredients((prevIngredients) => {
-            if (prevIngredients[id] === undefined) {
+            if (isUndefined(prevIngredients[id])) {
                 return {
                     ...prevIngredients
                 };

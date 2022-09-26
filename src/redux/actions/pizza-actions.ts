@@ -1,11 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosRequest from '../../api/axios.config';
 import { PIZZA_ENDPOINTS } from 'api/endpoints';
-
 import { IPizzas, ISelectedPizza } from 'ts/pizzas';
 
-export const fetchPizzas = createAsyncThunk(
-    'pizzas/fetchPizzas',
+enum PizzaActionTypes {
+    GET_PIZZAS = 'pizzas/getPizzas',
+    GET_PIZZA_BY_ID = 'pizzas/getPizzaById'
+}
+
+export const getPizzas = createAsyncThunk(
+    PizzaActionTypes.GET_PIZZAS,
     async (_, thunkAPI) => {
         try {
             const url = PIZZA_ENDPOINTS.pizzas;
@@ -20,8 +24,8 @@ export const fetchPizzas = createAsyncThunk(
     }
 );
 
-export const fetchPizzaById = createAsyncThunk(
-    'pizzas/fetchPizzaById',
+export const getPizzaById = createAsyncThunk(
+    PizzaActionTypes.GET_PIZZA_BY_ID,
     async (pizzaId: string, thunkAPI) => {
         try {
             const url = PIZZA_ENDPOINTS.pizzaId + pizzaId;

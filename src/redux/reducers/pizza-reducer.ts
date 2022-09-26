@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPizzas, fetchPizzaById } from 'redux/actions/pizza-actions';
+import { getPizzas, getPizzaById } from 'redux/actions/pizza-actions';
 import { RootState } from 'redux/store';
 import { IPizzas, ISelectedPizza } from '../../ts/pizzas';
 
@@ -47,36 +47,36 @@ const pizzaSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchPizzas.pending, (state) => {
+            .addCase(getPizzas.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
-                fetchPizzas.fulfilled,
+                getPizzas.fulfilled,
                 (state, action: PayloadAction<IPizzas[]>) => {
                     state.pizzas = action.payload;
                     state.isLoading = false;
                 }
             )
             .addCase(
-                fetchPizzas.rejected,
+                getPizzas.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;
                 }
             );
         builder
-            .addCase(fetchPizzaById.pending, (state) => {
+            .addCase(getPizzaById.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(
-                fetchPizzaById.fulfilled,
+                getPizzaById.fulfilled,
                 (state, action: PayloadAction<ISelectedPizza>) => {
                     state.selectedPizza = action.payload;
                     state.isLoading = false;
                 }
             )
             .addCase(
-                fetchPizzaById.rejected,
+                getPizzaById.rejected,
                 (state, action: PayloadAction<any>) => {
                     state.isLoading = false;
                     state.error = action.payload;

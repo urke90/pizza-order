@@ -4,13 +4,20 @@ import { IAddress } from 'ts/address';
 import { db } from '../../firebase/firebase';
 import { ref, push, set, get, remove, update } from 'firebase/database';
 
+enum AddressActionTypes {
+    GET_ADDRESSES = 'addresses/getAddresses',
+    CREATE_ADDRESS = 'addresses/createAddress',
+    DELETE_ADDRESS = 'addresses/deleteAddress',
+    UPDATE_ADDRESS = 'addresses/updateAddress'
+}
+
 interface ICreateAddressData {
     uid: string;
     data: IAddress;
 }
 
 export const asyncGetAddresses = createAsyncThunk(
-    'addresses',
+    AddressActionTypes.GET_ADDRESSES,
     async (uid: string, thunkAPI) => {
         try {
             const addressesRef = ref(db, 'addresses/' + uid);
@@ -29,7 +36,7 @@ export const asyncGetAddresses = createAsyncThunk(
 );
 
 export const asyncCreateAddress = createAsyncThunk(
-    'addresses/createAddress',
+    AddressActionTypes.CREATE_ADDRESS,
     async ({ uid, data }: ICreateAddressData, thunkAPI) => {
         try {
             const userAddressRef = ref(db, 'addresses/' + uid);
@@ -54,7 +61,7 @@ interface IDeleteAddressData {
 }
 
 export const asyncDeleteAddress = createAsyncThunk(
-    'addresses/deleteAddress',
+    AddressActionTypes.DELETE_ADDRESS,
     async ({ uid, addressId }: IDeleteAddressData, thunkAPI) => {
         try {
             const addressRef = ref(db, `addresses/${uid}/${addressId}`);
@@ -62,7 +69,6 @@ export const asyncDeleteAddress = createAsyncThunk(
             await remove(addressRef);
             return addressId;
         } catch (error: any) {
-            console.log('error DELETING ADDRESS', error);
             return thunkAPI.rejectWithValue(error.message);
         }
     }
@@ -75,7 +81,7 @@ interface IUpdateAddressData {
 }
 
 export const asyncUpdateAddress = createAsyncThunk(
-    'addresses/updateAddress',
+    AddressActionTypes.UPDATE_ADDRESS,
     async ({ uid, data, addressId }: IUpdateAddressData, thunkAPI) => {
         try {
             const addressRef = ref(db, `addresses/${uid}/${addressId}`);

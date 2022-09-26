@@ -3,8 +3,13 @@ import { ref, set, push, get } from 'firebase/database';
 import { db } from '../../firebase/firebase';
 import { IOrderItem } from 'ts/orders-cart';
 
+enum OrdersActionTypes {
+    GET_ORDERS = 'orders/getOrders',
+    CREATE_ORDER = 'orders/createOrder'
+}
+
 export const asyncGetOrders = createAsyncThunk(
-    'orders/getOrders',
+    OrdersActionTypes.GET_ORDERS,
     async (uid: string, thunkAPI) => {
         try {
             const ordersRef = ref(db, 'orders/' + uid);
@@ -28,7 +33,7 @@ interface IAsyncCreateOrder {
 }
 
 export const asyncCreateOrder = createAsyncThunk(
-    'orders/createOrder',
+    OrdersActionTypes.CREATE_ORDER,
     async ({ uid, data }: IAsyncCreateOrder, thunkAPI) => {
         try {
             const ordersRef = ref(db, 'orders/' + uid);

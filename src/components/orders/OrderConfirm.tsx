@@ -2,7 +2,7 @@ import { ICartItem } from 'ts/orders-cart';
 import { IAddress } from 'ts/address';
 
 import Accordion from 'shared/ui/Accordion';
-import OrderItem from './OrderItem';
+import OrderPizzaIngredientItem from '../pizza-order/OrderPizzaIngredientItem';
 
 import './OrderConfirm.scss';
 
@@ -20,7 +20,7 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({
             <ul className="order-confirm__list">
                 {cartItems.length > 0 &&
                     cartItems.map(({ title, quantity, pizzaId }) => (
-                        <OrderItem
+                        <OrderPizzaIngredientItem
                             key={pizzaId}
                             title={title}
                             quantity={quantity}

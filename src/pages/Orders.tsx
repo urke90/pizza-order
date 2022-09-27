@@ -4,6 +4,8 @@ import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
 import { uidSelector } from 'redux/reducers/auth-reducer';
 import { ordersSelectors } from 'redux/reducers/orders-reducer';
 
+import LoadingSpinner from 'shared/ui/LoadingSpinner';
+
 import './Orders.scss';
 
 const Orders: React.FC = () => {
@@ -18,11 +20,24 @@ const Orders: React.FC = () => {
         }
     }, [dispatch, uid]);
 
+    if (isLoading) {
+        return <LoadingSpinner asOverlay />;
+    } else if (!isLoading && orders.length === 0) {
+        return (
+            <section className="orders">
+                <header className="orders__header">
+                    <h2>You have no orders to show!</h2>
+                </header>
+            </section>
+        );
+    }
+
     return (
         <section className="orders">
             <header className="orders__header">
                 <h2>Your Orders</h2>
             </header>
+            <ul className="orders__list"></ul>
         </section>
     );
 };

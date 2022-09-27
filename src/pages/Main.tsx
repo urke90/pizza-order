@@ -22,7 +22,7 @@ import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
 import PizzaRecipe from 'components/recipe/PizzaRecipe';
 import Ingredients from 'components/ingredients/Ingredients';
-import OrderList from 'components/orders/OrderList';
+import PizzaAddList from 'components/pizza/PizzaAddList';
 import Button from 'shared/form/Button';
 import LoadingSpinner from 'shared/ui/LoadingSpinner';
 import Modal from 'shared/ui/Modal';
@@ -181,7 +181,7 @@ const Main: React.FC = () => {
                     </Button>
                 }
             >
-                <OrderList createdPizza={createdPizza} />
+                <PizzaAddList createdPizza={createdPizza} />
             </Modal>
             <div className="main__container">
                 <div className="main__heading-wrapper">

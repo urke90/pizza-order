@@ -102,7 +102,12 @@ const addressSlice = createSlice({
                         throw new Error(`Address with ${addressId} not found!`);
                     }
                     state.addresses[addressId] = data;
-                    toast.success('Address updated successfully!');
+
+                    const addressStreet = data.street;
+
+                    toast.success(
+                        `Address ${addressStreet} updated successfully!`
+                    );
                     state.isBtnDisabled = false;
                 }
             )
@@ -130,9 +135,13 @@ const addressSlice = createSlice({
                         throw new Error(`Address with ${addressId} not found!`);
                     }
 
+                    const addressStreet = state.addresses[addressId].street;
+
                     delete state.addresses[addressId];
 
-                    toast.success('Address deleted successfully!');
+                    toast.success(
+                        `Address ${addressStreet} deleted successfully!`
+                    );
                     state.isBtnDisabled = false;
                 }
             )

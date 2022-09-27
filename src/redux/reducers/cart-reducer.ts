@@ -41,7 +41,8 @@ const cartSlice = createSlice({
 
             if (pizza.pizzaId && !isEmptyObject) {
                 state.cart[pizza.pizzaId] = pizza;
-                toast.success('Item added to cart successfully!');
+
+                toast.success(`${pizza.title} added to cart successfully!`);
             }
         },
         removePizzaFromCart(state, action: PayloadAction<string>) {
@@ -50,9 +51,11 @@ const cartSlice = createSlice({
             if (isUndefined(state.cart[pizzaId])) {
                 throw new Error(`pizza with ID: ${pizzaId} not found!`);
             }
+            const pizzaTitle = state.cart[pizzaId].title;
 
             delete state.cart[pizzaId];
-            toast.success('Item removed from cart successfully!');
+
+            toast.success(`${pizzaTitle} removed from cart successfully!`);
         },
         changeIngredientQuantity(
             state,
@@ -74,11 +77,15 @@ const cartSlice = createSlice({
             }
 
             const isIncrementAction = type === 'inc';
+            const ingredientToUpdate = state.cart[pizzaId].ingredients[ingId];
 
             if (isIncrementAction) {
-                state.cart[pizzaId].ingredients[ingId].quantity += value;
+                ingredientToUpdate.quantity += value;
             } else {
-                state.cart[pizzaId].ingredients[ingId].quantity -= value;
+                if (ingredientToUpdate.quantity <= value) {
+                    return;
+                }
+                ingredientToUpdate.quantity -= value;
             }
         },
         removePizzaIngredient(
@@ -95,10 +102,19 @@ const cartSlice = createSlice({
                 throw new Error(`Ingredient with ID: ${ingId} doesn't exist`);
             }
 
+            const ingredientTitle =
+                state.cart[pizzaId].ingredients[ingId].title;
+
             delete state.cart[pizzaId].ingredients[ingId];
 
+            toast.success(`${ingredientTitle} removed successfully!`);
+
             if (Object.keys(state.cart[pizzaId].ingredients).length === 0) {
+                const pizzaTitle = state.cart[pizzaId].title;
+
                 delete state.cart[pizzaId];
+
+                toast.success(`${pizzaTitle} removed successfully!`);
             }
         },
         changePizzaQuantity(
@@ -120,8 +136,12 @@ const cartSlice = createSlice({
                 state.cart[pizzaId].quantity++;
             } else {
                 if (state.cart[pizzaId].quantity <= 1) {
+                    const pizzaTitle = state.cart[pizzaId].title;
+
                     delete state.cart[pizzaId];
-                    toast.success('Item removed from cart successfully!');
+
+                    toast.success(`${pizzaTitle} removed successfully!`);
+
                     return;
                 }
 

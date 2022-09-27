@@ -41,7 +41,10 @@ export const asyncCreateOrder = createAsyncThunk(
 
             await set(newOrderRef, data);
 
-            return data;
+            return {
+                data,
+                orderId: newOrderRef.key!
+            };
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
         }

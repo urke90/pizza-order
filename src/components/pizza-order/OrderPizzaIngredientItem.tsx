@@ -1,4 +1,4 @@
-import './OrderConfirmItem.scss';
+import './OrderPizzaIngredientItem.scss';
 
 interface IOrderConfirmItemProps {
     title: string;
@@ -6,7 +6,7 @@ interface IOrderConfirmItemProps {
     isPizzaItem?: boolean;
 }
 
-const OrderConfirmItem: React.FC<IOrderConfirmItemProps> = ({
+const OrderPizzaIngredientItem: React.FC<IOrderConfirmItemProps> = ({
     title,
     quantity,
     isPizzaItem
@@ -15,13 +15,15 @@ const OrderConfirmItem: React.FC<IOrderConfirmItemProps> = ({
 
     return (
         <li className="order-confirm-item">
-            <span className="order-item__title">{title}</span>{' '}
-            <span className="order-item__quantity">{quanityToDisplay}</span>
+            <span className="order-confirm-item__title">{title}</span>{' '}
+            <span className="order-confirm-item__quantity">
+                {quanityToDisplay}
+            </span>
         </li>
     );
 };
 
-export default OrderConfirmItem;
+export default OrderPizzaIngredientItem;
 
 /**
  *  ADD PIZZA TO ORDER ====> tu su mi samo sastojicu od pizze i qty

@@ -14,6 +14,8 @@ const Orders: React.FC = () => {
     const isLoading = useAppSelector(ordersSelectors.isLoading);
     const orders = useAppSelector(ordersSelectors.orders);
 
+    console.log('orders', orders);
+
     useEffect(() => {
         if (uid) {
             dispatch(asyncGetOrders(uid));
@@ -22,7 +24,7 @@ const Orders: React.FC = () => {
 
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
-    } else if (!isLoading && orders.length === 0) {
+    } else if (!isLoading) {
         return (
             <section className="orders">
                 <header className="orders__header">

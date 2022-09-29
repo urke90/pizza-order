@@ -6,6 +6,7 @@ import {
     changePizzaQuantity,
     removePizzaFromCart
 } from 'redux/reducers/cart-reducer';
+import { countPizzaTotalPrice } from 'util/pizzas-data';
 
 import CartIngredientItem from './CartIngredientItem';
 import Button from 'shared/form/Button';
@@ -18,8 +19,17 @@ interface ICartItemProps {
 
 const CartItem: React.FC<ICartItemProps> = ({ item }) => {
     const dispatch = useAppDispatch();
-    const { pizzaId, imageUrl, title, sourceUrl, quantity, ingredients } = item;
+    const {
+        pizzaId,
+        imageUrl,
+        title,
+        sourceUrl,
+        quantity,
+        ingredients,
+        price
+    } = item;
     const ingredientsToRender = Object.values(ingredients);
+    const totalPrice = countPizzaTotalPrice(price, quantity);
 
     const handlePizzaQuantityChange = (
         pizzaId: string,
@@ -39,7 +49,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                     <img src={imageUrl} alt={title} />
                 </div>
                 <div className="cart-item__description">
-                    <h5 className="cart-item__title ellipsis">{title}</h5>
+                    <h4 className="cart-item__title ellipsis">{title}</h4>
                     <a
                         className="cart-item__link"
                         href={sourceUrl}
@@ -63,6 +73,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
                             }
                         />
                     </div>
+                    <p className="cart-item__price">Price: {totalPrice} $</p>
                 </div>
             </div>
             <h4 className="cart-item__ingredients-title">Ingredients:</h4>

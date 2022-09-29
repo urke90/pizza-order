@@ -4,3 +4,7 @@ export const pizzasPrices: number[] = [
     11.09, 5.23, 13.13, 9.86, 15.68, 6.85, 3.25, 19.53, 2.69, 13.32, 7.77, 6.07,
     4.87, 14.02, 5.27, 7.11
 ];
+
+// counts total pizza price based on quantity and price
+export const countPizzaTotalPrice = (price: number, quantity: number): string =>
+    (price * quantity).toFixed(2);

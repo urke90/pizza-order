@@ -1,16 +1,18 @@
 import { ICartItem } from 'ts/orders-cart';
 
 import OrderPizzaIngredientItem from '../pizza-order/OrderPizzaIngredientItem';
-import './PizzaAddList.scss';
+import { countPizzaTotalPrice } from 'util/pizzas-data';
+import './PizzaAdd.scss';
 
 interface IPizzaAddListProps {
     createdPizza: ICartItem;
 }
 
-const PizzaAddList: React.FC<IPizzaAddListProps> = ({ createdPizza }) => {
-    const { title, imageUrl, ingredients, quantity } = createdPizza;
+const PizzaAdd: React.FC<IPizzaAddListProps> = ({ createdPizza }) => {
+    const { title, imageUrl, ingredients, quantity, price } = createdPizza;
 
     const ingredientsToRender = Object.values(ingredients);
+    const totalPrice = countPizzaTotalPrice(price, quantity);
 
     return (
         <div className="pizza-add">
@@ -20,9 +22,12 @@ const PizzaAddList: React.FC<IPizzaAddListProps> = ({ createdPizza }) => {
             <div className="pizza-add__img">
                 <img src={imageUrl} alt={title} />
             </div>
-            <div className="pizza-add__quantity">
+            <div className="pizza-add__details">
+                <h4 className="pizza-add__quantity">
+                    Quantity: <span>{quantity}</span>
+                </h4>
                 <h4>
-                    Quantity: <span>{quantity}</span>{' '}
+                    Price: <span>{totalPrice}</span> $
                 </h4>
             </div>
             <ul className="pizza-add__list">
@@ -39,4 +44,4 @@ const PizzaAddList: React.FC<IPizzaAddListProps> = ({ createdPizza }) => {
     );
 };
 
-export default PizzaAddList;
+export default PizzaAdd;

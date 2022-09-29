@@ -17,4 +17,5 @@ export interface ISelectedPizza {
     social_rank: number;
     source_url: string;
     title: string;
+    price: number;
 }

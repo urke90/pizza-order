@@ -3,8 +3,13 @@ import { getPizzas, getPizzaById } from 'redux/actions/pizza-actions';
 import { RootState } from 'redux/store';
 import { IPizzas, ISelectedPizza } from '../../ts/pizzas';
 
+import { pizzasPrices } from 'util/pizzas-data';
+
 interface IInitialState {
     pizzas: IPizzas[];
+    pizzaPrices: {
+        [key: string]: number;
+    };
     pizzaId: string;
     selectedPizza: ISelectedPizza;
     isLoading: boolean;
@@ -19,11 +24,13 @@ export const emptySelectedPizza: ISelectedPizza = {
     recipe_id: '',
     social_rank: 0,
     source_url: '',
-    title: ''
+    title: '',
+    price: 0
 };
 
 const initialState: IInitialState = {
     pizzas: [],
+    pizzaPrices: {},
     pizzaId: '',
     selectedPizza: emptySelectedPizza,
     isLoading: false,
@@ -40,7 +47,6 @@ const pizzaSlice = createSlice({
         removePizzaId(state) {
             state.pizzaId = '';
         },
-
         removePizzaRecipe(state) {
             state.selectedPizza = emptySelectedPizza;
         }
@@ -53,7 +59,26 @@ const pizzaSlice = createSlice({
             .addCase(
                 getPizzas.fulfilled,
                 (state, action: PayloadAction<IPizzas[]>) => {
-                    state.pizzas = action.payload;
+                    const pizzas = action.payload;
+
+                    /**
+                     * pizzas prices are hardcoded since we don't want to generate random prices each time users logs in
+                     * loop through pizzasPrices and pizzas and if indexes match create new objecte
+                     * { [recipe_id]: price }
+                     * this will ensure prices always stay the same for specific pizza
+                     */
+                    pizzas.forEach(({ recipe_id }, pizzaIndex) => {
+                        pizzasPrices.forEach((price, priceIndex) => {
+                            if (pizzaIndex === priceIndex) {
+                                state.pizzaPrices = {
+                                    ...state.pizzaPrices,
+                                    [recipe_id]: price
+                                };
+                            }
+                        });
+                    });
+
+                    state.pizzas = pizzas;
                     state.isLoading = false;
                 }
             )
@@ -71,7 +96,12 @@ const pizzaSlice = createSlice({
             .addCase(
                 getPizzaById.fulfilled,
                 (state, action: PayloadAction<ISelectedPizza>) => {
-                    state.selectedPizza = action.payload;
+                    const selectedPizza = action.payload;
+
+                    selectedPizza.price =
+                        state.pizzaPrices[selectedPizza.recipe_id];
+
+                    state.selectedPizza = selectedPizza;
                     state.isLoading = false;
                 }
             )

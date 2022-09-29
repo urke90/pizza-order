@@ -15,6 +15,7 @@ interface IPizzaRecipeProps {
     ingredients: string[];
     onAddToCart: () => void;
     pizzaQuantity: number;
+    pizzaPrice: number;
     onChangePizzaQuantity: (type: TIngredientActionType) => void;
 }
 
@@ -25,8 +26,11 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
     ingredients,
     onAddToCart,
     pizzaQuantity,
+    pizzaPrice,
     onChangePizzaQuantity
 }) => {
+    const totalPrice = (pizzaPrice * pizzaQuantity).toFixed(2);
+
     return (
         <div className="recipe">
             <div className="recipe__heading">
@@ -56,7 +60,7 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         type="button"
                         onClick={() => onChangePizzaQuantity('inc')}
                     >
-                        <div className="recipe__button--img">
+                        <div className="recipe__button-img">
                             <AiOutlinePlus />
                         </div>
                     </Button>
@@ -68,11 +72,12 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         onClick={() => onChangePizzaQuantity('dec')}
                         disabled={pizzaQuantity <= 1}
                     >
-                        <div className="recipe__button--img">
+                        <div className="recipe__button-img">
                             <AiOutlineMinus />
                         </div>
                     </Button>
                 </div>
+                <p className="recipe__price">Price: {totalPrice} $</p>
                 <Button type="button" onClick={onAddToCart}>
                     Add <BsFillCartPlusFill />
                 </Button>

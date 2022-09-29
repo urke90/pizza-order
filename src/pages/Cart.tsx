@@ -30,6 +30,8 @@ const Cart: React.FC = () => {
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
 
+    console.log('cartItems', cartItems);
+
     useEffect(() => {
         if (uid) {
             dispatch(asyncGetAddresses(uid));

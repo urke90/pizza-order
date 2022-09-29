@@ -54,6 +54,7 @@ const Main: React.FC = () => {
     const sourceUrl = useAppSelector(pizzaSelectors.sourceUrl);
     const imageUrl = useAppSelector(pizzaSelectors.imageUrl);
     const recipeId = useAppSelector(pizzaSelectors.recipeId);
+    const pizzaPrice = useAppSelector(pizzaSelectors.price);
     const uid = useAppSelector((state) => state.authReducer.uid);
 
     /**
@@ -70,7 +71,8 @@ const Main: React.FC = () => {
             imageUrl,
             sourceUrl,
             recipeId,
-            ingredients: updatableIngredients
+            ingredients: updatableIngredients,
+            price: pizzaPrice * pizzaQuantity
         };
 
         setCreatedPizza(pizza);
@@ -82,6 +84,7 @@ const Main: React.FC = () => {
         sourceUrl,
         recipeId,
         pizzaQuantity,
+        pizzaPrice,
         updatableIngredients,
         handleToggleModal
     ]);
@@ -221,6 +224,7 @@ const Main: React.FC = () => {
                             imageUrl={imageUrl}
                             onAddToCart={handleAddToCart}
                             pizzaQuantity={pizzaQuantity}
+                            pizzaPrice={pizzaPrice}
                             onChangePizzaQuantity={handleChangePizzaQuantity}
                         />
                     </main>

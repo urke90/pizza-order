@@ -131,7 +131,9 @@ export const pizzaSelectors = {
     sourceUrl: ({ pizzaReducer: { selectedPizza } }: RootState) =>
         selectedPizza.source_url,
     title: ({ pizzaReducer: { selectedPizza } }: RootState) =>
-        selectedPizza.title
+        selectedPizza.title,
+    price: ({ pizzaReducer: { selectedPizza } }: RootState) =>
+        selectedPizza.price
 };
 
 export const { savePizzaId, removePizzaId, removePizzaRecipe } =

@@ -25,6 +25,7 @@ export const emptyCartItem: ICartItem = {
     title: '',
     recipeId: '',
     quantity: 0,
+    price: 0,
     imageUrl: '',
     sourceUrl: '',
     ingredients: {}

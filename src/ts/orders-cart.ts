@@ -7,6 +7,7 @@ export interface ICartItem {
     title: string;
     recipeId: string;
     quantity: number;
+    price: number;
     imageUrl: string;
     sourceUrl: string;
     ingredients: IUpdatableIngredients;

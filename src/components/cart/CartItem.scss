@@ -49,7 +49,7 @@
         }
     }
     &__link {
-        margin-bottom: 10px;
+        font-size: 12px;
     }
     &__quantity {
         justify-content: center;
@@ -75,8 +75,16 @@
         margin: 20px auto 0;
     }
 
+    @media screen and (min-width: 481px) {
+        &__link {
+            font-size: 14px;
+        }
+    }
     @media screen and (min-width: 768px) {
         width: 49%;
+        &__link {
+            font-size: 15px;
+        }
     }
     @media screen and (min-width: 1024px) {
         width: 42%;

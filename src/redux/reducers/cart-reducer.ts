@@ -99,19 +99,20 @@ const cartSlice = createSlice({
                 throw new Error(`Pizza with ID: ${pizzaId} not found`);
             }
 
+            const pizza = state.cart[pizzaId];
+
             if (isUndefined(state.cart[pizzaId].ingredients[ingId])) {
                 throw new Error(`Ingredient with ID: ${ingId} doesn't exist`);
             }
 
-            const ingredientTitle =
-                state.cart[pizzaId].ingredients[ingId].title;
+            const ingredientTitle = pizza.ingredients[ingId].title;
 
-            delete state.cart[pizzaId].ingredients[ingId];
+            delete pizza.ingredients[ingId];
 
             toast.success(`${ingredientTitle} removed successfully!`);
 
-            if (Object.keys(state.cart[pizzaId].ingredients).length === 0) {
-                const pizzaTitle = state.cart[pizzaId].title;
+            if (Object.keys(pizza.ingredients).length === 0) {
+                const pizzaTitle = pizza.title;
 
                 delete state.cart[pizzaId];
 
@@ -131,13 +132,15 @@ const cartSlice = createSlice({
                 throw new Error(`Can't find pizza with ID: ${pizzaId}`);
             }
 
+            const pizza = state.cart[pizzaId];
+
             const isIncrementAction = type === 'inc';
 
             if (isIncrementAction) {
-                state.cart[pizzaId].quantity++;
+                pizza.quantity++;
             } else {
-                if (state.cart[pizzaId].quantity <= 1) {
-                    const pizzaTitle = state.cart[pizzaId].title;
+                if (pizza.quantity <= 1) {
+                    const pizzaTitle = pizza.title;
 
                     delete state.cart[pizzaId];
 
@@ -146,7 +149,7 @@ const cartSlice = createSlice({
                     return;
                 }
 
-                state.cart[pizzaId].quantity--;
+                pizza.quantity--;
             }
         },
         resetCart(state) {

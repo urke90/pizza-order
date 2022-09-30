@@ -1,5 +1,5 @@
-import NavLinkCustom from 'shared/links/NavLink';
-import { NAVLINKS_CONFIG } from 'util/navlinks-data';
+import NavLinkCustom from 'shared/links/NavLinkCustom';
+import { NAVLINKS_CONFIG } from 'config/navlinks.config';
 
 import './NavDesktop.scss';
 

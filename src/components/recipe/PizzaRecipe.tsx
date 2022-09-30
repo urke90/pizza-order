@@ -33,17 +33,16 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
 
     return (
         <div className="recipe">
-            <div className="recipe__heading">
-                <h2>{title}</h2>
-            </div>
-            <div className="recipe__image">
-                <img src={imageUrl} alt={title} />
-            </div>
-            <div className="recipe__link">
-                <a href={sourceUrl} target="_blank" rel="noreferrer noopener">
-                    Chech the recipe online
-                </a>
-            </div>
+            <h2 className="recipe__heading">{title}</h2>
+            <img className="recipe__image" src={imageUrl} alt={title} />
+            <a
+                className="recipe__link"
+                href={sourceUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+            >
+                Chech the recipe online
+            </a>
             <ul className="recipe__ingredients-list">
                 {ingredients.length > 0 &&
                     ingredients.map((ingredient) => (
@@ -53,30 +52,24 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
                         />
                     ))}
             </ul>
-            <div className="recipe__buttons-wrapper">
-                <h4 className="recipe__quantity">Quantity:</h4>
-                <div className="recipe__buttons-wrapper--quantity">
-                    <Button
-                        type="button"
-                        onClick={() => onChangePizzaQuantity('inc')}
-                    >
-                        <div className="recipe__button-img">
-                            <AiOutlinePlus />
-                        </div>
-                    </Button>
-                    <span className="recipe__pizza--quantity">
-                        {pizzaQuantity}
-                    </span>
-                    <Button
-                        type="button"
-                        onClick={() => onChangePizzaQuantity('dec')}
-                        disabled={pizzaQuantity <= 1}
-                    >
-                        <div className="recipe__button-img">
-                            <AiOutlineMinus />
-                        </div>
-                    </Button>
-                </div>
+            <h4 className="recipe__quantity--heading">Quantity:</h4>
+            <div className="recipe__buttons-wrapper--quantity">
+                <Button
+                    type="button"
+                    onClick={() => onChangePizzaQuantity('inc')}
+                >
+                    <AiOutlinePlus className="recipe__button-img" />
+                </Button>
+                <span className="recipe__pizza--quantity">{pizzaQuantity}</span>
+                <Button
+                    type="button"
+                    onClick={() => onChangePizzaQuantity('dec')}
+                    disabled={pizzaQuantity <= 1}
+                >
+                    <AiOutlineMinus className="recipe__button-img" />
+                </Button>
+            </div>
+            <div className="recipe__price-cart-btn">
                 <p className="recipe__price">Price: {totalPrice} $</p>
                 <Button type="button" onClick={onAddToCart}>
                     Add <BsFillCartPlusFill />

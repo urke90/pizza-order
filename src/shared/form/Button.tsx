@@ -25,10 +25,10 @@ const Button: React.FC<IButtonProps> = ({
 
     return (
         <div
-            className={generateGeneralClassName(
+            className={`button-wrapper ${generateGeneralClassName(
                 !!disabled,
                 'cursor-not-allowed'
-            )}
+            )}`}
         >
             <button
                 className={buttonClassName}

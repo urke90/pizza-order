@@ -11,9 +11,7 @@ const IngredientConstValue: React.FC<IIngredientConstValueProps> = ({
 }) => {
     return (
         <>
-            <div className="ingredients__heading">
-                <h4>Increment or decrement by:</h4>
-            </div>
+            <h4 className="ingredients__heading">Increment or decrement by:</h4>
             <div className="ingredients__buttons-wrapper">
                 <Button
                     type="button"

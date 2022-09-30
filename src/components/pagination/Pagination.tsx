@@ -2,12 +2,12 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
 import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
 import {
     incrementPaginationPage,
-    decrementPaginationPage,
-    selectPaginationPage
+    decrementPaginationPage
 } from 'redux/reducers/pagination-reducer';
 import { paginationSelectors } from 'redux/reducers/pagination-reducer';
 import { pizzaSelectors } from 'redux/reducers/pizza-reducer';
-import { generateGeneralClassName } from 'util/className-generators';
+
+import PaginationNumberItem from './PaginationNumberItem';
 
 import './Pagination.scss';
 
@@ -24,41 +24,30 @@ const Pagination: React.FC = () => {
 
     const handleIncrementPage = () => dispatch(incrementPaginationPage());
     const handleDecrementPage = () => dispatch(decrementPaginationPage());
-    const handlePageChange = (numBtn: number) =>
-        dispatch(selectPaginationPage(numBtn));
 
     return (
         <div className="pagination">
             <div className="pagination__controls">
                 {currentPage > 1 && (
-                    <div className="pagination__arrow">
-                        <BsArrowLeftCircleFill
-                            className="pagination__button-arrow"
-                            onClick={handleDecrementPage}
-                        />
-                    </div>
+                    <BsArrowLeftCircleFill
+                        className="pagination__button-arrow"
+                        onClick={handleDecrementPage}
+                    />
                 )}
                 <ul className="pagination__numbers-list">
                     {numberButtons.map((numBtn) => (
-                        <li
+                        <PaginationNumberItem
                             key={numBtn}
-                            className={`pagination__numbers-item ${generateGeneralClassName(
-                                numBtn === currentPage,
-                                'pagination__numbers-item--active'
-                            )}`}
-                            onClick={() => handlePageChange(numBtn)}
-                        >
-                            {numBtn}
-                        </li>
+                            numBtn={numBtn}
+                            currentPage={currentPage}
+                        />
                     ))}
                 </ul>
                 {currentPage < totalPages && totalPages > 1 && (
-                    <div className="pagination__arrow">
-                        <BsArrowRightCircleFill
-                            className="pagination__button-arrow"
-                            onClick={handleIncrementPage}
-                        />
-                    </div>
+                    <BsArrowRightCircleFill
+                        className="pagination__button-arrow"
+                        onClick={handleIncrementPage}
+                    />
                 )}
             </div>
         </div>

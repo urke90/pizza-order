@@ -13,33 +13,23 @@
         display: flex;
         height: 300px;
         margin-bottom: 30px;
-        img {
-            width: 100%;
-            height: 100%;
-            margin: auto;
-            border-radius: 20px;
-            object-fit: cover;
-        }
+        width: 100%;
+        border-radius: 20px;
+        object-fit: cover;
     }
     &__link {
         width: fit-content;
         margin: auto;
         text-align: center;
-        a {
-            &:hover {
-                color: $red;
-                transition: 1s;
-            }
-            @media screen and (min-width: 481px) {
-                font-size: 18px;
-            }
+        &:hover {
+            color: $red;
+            transition: 1s;
+        }
+        @media screen and (min-width: 481px) {
+            font-size: 18px;
         }
     }
-    &__buttons-wrapper {
-        text-align: center;
-        margin: 30px 0;
-    }
-    &__quantity {
+    &__quantity--heading {
         margin: 10px auto;
     }
     &__buttons-wrapper--quantity {
@@ -47,7 +37,12 @@
         justify-content: center;
         margin-bottom: 20px;
     }
-    &__button--img {
+    &__price-cart-btn {
+        text-align: center;
+        margin: auto;
+    }
+
+    &__button-img {
         display: flex;
     }
     &__pizza--quantity {
@@ -63,7 +58,7 @@
         margin-bottom: 10px;
     }
     @media screen and (min-width: 481px) {
-        padding: 40px;
+        padding: 40px 40px 20px;
     }
     @media screen and (min-width: 781px) {
         padding: 20px;

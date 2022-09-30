@@ -9,11 +9,13 @@ import './OrderConfirm.scss';
 interface IOrderConfirmProps {
     cartItems: ICartItem[];
     addresses: IAddress[];
+    totalPrice: number;
 }
 
 const OrderConfirm: React.FC<IOrderConfirmProps> = ({
     cartItems,
-    addresses
+    addresses,
+    totalPrice
 }) => {
     return (
         <div className="order-confirm">
@@ -28,6 +30,10 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({
                         />
                     ))}
             </ul>
+            <p className="order-confirm__price">
+                Total Price:{' '}
+                <span className="color--red">{totalPrice.toFixed(2)}</span> $
+            </p>
             <div className="order-confirm__addresses">
                 <Accordion
                     contentType="addresses"

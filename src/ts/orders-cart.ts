@@ -16,3 +16,9 @@ export interface ICartItem {
 export interface IOrderItem extends ICartItem {
     address: IAddress;
 }
+
+export interface IOrder {
+    orderId: string;
+    totalPrice: number;
+    items: IOrderItem[];
+}

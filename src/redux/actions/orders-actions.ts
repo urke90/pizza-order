@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ref, set, push, get } from 'firebase/database';
 import { db } from '../../firebase/firebase';
-import { IOrderItem } from 'ts/orders-cart';
+import { IOrder } from 'ts/orders-cart';
 
 enum OrdersActionTypes {
     GET_ORDERS = 'orders/getOrders',
@@ -20,7 +20,7 @@ export const asyncGetOrders = createAsyncThunk(
                 return response.val();
             }
 
-            return [];
+            return {};
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
         }
@@ -29,7 +29,7 @@ export const asyncGetOrders = createAsyncThunk(
 
 interface IAsyncCreateOrder {
     uid: string;
-    data: IOrderItem[];
+    data: IOrder;
 }
 
 export const asyncCreateOrder = createAsyncThunk(
@@ -38,12 +38,14 @@ export const asyncCreateOrder = createAsyncThunk(
         try {
             const ordersRef = ref(db, 'orders/' + uid);
             const newOrderRef = push(ordersRef);
+            const newOrderKey = newOrderRef.key!;
+            data.orderId = newOrderKey;
 
             await set(newOrderRef, data);
 
             return {
                 data,
-                orderId: newOrderRef.key!
+                orderId: newOrderKey
             };
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);

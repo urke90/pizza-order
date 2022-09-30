@@ -27,6 +27,7 @@ const Cart: React.FC = () => {
     const selectedAddressId = useAppSelector(
         addressesSelector.selectedAddressId
     );
+    const selectedAddress = addresses[selectedAddressId];
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
     const totalPrice: number = cartItems.reduce(
@@ -35,9 +36,6 @@ const Cart: React.FC = () => {
         0
     );
 
-    console.log('cartItems', cartItems);
-    console.log('totalPrice', totalPrice);
-
     useEffect(() => {
         if (uid) {
             dispatch(asyncGetAddresses(uid));
@@ -45,8 +43,6 @@ const Cart: React.FC = () => {
     }, [dispatch, uid]);
 
     const handleCreateOrder = useCallback(() => {
-        const address = addresses[selectedAddressId];
-
         const initOrder: IOrder = {
             orderId: '',
             totalPrice: 0,
@@ -58,7 +54,10 @@ const Cart: React.FC = () => {
              * 1. add address to the cartItem ===> orderItem: IOrderItem
              * 2. sum up previous price with orderItem.price * orderItem.quantity
              */
-            const orderItem: IOrderItem = { ...currItem, address };
+            const orderItem: IOrderItem = {
+                ...currItem,
+                address: selectedAddress
+            };
 
             return {
                 ...accumulator,
@@ -74,8 +73,7 @@ const Cart: React.FC = () => {
     }, [
         dispatch,
         handleToggleModal,
-        selectedAddressId,
-        addresses,
+        selectedAddress,
         uid,
         totalPrice,
         cartItems
@@ -145,6 +143,7 @@ const Cart: React.FC = () => {
                     cartItems={cartItems}
                     addresses={addressesItems}
                     totalPrice={totalPrice}
+                    selectedAddress={selectedAddress}
                 />
             </Modal>
             <div className="cart">
@@ -162,7 +161,9 @@ const Cart: React.FC = () => {
                             ))}
                     </ul>
                 </div>
-                <div className="cart__actions">{orderButton}</div>
+                {orderButton && (
+                    <div className="cart__actions">{orderButton}</div>
+                )}
             </div>
         </>
     );

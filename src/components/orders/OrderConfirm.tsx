@@ -10,12 +10,14 @@ interface IOrderConfirmProps {
     cartItems: ICartItem[];
     addresses: IAddress[];
     totalPrice: number;
+    selectedAddress: IAddress;
 }
 
 const OrderConfirm: React.FC<IOrderConfirmProps> = ({
     cartItems,
     addresses,
-    totalPrice
+    totalPrice,
+    selectedAddress
 }) => {
     return (
         <div className="order-confirm">
@@ -34,13 +36,16 @@ const OrderConfirm: React.FC<IOrderConfirmProps> = ({
                 Total Price:{' '}
                 <span className="color--red">{totalPrice.toFixed(2)}</span> $
             </p>
-            <div className="order-confirm__addresses">
-                <Accordion
-                    contentType="addresses"
-                    addresses={addresses}
-                    title="Choose Address"
-                />
-            </div>
+            <Accordion
+                contentType="addresses"
+                addresses={addresses}
+                title="Choose Address"
+            />
+            {!!selectedAddress && (
+                <p className="order-confirm__address--selected">
+                    {selectedAddress.street}
+                </p>
+            )}
         </div>
     );
 };

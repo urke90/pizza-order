@@ -5,7 +5,7 @@ import { useModal } from 'hooks/use-modal';
 import { addressesSelector } from 'redux/reducers/address-reducer';
 import { asyncCreateOrder } from 'redux/actions/orders-actions';
 import { asyncGetAddresses } from 'redux/actions/address-actions';
-import { IOrderItem } from 'ts/orders-cart';
+import { IOrderItem, IOrder } from 'ts/orders-cart';
 import { removeSelectedAddressId } from 'redux/reducers/address-reducer';
 import { resetCart } from 'redux/reducers/cart-reducer';
 
@@ -29,8 +29,14 @@ const Cart: React.FC = () => {
     );
     const addressesItems = Object.values(addresses);
     const cartItems = Object.values(cart);
+    const totalPrice: number = cartItems.reduce(
+        (accumulator, currItem) =>
+            accumulator + currItem.price * currItem.quantity,
+        0
+    );
 
     console.log('cartItems', cartItems);
+    console.log('totalPrice', totalPrice);
 
     useEffect(() => {
         if (uid) {
@@ -41,10 +47,25 @@ const Cart: React.FC = () => {
     const handleCreateOrder = useCallback(() => {
         const address = addresses[selectedAddressId];
 
-        const data: IOrderItem[] = cartItems.map((cartItem) => ({
-            ...cartItem,
-            address
-        }));
+        const initOrder: IOrder = {
+            orderId: '',
+            totalPrice: 0,
+            items: []
+        };
+
+        const data: IOrder = cartItems.reduce((accumulator, currItem) => {
+            /**
+             * 1. add address to the cartItem ===> orderItem: IOrderItem
+             * 2. sum up previous price with orderItem.price * orderItem.quantity
+             */
+            const orderItem: IOrderItem = { ...currItem, address };
+
+            return {
+                ...accumulator,
+                totalPrice,
+                items: [...accumulator.items, orderItem]
+            };
+        }, initOrder);
 
         dispatch(asyncCreateOrder({ uid, data }));
         dispatch(removeSelectedAddressId());
@@ -55,8 +76,9 @@ const Cart: React.FC = () => {
         handleToggleModal,
         selectedAddressId,
         addresses,
-        cartItems,
-        uid
+        uid,
+        totalPrice,
+        cartItems
     ]);
 
     let orderButton: React.ReactNode | null = null;
@@ -122,6 +144,7 @@ const Cart: React.FC = () => {
                 <OrderConfirm
                     cartItems={cartItems}
                     addresses={addressesItems}
+                    totalPrice={totalPrice}
                 />
             </Modal>
             <div className="cart">

@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { asyncGetOrders, asyncCreateOrder } from 'redux/actions/orders-actions';
 import { RootState } from 'redux/store';
-import { IOrderItem } from 'ts/orders-cart';
+import { IOrder } from 'ts/orders-cart';
 
 interface IInitialState {
     orders: {
-        [key: string]: IOrderItem[];
+        [key: string]: IOrder;
     };
     isLoading: boolean;
     error: string | null;
@@ -30,10 +30,7 @@ const ordersSlice = createSlice({
             })
             .addCase(
                 asyncGetOrders.fulfilled,
-                (
-                    state,
-                    action: PayloadAction<{ [key: string]: IOrderItem[] }>
-                ) => {
+                (state, action: PayloadAction<{ [key: string]: IOrder }>) => {
                     const orders = action.payload;
 
                     state.orders = orders;
@@ -56,12 +53,12 @@ const ordersSlice = createSlice({
                 (
                     state,
                     action: PayloadAction<{
-                        data: IOrderItem[];
+                        data: IOrder;
                         orderId: string;
                     }>
                 ) => {
                     const { data, orderId } = action.payload;
-                    const orders = { ...state.orders, [orderId]: [...data] };
+                    const orders = { ...state.orders, [orderId]: data };
 
                     state.orders = orders;
                     toast.success('Order created successfully!');

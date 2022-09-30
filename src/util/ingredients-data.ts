@@ -42,11 +42,6 @@ export const ingredientIsFraction = (ingredient: string): boolean =>
     ingredient.includes('/') &&
     !ingredient.includes('-');
 
-// interface IConvertedIngredients {
-//     title: string;
-//     quantity: number;
-// }
-
 export const convertIngredientsForRendering = (
     ingredients: string[]
 ): IConvertedIngredients[] => {
@@ -108,9 +103,5 @@ export const convertIngredientsForRendering = (
             title: ingredientTitle,
             quantity: ingredientQuantity
         };
-        // return {
-        //     [ingredientTitle]: ingredientQuantity
-        //     // quantity: ingredientQuantity
-        // };
     });
 };

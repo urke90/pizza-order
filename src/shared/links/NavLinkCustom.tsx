@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import './NavLink.scss';
+import './NavLinkCustom.scss';
 
 interface INavLinkProps {
     text: string;

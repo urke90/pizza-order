@@ -1,8 +1,8 @@
-import { NAVLINKS_CONFIG } from 'util/navlinks-data';
+import { NAVLINKS_CONFIG } from 'config/navlinks.config';
 import { generateGeneralClassName } from 'util/className-generators';
 
 import Button from 'shared/form/Button';
-import NavLinkCustom from 'shared/links/NavLink';
+import NavLinkCustom from 'shared/links/NavLinkCustom';
 import Backdrop from 'shared/ui/Backdrop';
 
 import './NavMobile.scss';

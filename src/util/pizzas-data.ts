@@ -1,3 +1,4 @@
+import { IPizzas } from 'ts/pizzas';
 // created array of pizza prices since forkify api doesn't have price for individual recipe, and we don't want to generate random pirce each time app starts
 export const pizzasPrices: number[] = [
     19.43, 15.19, 13.42, 2.01, 1.38, 4.02, 2.94, 4.71, 13.32, 6.23, 2.44, 12.26,
@@ -8,3 +9,13 @@ export const pizzasPrices: number[] = [
 // counts total pizza price based on quantity and price
 export const countPizzaTotalPrice = (price: number, quantity: number): string =>
     (price * quantity).toFixed(2);
+
+export const getPizzasToRender = (
+    pizzas: IPizzas[],
+    currentPage: number,
+    itemsPerPage: number
+): IPizzas[] => {
+    const startSlice = (currentPage - 1) * itemsPerPage;
+    const endSlice = (currentPage - 1) * itemsPerPage + itemsPerPage;
+    return pizzas.slice(startSlice, endSlice);
+};

@@ -5,22 +5,13 @@
         cursor: pointer;
     }
     &__img {
-        img {
-            border-radius: 50%;
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-        }
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
     }
     &__title {
         margin-top: 10px;
         text-align: center;
     }
-    // @media screen and (min-width: 768px) {
-    //     &__img {
-    //         img {
-    //             max-height: none;
-    //         }
-    //     }
-    // }
 }

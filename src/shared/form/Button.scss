@@ -32,6 +32,10 @@
     }
 }
 
+.button-wrapper {
+    display: flex;
+    width: fit-content;
+}
 .cursor-not-allowed {
     cursor: not-allowed;
 }

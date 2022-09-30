@@ -20,12 +20,13 @@ const PizzaItem: React.FC<IPizzaItemProps> = ({
 
     return (
         <li className="pizza__item" onClick={handleGetPizzaId}>
-            <div className="pizza__img">
-                <img src={imageUrl} alt={title} width={150} />
-            </div>
-            <div className="pizza__title">
-                <h3>{title}</h3>
-            </div>
+            <img
+                className="pizza__img"
+                src={imageUrl}
+                alt={title}
+                width={150}
+            />
+            <h3 className="pizza__title">{title}</h3>
         </li>
     );
 };

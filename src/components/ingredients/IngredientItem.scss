@@ -25,7 +25,7 @@
         border-radius: 5px;
         margin: 0 15px;
     }
-    &__button-img {
+    &__button-icon {
         display: flex;
     }
     &__button--remove {
@@ -37,20 +37,13 @@
         top: 64px;
         color: $red;
         transition: 1s opacity;
+        cursor: pointer;
         &-icon {
             margin-right: 10px;
-            cursor: pointer;
         }
     }
     &:hover &__button--remove {
         opacity: 1;
         visibility: visible;
-    }
-
-    @media screen and (min-width: 768px) {
-        // max-width: 222;
-        // &__wrapper {
-        // justify-content: space-between;
-        // }
     }
 }

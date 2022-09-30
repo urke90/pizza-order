@@ -27,6 +27,10 @@
         padding: 3px;
     }
     &__button-arrow {
+        display: flex;
+        margin: 0 3px;
+        border-bottom: 3px solid transparent;
+        height: inherit;
         cursor: pointer;
     }
     @media screen and (min-width: 481px) {

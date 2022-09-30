@@ -133,13 +133,9 @@ const Main: React.FC = () => {
     } else if (!isLoading && fetchedPizzas.length === 0 && !error) {
         return (
             <section className="main">
-                <div className="main__container">
-                    <div className="main__heading-wrapper">
-                        <h1 className="main__heading">
-                            There are no pizzas to offer at the moment.
-                        </h1>
-                    </div>
-                </div>
+                <h1 className="main__heading main__container">
+                    There are no pizzas to offer at the moment.
+                </h1>
             </section>
         );
     } else if (
@@ -155,19 +151,14 @@ const Main: React.FC = () => {
     ) {
         return (
             <section className="main">
-                <div className="main__container">
-                    <div className="main__heading-wrapper">
-                        <h1
-                            className="main__heading"
-                            style={{ marginBottom: '20px' }}
-                        >
-                            Something went wrong! We can't show details for
-                            choosen pizza.
-                        </h1>
-                        <Link to="/main">
-                            <Button type="button">Choose again</Button>
-                        </Link>
-                    </div>
+                <div className="main__heading main__container">
+                    <h1 style={{ marginBottom: '20px' }}>
+                        Something went wrong! We can't show details for choosen
+                        pizza.
+                    </h1>
+                    <Link to="/main">
+                        <Button type="button">Choose again</Button>
+                    </Link>
                 </div>
             </section>
         );
@@ -188,9 +179,7 @@ const Main: React.FC = () => {
                 <PizzaAdd createdPizza={createdPizza} />
             </Modal>
             <div className="main__container">
-                <div className="main__heading-wrapper">
-                    <h1 className="main__heading">Pick your favorite pizza</h1>
-                </div>
+                <h1 className="main__heading">Pick your favorite pizza</h1>
                 <div
                     className={`main__content ${generateRecipeClassName(
                         recipeId,

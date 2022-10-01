@@ -39,13 +39,20 @@ p {
     flex-direction: column;
     height: 100%;
     min-height: 100vh;
+    background-color: $black;
+    &__container {
+        max-width: 1260px;
+        width: 100%;
+        margin: auto;
+        flex: 1 1 auto;
+    }
 }
 
 .addresses,
 .cart,
 .main,
 .orders {
-    background-color: $black;
+    // background-color: $black;
     color: $orange;
     flex: 1 1 auto;
 }
@@ -85,13 +92,4 @@ p {
     h5 {
         font-size: 17px;
     }
-    // .app {
-    // height: calc(100vh - 146px);
-    // min-height: calc(100vh - 146px);
-    // display: flex;
-    // width: 100%;
-    // flex-direction: column;
-    // height: 100%;
-    // min-height: 100vh;
-    // }
 }

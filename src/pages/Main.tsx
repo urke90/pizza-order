@@ -133,7 +133,7 @@ const Main: React.FC = () => {
     } else if (!isLoading && fetchedPizzas.length === 0 && !error) {
         return (
             <section className="main">
-                <h1 className="main__heading main__container">
+                <h1 className="main__heading">
                     There are no pizzas to offer at the moment.
                 </h1>
             </section>
@@ -151,7 +151,7 @@ const Main: React.FC = () => {
     ) {
         return (
             <section className="main">
-                <div className="main__heading main__container">
+                <div className="main__heading">
                     <h1 style={{ marginBottom: '20px' }}>
                         Something went wrong! We can't show details for choosen
                         pizza.

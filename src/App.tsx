@@ -45,7 +45,9 @@ const App = () => {
                 draggable
             />
             {pathname !== '/login' && <Header />}
-            <RoutesComponent />
+            <div className="app__container">
+                <RoutesComponent />
+            </div>
             {pathname !== '/login' && <Footer />}
         </div>
     );

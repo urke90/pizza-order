@@ -124,18 +124,14 @@ const Addresses: React.FC = () => {
     } else if (!isLoading && addressesToRender.length === 0 && !!error) {
         return (
             <div className="addresses">
-                <header className="addresses__header">
-                    <h2>
-                        You have no addresses to show at the moment, please add
-                        an address.
-                    </h2>
-                </header>
-                <div className="addresses__container">
-                    <div className="addresses__button-add">
-                        <Button type="button" onClick={handleToggleModal}>
-                            Add address
-                        </Button>
-                    </div>
+                <h2 className="addresses__heading">
+                    You have no addresses to show at the moment, please add an
+                    address.
+                </h2>
+                <div className="addresses__fallback-content">
+                    <Button type="button" onClick={handleToggleModal}>
+                        Add address
+                    </Button>
                 </div>
             </div>
         );
@@ -169,9 +165,7 @@ const Addresses: React.FC = () => {
                     handleInputBlur={handleInputBlur}
                 />
             </Modal>
-            <header className="addresses__header">
-                <h2>Addresses</h2>
-            </header>
+            <h2 className="addresses__heading">Addresses</h2>
             <div className="addresses__container">
                 <div className="addresses__button-add">
                     <Button

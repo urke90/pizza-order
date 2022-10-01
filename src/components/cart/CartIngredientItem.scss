@@ -12,18 +12,13 @@
         display: flex;
     }
     &__title {
-        max-width: 100px;
-        min-width: 100px;
+        // max-width: 100px;
+        // min-width: 100px;
+        width: 100px;
         margin-right: 6px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        @media screen and (min-width: 481px) {
-            min-width: 240px;
-        }
-        @media screen and (min-width: 768px) {
-            min-width: 178px;
-        }
     }
     &__list {
         padding: 20px;
@@ -34,9 +29,21 @@
     }
     &__button--edit {
         button {
-            padding: 1px 14px;
-            @media screen and (max-width: 768px) {
-                padding: 2px 14px;
+            padding: 2px 14px;
+        }
+    }
+    @media screen and (min-width: 481px) {
+        &__title {
+            min-width: 240px;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        &__title {
+            min-width: 178px;
+        }
+        &__button--edit {
+            button {
+                padding: 1px 14px;
             }
         }
     }

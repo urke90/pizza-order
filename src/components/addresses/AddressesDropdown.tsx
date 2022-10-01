@@ -11,44 +11,47 @@ import { selectAddressForCart } from 'redux/reducers/address-reducer';
 
 import Button from 'shared/form/Button';
 
-import './Accordion.scss';
+import './AddressesDropdown.scss';
 
-interface IAccordionProps {
+interface IAddressesDropdownProps {
     contentType: 'pizzaIngredients' | 'cartIngredients' | 'addresses';
     addresses: IAddress[];
     title: string;
 }
 
-const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
+const AddressesDropdown: React.FC<IAddressesDropdownProps> = ({
+    title,
+    addresses
+}) => {
     const dispatch = useAppDispatch();
     const selectedAddress = useAppSelector(addressesSelector.selectedAddressId);
 
-    const [showAccordion, setShowAccordion] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleToggleAccordion = () =>
-        setShowAccordion((prevShowState) => !prevShowState);
+    const handleToggleDropdown = () =>
+        setShowDropdown((prevShowState) => !prevShowState);
 
     const handleSelectAddress = (addressId: string) => {
         dispatch(selectAddressForCart(addressId));
-        handleToggleAccordion();
+        setShowDropdown(false);
     };
 
-    const arrowIcon = showAccordion ? (
-        <BsFillArrowUpCircleFill className="accordion__arrow-icon" />
+    const arrowIcon = showDropdown ? (
+        <BsFillArrowUpCircleFill className="addresses-dropdown__arrow-icon" />
     ) : (
-        <BsFillArrowDownCircleFill className="accordion__arrow-icon" />
+        <BsFillArrowDownCircleFill className="addresses-dropdown__arrow-icon" />
     );
 
     return (
-        <div className="accordion">
-            <header className="accordion__header">
+        <div className="addresses-dropdown">
+            <header className="addresses-dropdown__header">
                 <Button
                     type="button"
                     width="100%"
                     secondary
-                    onClick={handleToggleAccordion}
+                    onClick={handleToggleDropdown}
                 >
-                    <div className="accordion__button-content">
+                    <div className="addresses-dropdown__button-content">
                         <div>
                             <p>{title}</p>
                         </div>{' '}
@@ -58,19 +61,19 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
             </header>
 
             <ul
-                className={`accordion__list ${generateGeneralClassName(
-                    showAccordion,
-                    'accordion__list--slide-down',
-                    'accordion__list--slide-up'
+                className={`addresses-dropdown__list ${generateGeneralClassName(
+                    showDropdown,
+                    'addresses-dropdown__list--slide-down',
+                    'addresses-dropdown__list--slide-up'
                 )}`}
             >
                 {addresses.length > 0 &&
                     addresses.map(({ id, street }) => {
                         return (
                             <li
-                                className={`accordion__item ${generateGeneralClassName(
+                                className={`addresses-dropdown__item ${generateGeneralClassName(
                                     id === selectedAddress,
-                                    'accordion__item--active',
+                                    'addresses-dropdown__item--active',
                                     ''
                                 )}`}
                                 key={id}
@@ -84,4 +87,4 @@ const Accordion: React.FC<IAccordionProps> = ({ title, addresses }) => {
         </div>
     );
 };
-export default Accordion;
+export default AddressesDropdown;

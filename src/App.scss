@@ -67,6 +67,10 @@ p {
     color: $red;
 }
 
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
 @media screen and (min-width: 481px) {
     h3 {
         font-size: 18px;

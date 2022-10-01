@@ -3,12 +3,11 @@
 .address-item {
     border: 2px solid $red;
     padding: 20px;
-    margin-bottom: 20px;
-    &__data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__data {
         margin-bottom: 10px;
-        p {
-            color: $yellow;
-        }
     }
     &__title {
         color: $red;
@@ -16,17 +15,16 @@
         text-decoration: underline;
         margin-bottom: 5px;
     }
+    &__description {
+        color: $yellow;
+        word-break: break-all;
+    }
     &__actions {
         width: 100%;
         margin-top: 20px;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
-    }
-    @media screen and (min-width: 768px) {
-        width: 40%;
-    }
-    @media screen and (min-width: 1024px) {
-        width: 36%;
+        gap: 10px;
     }
 }

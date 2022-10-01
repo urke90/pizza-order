@@ -63,7 +63,7 @@ const CartIngredientItem: React.FC<ICartIngredientItemProps> = ({
         <li className="cart-ingredient-item">
             <Modal
                 show={show}
-                headerTitle="Quantity:"
+                headerTitle="Quantity"
                 onClose={handleToggleModal}
             >
                 <div className="cart-ingredient-item__modal">

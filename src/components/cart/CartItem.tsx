@@ -38,7 +38,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
         dispatch(changePizzaQuantity({ pizzaId, type }));
     };
 
-    const handleRemovePizzaFromCart = (pizzaId: string) => {
+    const handleRemovePizzaFromCart = () => {
         dispatch(removePizzaFromCart(pizzaId));
     };
 
@@ -90,7 +90,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item }) => {
             <div className="cart-item__button--remove">
                 <Button
                     type="button"
-                    onClick={() => handleRemovePizzaFromCart(pizzaId)}
+                    onClick={handleRemovePizzaFromCart}
                     secondary
                 >
                     remove

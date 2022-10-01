@@ -2,18 +2,14 @@
 
 .cart-ingredient-item {
     display: flex;
-    margin: 6px auto;
     justify-content: space-between;
     align-items: center;
     margin: 8px auto;
     &__modal {
-        margin-top: 20px;
+        padding-top: 20px;
     }
     &__description {
         display: flex;
-        span {
-            display: inline-block;
-        }
     }
     &__title {
         max-width: 100px;

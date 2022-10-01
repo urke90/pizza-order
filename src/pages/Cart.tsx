@@ -109,16 +109,14 @@ const Cart: React.FC = () => {
     } else if (!isLoadingAddresses && cartItems.length === 0) {
         return (
             <div className="cart">
-                <header className="cart__header">
-                    <h3>
-                        You don't have any items in the cart. Start adding some?
-                    </h3>
-                    <div className="cart__link">
-                        <Link to="/">
-                            <Button type="button">Pizza</Button>
-                        </Link>
-                    </div>
-                </header>
+                <h3 className="cart__heading">
+                    You don't have any items in the cart. Start adding some?
+                </h3>
+                <div className="cart__link">
+                    <Link to="/">
+                        <Button type="button">Pizza</Button>
+                    </Link>
+                </div>
             </div>
         );
     }
@@ -147,23 +145,14 @@ const Cart: React.FC = () => {
                 />
             </Modal>
             <div className="cart">
-                <header className="cart__header">
-                    <h2>Your Cart</h2>
-                </header>
-                <div className="cart__container">
-                    <ul className="cart__list">
-                        {cartItems.length > 0 &&
-                            cartItems.map((cartItem) => (
-                                <CartItem
-                                    key={cartItem.pizzaId}
-                                    item={cartItem}
-                                />
-                            ))}
-                    </ul>
-                </div>
-                {orderButton && (
-                    <div className="cart__actions">{orderButton}</div>
-                )}
+                <h2 className="cart__heading">Your Cart</h2>
+                <ul className="cart__list">
+                    {cartItems.length > 0 &&
+                        cartItems.map((cartItem) => (
+                            <CartItem key={cartItem.pizzaId} item={cartItem} />
+                        ))}
+                </ul>
+                {orderButton && <div className="cart__link">{orderButton}</div>}
             </div>
         </>
     );

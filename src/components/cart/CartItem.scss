@@ -3,7 +3,6 @@
 .cart-item {
     background-color: $dark;
     padding: 10px 5px;
-    margin: 10px auto;
     border-radius: 5px;
     border: 2px solid red;
     &__heading {
@@ -41,15 +40,16 @@
     &__ingredients-title {
         margin: 0 0 10px 10px;
     }
-    a {
+
+    &__link {
+        width: fit-content;
+        margin: 0 auto;
         display: inline-block;
+        font-size: 12px;
         &:hover {
             transition: 1s;
             color: $red;
         }
-    }
-    &__link {
-        font-size: 12px;
     }
     &__quantity {
         justify-content: center;
@@ -71,22 +71,8 @@
         margin: 6px 0;
     }
     &__button--remove {
-        text-align: center;
+        display: flex;
+        justify-content: center;
         margin: 20px auto 0;
-    }
-
-    @media screen and (min-width: 481px) {
-        &__link {
-            font-size: 14px;
-        }
-    }
-    @media screen and (min-width: 768px) {
-        width: 49%;
-        &__link {
-            font-size: 15px;
-        }
-    }
-    @media screen and (min-width: 1024px) {
-        width: 42%;
     }
 }

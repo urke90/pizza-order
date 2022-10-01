@@ -1,7 +1,7 @@
 import { ICartItem } from 'ts/orders-cart';
 import { IAddress } from 'ts/address';
 
-import Accordion from 'shared/ui/Accordion';
+import Accordion from 'components/addresses/AddressesDropdown';
 import OrderPizzaIngredientItem from '../pizza-order/OrderPizzaIngredientItem';
 
 import './OrderConfirm.scss';

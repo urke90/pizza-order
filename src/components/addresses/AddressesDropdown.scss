@@ -1,6 +1,6 @@
 @import '../../assets/scss/colors';
 
-.accordion {
+.addresses-dropdown {
     position: relative;
     &__button-content {
         display: flex;
@@ -31,6 +31,7 @@
         padding: 4px;
         cursor: pointer;
         &:hover {
+            transition: all 0.5s;
             background-color: $dark;
             color: $orange;
         }

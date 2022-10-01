@@ -85,7 +85,7 @@ const Cart: React.FC = () => {
         orderButton = (
             <>
                 <h3>Please add an address before creating an order</h3>
-                <div className="cart__link">
+                <div className="cart__button--order">
                     <Link to="/addresses">
                         <Button type="button">Addresses</Button>
                     </Link>
@@ -152,7 +152,9 @@ const Cart: React.FC = () => {
                             <CartItem key={cartItem.pizzaId} item={cartItem} />
                         ))}
                 </ul>
-                {orderButton && <div className="cart__link">{orderButton}</div>}
+                {orderButton && (
+                    <div className="cart__button--order">{orderButton}</div>
+                )}
             </div>
         </>
     );

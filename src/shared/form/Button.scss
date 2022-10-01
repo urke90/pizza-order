@@ -1,5 +1,9 @@
 @import '../../assets/scss/colors';
 
+.button-wrapper {
+    display: flex;
+}
+
 .button {
     background-color: $red;
     color: $white;
@@ -30,12 +34,4 @@
         font-size: 14px;
         padding: 4px 16px;
     }
-}
-
-.button-wrapper {
-    display: flex;
-    width: fit-content;
-}
-.cursor-not-allowed {
-    cursor: not-allowed;
 }

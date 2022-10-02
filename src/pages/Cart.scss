@@ -9,7 +9,7 @@
         padding: 0 20px;
         display: grid;
         gap: 20px;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
     &__actions {
         text-align: center;
@@ -18,20 +18,17 @@
     &__link {
         display: flex;
         justify-content: center;
-        // margin: 20px auto;
     }
     &__button--order {
         display: flex;
         justify-content: center;
         margin: 20px auto;
     }
-
     @media screen and (min-width: 481px) {
         &__list {
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         }
     }
-
     @media screen and (min-width: 768px) {
         &__actions {
             margin: 10px 0 20px;

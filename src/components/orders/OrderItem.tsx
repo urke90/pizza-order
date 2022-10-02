@@ -1,10 +1,10 @@
-import { IOrderItem } from 'ts/orders-cart';
+import { ICartItem } from 'ts/orders-cart';
 import { countPizzaTotalPrice } from 'util/pizzas-data';
 
 import './OrderItem.scss';
 
 interface IOrderItemProps {
-    order: IOrderItem;
+    order: ICartItem;
 }
 
 const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {

@@ -5,7 +5,7 @@ import { useModal } from 'hooks/use-modal';
 import { addressesSelector } from 'redux/reducers/address-reducer';
 import { asyncCreateOrder } from 'redux/actions/orders-actions';
 import { asyncGetAddresses } from 'redux/actions/address-actions';
-import { IOrderItem, IOrder } from 'ts/orders-cart';
+import { IOrder } from 'ts/orders-cart';
 import { removeSelectedAddressId } from 'redux/reducers/address-reducer';
 import { resetCart } from 'redux/reducers/cart-reducer';
 
@@ -46,25 +46,24 @@ const Cart: React.FC = () => {
         const initOrder: IOrder = {
             orderId: '',
             totalPrice: 0,
-            items: []
+            items: [],
+            address: selectedAddress
         };
 
         const data: IOrder = cartItems.reduce((accumulator, currItem) => {
             /**
-             * 1. add address to the cartItem ===> orderItem: IOrderItem
+             * 1. add address to the cartItem ===> orderItem: ICartItem
              * 2. sum up previous price with orderItem.price * orderItem.quantity
              */
-            const orderItem: IOrderItem = {
-                ...currItem,
-                address: selectedAddress
-            };
 
             return {
                 ...accumulator,
                 totalPrice,
-                items: [...accumulator.items, orderItem]
+                items: [...accumulator.items, currItem]
             };
         }, initOrder);
+
+        console.log('data', data);
 
         dispatch(asyncCreateOrder({ uid, data }));
         dispatch(removeSelectedAddressId());

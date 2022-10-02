@@ -13,12 +13,9 @@ export interface ICartItem {
     ingredients: IUpdatableIngredients;
 }
 
-export interface IOrderItem extends ICartItem {
-    address: IAddress;
-}
-
 export interface IOrder {
     orderId: string;
     totalPrice: number;
-    items: IOrderItem[];
+    items: ICartItem[];
+    address: IAddress;
 }

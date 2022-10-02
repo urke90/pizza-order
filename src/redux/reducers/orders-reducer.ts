@@ -58,6 +58,7 @@ const ordersSlice = createSlice({
                     }>
                 ) => {
                     const { data, orderId } = action.payload;
+
                     const orders = { ...state.orders, [orderId]: data };
 
                     state.orders = orders;

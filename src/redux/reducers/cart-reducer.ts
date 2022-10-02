@@ -10,13 +10,11 @@ interface IInitialState {
         [key: string]: ICartItem;
     };
     isLoading: boolean;
-    error: string | null;
 }
 
 const initialState: IInitialState = {
     cart: {},
-    isLoading: false,
-    error: null
+    isLoading: false
 };
 
 export const emptyCartItem: ICartItem = {

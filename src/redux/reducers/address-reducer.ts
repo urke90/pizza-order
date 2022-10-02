@@ -42,6 +42,7 @@ const addressSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(asyncGetAddresses.pending, (state) => {
+                state.error = null;
                 state.isLoading = true;
             })
             .addCase(
@@ -51,14 +52,12 @@ const addressSlice = createSlice({
                     state.isLoading = false;
                 }
             )
-            .addCase(
-                asyncGetAddresses.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.isLoading = false;
-                    state.error = action.payload;
-                    toast.error('Something went wrong!');
-                }
-            );
+            .addCase(asyncGetAddresses.rejected, (state) => {
+                state.isLoading = false;
+                state.error =
+                    "Something went wrong. We can't display your addresses.";
+                toast.error('Something went wrong!');
+            });
         builder
             .addCase(asyncCreateAddress.pending, (state) => {
                 toast.info('Creating new address...');
@@ -72,20 +71,15 @@ const addressSlice = createSlice({
                 ) => {
                     const { addressId, data } = action.payload;
                     state.addresses[addressId] = data;
+
                     toast.success('Address created successfully!');
                     state.isBtnDisabled = false;
                 }
             )
-            .addCase(
-                asyncCreateAddress.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.error = action.payload;
-                    toast.error(
-                        'Something went wrong! Address is not created!'
-                    );
-                    state.isBtnDisabled = false;
-                }
-            );
+            .addCase(asyncCreateAddress.rejected, (state) => {
+                toast.error('Something went wrong! Address is not created!');
+                state.isBtnDisabled = false;
+            });
         builder
             .addCase(asyncUpdateAddress.pending, (state) => {
                 toast.info('Updating address...');
@@ -111,16 +105,10 @@ const addressSlice = createSlice({
                     state.isBtnDisabled = false;
                 }
             )
-            .addCase(
-                asyncUpdateAddress.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.error = action.payload;
-                    toast.error(
-                        'Something went wrong! Address is not updated!'
-                    );
-                    state.isBtnDisabled = false;
-                }
-            );
+            .addCase(asyncUpdateAddress.rejected, (state) => {
+                toast.error('Something went wrong! Address is not updated!');
+                state.isBtnDisabled = false;
+            });
         builder
             .addCase(asyncDeleteAddress.pending, (state) => {
                 toast.info('Deleting address...');
@@ -145,14 +133,10 @@ const addressSlice = createSlice({
                     state.isBtnDisabled = false;
                 }
             )
-            .addCase(
-                asyncDeleteAddress.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.error = action.payload;
-                    toast.error('Something went wrong! Address is not deleted');
-                    state.isBtnDisabled = false;
-                }
-            );
+            .addCase(asyncDeleteAddress.rejected, (state) => {
+                toast.error('Something went wrong! Address is not deleted');
+                state.isBtnDisabled = false;
+            });
     }
 });
 

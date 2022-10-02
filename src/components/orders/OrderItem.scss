@@ -1,17 +1,14 @@
 @import '../../assets/scss/colors';
 
 .order-item {
+    display: flex;
+    min-height: 86px;
+    text-align: center;
     background-color: $dark;
     padding: 10px 5px;
-    margin: 10px auto;
+    // margin: 10px auto;
     border-radius: 5px;
-    border: 2px solid red;
-    &__header {
-        display: flex;
-        text-align: center;
-        margin-bottom: 20px;
-        min-height: 86px;
-    }
+
     &__img {
         width: 38%;
         img {

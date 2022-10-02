@@ -26,6 +26,7 @@ const ordersSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(asyncGetOrders.pending, (state) => {
+                state.error = null;
                 state.isLoading = true;
             })
             .addCase(
@@ -37,13 +38,11 @@ const ordersSlice = createSlice({
                     state.isLoading = false;
                 }
             )
-            .addCase(
-                asyncGetOrders.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.isLoading = false;
-                    state.error = action.payload;
-                }
-            );
+            .addCase(asyncGetOrders.rejected, (state) => {
+                state.isLoading = false;
+                state.error =
+                    "Something went wrong. We can't display your orders.";
+            });
         builder
             .addCase(asyncCreateOrder.pending, () => {
                 toast.info('Creating order in progress...');
@@ -65,13 +64,9 @@ const ordersSlice = createSlice({
                     toast.success('Order created successfully!');
                 }
             )
-            .addCase(
-                asyncCreateOrder.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.error = action.payload;
-                    toast.error('Something went wrong, order is not created!');
-                }
-            );
+            .addCase(asyncCreateOrder.rejected, () => {
+                toast.error('Something went wrong, order is not created!');
+            });
     }
 });
 

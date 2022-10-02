@@ -11,6 +11,10 @@ const initialState: IPaginationState = {
     itemsPerPage: 4
 };
 
+/**
+ * TODO Add action for reseting current Page ===> add it when pizza is added to the cart
+ */
+
 const paginationSlice = createSlice({
     name: 'pagination',
     initialState,

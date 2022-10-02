@@ -54,13 +54,13 @@ const pizzaSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getPizzas.pending, (state) => {
+                state.error = null;
                 state.isLoading = true;
             })
             .addCase(
                 getPizzas.fulfilled,
                 (state, action: PayloadAction<IPizzas[]>) => {
                     const pizzas = action.payload;
-
                     /**
                      * pizzas prices are hardcoded since we don't want to generate random prices each time users logs in
                      * loop through pizzasPrices and pizzas and if indexes match create new objecte
@@ -82,15 +82,14 @@ const pizzaSlice = createSlice({
                     state.isLoading = false;
                 }
             )
-            .addCase(
-                getPizzas.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.isLoading = false;
-                    state.error = action.payload;
-                }
-            );
+            .addCase(getPizzas.rejected, (state) => {
+                state.isLoading = false;
+                state.error =
+                    "Something went wrong! We can't show products at the moment. ";
+            });
         builder
             .addCase(getPizzaById.pending, (state) => {
+                state.error = null;
                 state.isLoading = true;
             })
             .addCase(
@@ -105,13 +104,11 @@ const pizzaSlice = createSlice({
                     state.isLoading = false;
                 }
             )
-            .addCase(
-                getPizzaById.rejected,
-                (state, action: PayloadAction<any>) => {
-                    state.isLoading = false;
-                    state.error = action.payload;
-                }
-            );
+            .addCase(getPizzaById.rejected, (state) => {
+                state.isLoading = false;
+                state.error =
+                    "Something went wrong. We can't show chosen pizza.";
+            });
     }
 });
 

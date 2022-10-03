@@ -18,14 +18,13 @@ const Orders: React.FC = () => {
 
     const ordersToRender = Object.values(orders);
 
-    console.log('orders', orders);
-
     useEffect(() => {
         if (uid) {
             dispatch(asyncGetOrders(uid));
         }
     }, [dispatch, uid]);
 
+    // Fallback content
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
     } else if (!isLoading && ordersToRender.length === 0 && !error) {
@@ -34,7 +33,7 @@ const Orders: React.FC = () => {
                 <h2 className="orders__heading">You have no orders to show!</h2>
             </section>
         );
-    } else if (!isLoading && !!error) {
+    } else if (!isLoading && error) {
         return (
             <section className="orders">
                 <h2 className="orders__heading">{error}</h2>

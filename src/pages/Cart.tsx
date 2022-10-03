@@ -24,6 +24,7 @@ const Cart: React.FC = () => {
     const uid = useAppSelector((state) => state.authReducer.uid);
     const isLoadingAddresses = useAppSelector(addressesSelector.isLoading);
     const addresses = useAppSelector(addressesSelector.addresses);
+    const error = useAppSelector(addressesSelector.error);
     const selectedAddressId = useAppSelector(
         addressesSelector.selectedAddressId
     );
@@ -55,7 +56,6 @@ const Cart: React.FC = () => {
              * 1. add address to the cartItem ===> orderItem: ICartItem
              * 2. sum up previous price with orderItem.price * orderItem.quantity
              */
-
             return {
                 ...accumulator,
                 totalPrice,
@@ -105,7 +105,7 @@ const Cart: React.FC = () => {
 
     if (isLoadingAddresses) {
         return <LoadingSpinner asOverlay />;
-    } else if (!isLoadingAddresses && cartItems.length === 0) {
+    } else if (!isLoadingAddresses && cartItems.length === 0 && !error) {
         return (
             <div className="cart">
                 <h3 className="cart__heading">

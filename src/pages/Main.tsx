@@ -1,5 +1,4 @@
 import { useEffect, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -16,7 +15,6 @@ import { emptyCartItem, addPizzaToCart } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { getPizzaById, getPizzas } from 'redux/actions/pizza-actions';
 import { generateRecipeClassName } from 'util/className-generators';
-import { isPizzaFetchedSuccessfully } from 'util/check-statments';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -130,36 +128,18 @@ const Main: React.FC = () => {
 
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
-    } else if (!isLoading && fetchedPizzas.length === 0 && !error) {
+    } else if (!isLoading && error) {
+        return (
+            <section className="main">
+                <h1 className="main__heading">{error}</h1>
+            </section>
+        );
+    } else if (!isLoading && !error && fetchedPizzas.length === 0) {
         return (
             <section className="main">
                 <h1 className="main__heading">
-                    There are no pizzas to offer at the moment.
+                    Sorry, we don't have pizzas to offer at the moment.
                 </h1>
-            </section>
-        );
-    } else if (
-        isPizzaFetchedSuccessfully(
-            isLoading,
-            recipeId,
-            ingredients,
-            imageUrl,
-            sourceUrl,
-            title,
-            error
-        )
-    ) {
-        return (
-            <section className="main">
-                <div className="main__heading">
-                    <h1 style={{ marginBottom: '20px' }}>
-                        Something went wrong! We can't show details for choosen
-                        pizza.
-                    </h1>
-                    <Link to="/main">
-                        <Button type="button">Choose again</Button>
-                    </Link>
-                </div>
             </section>
         );
     }

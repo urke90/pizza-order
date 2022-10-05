@@ -121,6 +121,10 @@ const Addresses: React.FC = () => {
     // fallback content
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
+    } else if (!isLoading && error) {
+        <div className="addresses">
+            <h2 className="addresses__heading">{error}</h2>
+        </div>;
     } else if (!isLoading && addressesToRender.length === 0 && !error) {
         return (
             <div className="addresses">
@@ -135,10 +139,6 @@ const Addresses: React.FC = () => {
                 </div>
             </div>
         );
-    } else if (!isLoading && error) {
-        <div className="addresses">
-            <h2 className="addresses__heading">{error}</h2>
-        </div>;
     }
 
     return (

@@ -54,8 +54,8 @@ const pizzaSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getPizzas.pending, (state) => {
-                state.error = null;
                 state.isLoading = true;
+                state.error = null;
             })
             .addCase(
                 getPizzas.fulfilled,

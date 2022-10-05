@@ -1,11 +1,14 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Main from 'pages/Main';
-import Login from 'pages/Login';
-import Orders from 'pages/Orders';
-import CustomPizza from 'pages/CustomPizza';
-import Addresses from 'pages/Addresses';
-import Cart from 'pages/Cart';
+import LoadingSpinner from 'shared/ui/LoadingSpinner';
+
+const Main = lazy(() => import('../pages/Main'));
+const Login = lazy(() => import('../pages/Login'));
+const Orders = lazy(() => import('../pages/Orders'));
+const CustomPizza = lazy(() => import('../pages/CustomPizza'));
+const Addresses = lazy(() => import('../pages/Addresses'));
+const Cart = lazy(() => import('../pages/Cart'));
 
 interface IRoutesConfig {
     name: string;
@@ -53,11 +56,13 @@ const ROUTES_CONFIG: IRoutesConfig[] = [
 
 const RoutesComponent: React.FC = () => {
     return (
-        <Routes>
-            {ROUTES_CONFIG.map(({ path, component }) => (
-                <Route key={path} path={path} element={component} />
-            ))}
-        </Routes>
+        <Suspense fallback={<LoadingSpinner asOverlay />}>
+            <Routes>
+                {ROUTES_CONFIG.map(({ path, component }) => (
+                    <Route key={path} path={path} element={component} />
+                ))}
+            </Routes>
+        </Suspense>
     );
 };
 export default RoutesComponent;

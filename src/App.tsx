@@ -59,4 +59,8 @@ export default App;
  * https://fkhadra.github.io/react-toastify/installation
  * https://www.npmjs.com/package/react-toastify
  * https://www.geeksforgeeks.org/reactjs-toast-notification/
+ * https://www.youtube.com/watch?v=7kNLXE0hixM ---- useEffetc Jack Harrington
+ * https://www.youtube.com/watch?v=dH6i3GurZW8 ---- code splitting Jack Harrington
  */
+
+// redux reselect

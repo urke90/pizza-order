@@ -61,6 +61,7 @@ export default App;
  * https://www.geeksforgeeks.org/reactjs-toast-notification/
  * https://www.youtube.com/watch?v=7kNLXE0hixM ---- useEffetc Jack Harrington
  * https://www.youtube.com/watch?v=dH6i3GurZW8 ---- code splitting Jack Harrington
+ * https://www.youtube.com/watch?v=QQYeipc_cik --- useEffect
  */
 
 // redux reselect

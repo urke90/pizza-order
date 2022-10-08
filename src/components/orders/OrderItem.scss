@@ -4,11 +4,18 @@
     display: flex;
     min-height: 86px;
     text-align: center;
-    background-color: $dark;
-    padding: 10px 5px;
-    // margin: 10px auto;
-    border-radius: 5px;
-
+    padding: 10px;
+    &:hover {
+        background-color: $orange;
+        color: $dark;
+        transition: all 0.4s;
+        &__link {
+            color: $dark;
+        }
+    }
+    &:hover &__link {
+        color: $dark;
+    }
     &__img {
         width: 38%;
         img {

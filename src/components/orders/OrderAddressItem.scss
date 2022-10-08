@@ -1,0 +1,27 @@
+@import '../../assets/scss/colors';
+
+.order-address {
+    padding: 10px 20px;
+    border-bottom: 3px dotted $red;
+    &__heading {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    &__description {
+        margin: 5px auto;
+        color: $text-gray;
+    }
+    &__description-label {
+        display: inline-block;
+        margin-right: 6px;
+        color: $orange;
+    }
+    &__description-price {
+        color: $red;
+    }
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}

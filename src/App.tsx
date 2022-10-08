@@ -65,3 +65,11 @@ export default App;
  */
 
 // redux reselect
+
+/**
+ * https://dev.to/aspnxdd/react-animation-ondestroy-removed-from-the-dom-53pd
+ * https://stackoverflow.com/questions/33424138/how-to-remove-a-div-with-fade-out-effect-in-javascript
+ * https://www.geeksforgeeks.org/how-to-fade-the-removal-of-a-dom-element-using-css-and-javascript/
+ * https://bitcoden.com/answers/add-animation-or-transition-to-element-when-removed-from-dom
+ * https://odysee.com/@Sputnjik.Srbija:7/Od-Cetvrtka--14-Jul-2022---03-37-17--1:1
+ */

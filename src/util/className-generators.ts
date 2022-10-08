@@ -6,12 +6,12 @@ export const generateGeneralClassName = (
 ): string => (value ? truthyClass : falsyClass);
 
 // generates className for inputs
-export const generateInputClassName = (
+export const isInvalid = (
     isValid: boolean,
     isTouched: boolean,
     classToAdd: string
 ): string => (!isValid && isTouched ? classToAdd : '');
 
 // generate class if pizza is fetched by ID
-export const generateRecipeClassName = (recipeId: string, classToAdd: string) =>
+export const isValidRecipeId = (recipeId: string, classToAdd: string) =>
     !!recipeId.trim() ? classToAdd : '';

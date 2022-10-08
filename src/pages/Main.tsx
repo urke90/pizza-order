@@ -14,7 +14,7 @@ import { ICartItem } from 'ts/orders-cart';
 import { emptyCartItem, addPizzaToCart } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { getPizzaById, getPizzas } from 'redux/actions/pizza-actions';
-import { generateRecipeClassName } from 'util/className-generators';
+import { isValidRecipeId } from 'util/className-generators';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -173,7 +173,7 @@ const Main: React.FC = () => {
             <div className="main__container">
                 <h1 className="main__heading">Pick your favorite pizza</h1>
                 <div
-                    className={`main__content ${generateRecipeClassName(
+                    className={`main__content ${isValidRecipeId(
                         recipeId,
                         'main__content--flex'
                     )}`}
@@ -182,7 +182,7 @@ const Main: React.FC = () => {
                         style={{
                             width: recipeId === '' ? '100%' : ''
                         }}
-                        className={`main__pizzas-list-wrapper ${generateRecipeClassName(
+                        className={`main__pizzas-list-wrapper ${isValidRecipeId(
                             recipeId,
                             'main__pizzas-list-wrapper--column'
                         )} `}
@@ -194,7 +194,7 @@ const Main: React.FC = () => {
                         <Pagination />
                     </div>
                     <main
-                        className={`main__recipe ${generateRecipeClassName(
+                        className={`main__recipe ${isValidRecipeId(
                             recipeId,
                             'main__recipe--display-block'
                         )}`}
@@ -211,7 +211,7 @@ const Main: React.FC = () => {
                         />
                     </main>
                     <div
-                        className={`main__ingredients ${generateRecipeClassName(
+                        className={`main__ingredients ${isValidRecipeId(
                             recipeId,
                             'main__ingredients--display-block'
                         )}`}

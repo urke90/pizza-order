@@ -1,5 +1,5 @@
 // import { generateClassName } from 'util/class-generators/input';
-import { generateInputClassName } from 'util/className-generators';
+import { isInvalid } from 'util/className-generators';
 import './Input.scss';
 
 interface IInputProps {
@@ -43,7 +43,7 @@ const Input: React.FC<IInputProps> = ({
         return (
             <div className="input">
                 <label
-                    className={`input__label  ${generateInputClassName(
+                    className={`input__label  ${isInvalid(
                         isValid,
                         isTouched,
                         'input__label--invalid'
@@ -53,7 +53,7 @@ const Input: React.FC<IInputProps> = ({
                     {label}
                 </label>
                 <textarea
-                    className={`input__textarea input__element ${generateInputClassName(
+                    className={`input__textarea input__element ${isInvalid(
                         isValid,
                         isTouched,
                         'input__element--invalid'
@@ -79,7 +79,7 @@ const Input: React.FC<IInputProps> = ({
     return (
         <div className="input">
             <label
-                className={`input__label ${generateInputClassName(
+                className={`input__label ${isInvalid(
                     isValid,
                     isTouched,
                     'input__label--invalid'
@@ -89,7 +89,7 @@ const Input: React.FC<IInputProps> = ({
                 {label}
             </label>
             <input
-                className={`input__element ${generateInputClassName(
+                className={`input__element ${isInvalid(
                     isValid,
                     isTouched,
                     'input__element--invalid'

@@ -1,6 +1,6 @@
 import { useAppSelector } from 'hooks/use-redux';
 import { getPizzasToRender } from 'util/pizzas-data';
-import { generateRecipeClassName } from 'util/className-generators';
+import { isValidRecipeId } from 'util/className-generators';
 import { IPizzas } from 'ts/pizzas';
 import { paginationSelectors } from 'redux/reducers/pagination-reducer';
 
@@ -22,7 +22,7 @@ const PizzasList: React.FC<IPizzaListProps> = ({ recipeId, pizzas }) => {
 
     return (
         <ul
-            className={`main__pizzas-list ${generateRecipeClassName(
+            className={`main__pizzas-list ${isValidRecipeId(
                 recipeId,
                 'main__pizzas-list--column'
             )}`}

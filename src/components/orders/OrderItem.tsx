@@ -4,12 +4,13 @@ import { countPizzaTotalPrice } from 'util/pizzas-data';
 import './OrderItem.scss';
 
 interface IOrderItemProps {
-    order: ICartItem;
+    orderItem: ICartItem;
+    showItem: boolean;
 }
 
-const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
-    const { imageUrl, sourceUrl, title, quantity, ingredients, price } = order;
-    console.log('individual order', order);
+const OrderItem: React.FC<IOrderItemProps> = ({ orderItem, showItem }) => {
+    const { imageUrl, sourceUrl, title, quantity, ingredients, price } =
+        orderItem;
 
     const totalPrice = countPizzaTotalPrice(price, quantity);
 
@@ -34,4 +35,5 @@ const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
         </li>
     );
 };
+
 export default OrderItem;

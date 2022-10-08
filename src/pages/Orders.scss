@@ -1,13 +1,13 @@
 .orders {
     &__heading {
         text-align: center;
-        padding: 20px;
+        padding: 30px 20px;
     }
     &__container {
-        padding: 0 20px;
+        padding: 0 20px 20px;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
+        gap: 30px;
     }
     @media screen and (min-width: 481px) {
         &__container {

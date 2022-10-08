@@ -1,24 +1,67 @@
+import { useState } from 'react';
+import { AiFillCloseCircle } from 'react-icons/ai';
+
 import { IOrder } from 'ts/orders-cart';
 
+import OrderAddressItem from './OrderAddressItem';
 import OrderItem from './OrderItem';
+import Backdrop from 'shared/ui/Backdrop';
+
 import './OrderList.scss';
 
 interface IOrdersListProps {
-    orderItem: IOrder;
+    order: IOrder;
 }
 
-const OrderList: React.FC<IOrdersListProps> = ({ orderItem }) => {
-    const { items, totalPrice } = orderItem;
+const OrderList: React.FC<IOrdersListProps> = ({ order }) => {
+    const [showOrderItems, setShowOrderItems] = useState(false);
 
-    console.log('orderItem in OrderList.tsx', orderItem);
+    const { items, totalPrice, address } = order;
+    const { city, street } = address;
+
+    const handleToggleOrderItems = () => {
+        setShowOrderItems((prevShowState) => !prevShowState);
+    };
 
     return (
-        <ul className="order-list">
-            {items.length > 0 &&
-                items.map((item) => (
-                    <OrderItem key={item.pizzaId} order={item} />
-                ))}
-        </ul>
+        <div className="order-list">
+            <OrderAddressItem
+                city={city}
+                street={street}
+                totalPrice={totalPrice}
+                totalItems={items.length}
+                onToggleOrderItems={handleToggleOrderItems}
+            />
+            <ul
+                className={`order-list__dropdown ${
+                    showOrderItems
+                        ? 'order-list__dropdown--slide-down'
+                        : 'order-list__dropdown--slide-up'
+                }`}
+            >
+                <Backdrop
+                    show={showOrderItems}
+                    onClose={() => setShowOrderItems(false)}
+                />
+                {showOrderItems && (
+                    <li className="order-list__dropdown-actions">
+                        <p>Total Items: {items.length}</p>
+                        <AiFillCloseCircle
+                            className="order-list__dropdown-button"
+                            onClick={handleToggleOrderItems}
+                        />
+                    </li>
+                )}
+                {items.length > 0 &&
+                    items.map((item) => (
+                        <OrderItem
+                            key={item.pizzaId}
+                            orderItem={item}
+                            showItem={showOrderItems}
+                        />
+                    ))}
+            </ul>
+        </div>
     );
 };
 

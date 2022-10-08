@@ -47,10 +47,7 @@ const Orders: React.FC = () => {
             <div className="orders__container">
                 {ordersToRender.length > 0 &&
                     ordersToRender.map((orderItem) => (
-                        <OrderList
-                            key={orderItem.orderId}
-                            orderItem={orderItem}
-                        />
+                        <OrderList key={orderItem.orderId} order={orderItem} />
                     ))}
             </div>
         </section>

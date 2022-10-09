@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react';
 import {
     GoogleAuthProvider,
+    FacebookAuthProvider,
     signInWithPopup,
     signOut,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword
 } from 'firebase/auth';
+
 import { auth } from '../firebase/firebase';
 import { db } from '../firebase/firebase';
 import { ref, set, child, get } from 'firebase/database';
@@ -13,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IUseLogin {
     handleGoogleSignIn: () => Promise<void>;
+    handleFacebookSignIn: () => Promise<void>;
     handleUserLogout: () => Promise<void>;
     handleSignInWithCredentials: (
         e: React.FormEvent<HTMLFormElement>,
@@ -46,6 +49,7 @@ export const useLogin = (): IUseLogin => {
 
         try {
             const existingUser = await get(child(dbRef, `users/${uid}`));
+
             if (!existingUser.exists()) {
                 const createdUser: ICreatedUser = {
                     userName,
@@ -60,6 +64,39 @@ export const useLogin = (): IUseLogin => {
         }
     }, []);
 
+    const handleFacebookSignIn = async (): Promise<void> => {
+        const provider = new FacebookAuthProvider();
+
+        try {
+            setIsLoading(true);
+            const response = await signInWithPopup(auth, provider);
+            console.log('response', response);
+
+            const { displayName, uid, email, photoURL } = response.user;
+
+            const credential =
+                FacebookAuthProvider.credentialFromResult(response);
+
+            console.log('credential FB ', credential);
+
+            await createNewUserInDb({
+                uid,
+                userName: displayName ? displayName : '',
+                email: email ? email : '',
+                imageUrl: photoURL ? photoURL : ''
+            });
+
+            navigate('/', { replace: true });
+            setIsLoading(false);
+        } catch (error) {
+            console.log(
+                'ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR',
+                error
+            );
+            setIsLoading(false);
+        }
+    };
+
     const handleGoogleSignIn = async (): Promise<void> => {
         const provider = new GoogleAuthProvider();
 
@@ -68,12 +105,18 @@ export const useLogin = (): IUseLogin => {
             const response = await signInWithPopup(auth, provider);
             const { displayName, uid, email, photoURL } = response.user;
 
+            const credential =
+                GoogleAuthProvider.credentialFromResult(response);
+
+            console.log('credential FROM GOOGLE', credential);
+
             await createNewUserInDb({
                 uid,
                 userName: displayName ? displayName : '',
                 email: email ? email : '',
                 imageUrl: photoURL ? photoURL : ''
             });
+
             navigate('/', { replace: true });
             setIsLoading(false);
         } catch (error) {
@@ -147,6 +190,7 @@ export const useLogin = (): IUseLogin => {
 
     return {
         handleGoogleSignIn,
+        handleFacebookSignIn,
         handleUserLogout,
         handleSignInWithCredentials,
         handleSignUpWithCredentials,

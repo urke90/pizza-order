@@ -34,8 +34,6 @@ import './Main.scss';
  */
 
 const Main: React.FC = () => {
-    console.log('MAIN RENDERED ON BEGIN');
-
     const [show, handleToggleModal] = useModal();
     const [createdPizza, setCreatedPizza] = useState<ICartItem>(emptyCartItem);
     const {
@@ -62,8 +60,6 @@ const Main: React.FC = () => {
     const recipeId = useAppSelector(pizzaSelectors.recipeId);
     const pizzaPrice = useAppSelector(pizzaSelectors.price);
     const uid = useAppSelector((state) => state.authReducer.uid);
-
-    console.log('fetchedPizzas', fetchedPizzas);
 
     /**
      * Handler functions
@@ -104,8 +100,6 @@ const Main: React.FC = () => {
         handleChangePizzaQuantity('reset');
         handleToggleModal();
     }, [createdPizza, dispatch, handleChangePizzaQuantity, handleToggleModal]);
-
-    console.log('fetchedPizzas', fetchedPizzas);
 
     useEffect(() => {
         dispatch(getPizzas());

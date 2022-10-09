@@ -4,7 +4,7 @@
     display: flex;
     width: 100%;
     height: 100vh;
-    background-color: $dark;
+    background-color: $black;
     justify-content: center;
     align-items: center;
     max-width: 1260px;
@@ -37,16 +37,24 @@
         color: $green;
         cursor: pointer;
     }
-    &__button-wrapper {
-        margin: 0 auto;
-    }
-    &__button-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        span {
-            margin-right: 10px;
+    &__provider-button {
+        margin: 0 auto 10px;
+        &:last-child {
+            margin-bottom: 0;
         }
+    }
+    &__provider-button--facebook {
+        button {
+            background-color: #1877f2;
+        }
+    }
+    &__provider-button-icon {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__provider-button-text {
+        margin-right: 10px;
     }
     @media screen and (min-width: 481px) {
         &__window {

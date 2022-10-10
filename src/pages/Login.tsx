@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { BsFacebook } from 'react-icons/bs';
 import { useLogin } from 'hooks/use-login';
 import { useForm } from 'hooks/use-form';
 import { loginForm, signupForm } from 'config/form.config';
@@ -10,10 +11,6 @@ import LoadingSpinner from 'shared/ui/LoadingSpinner';
 
 import './Login.scss';
 
-/**
- *  CONTINUER WITH THIS: RENDER INPUTS FROM CONFIG FILE AND ATTACH HADNLDEERS
- */
-
 const Login: React.FC = () => {
     /**
      * HOOKS
@@ -23,6 +20,7 @@ const Login: React.FC = () => {
         handleGoogleSignIn,
         handleSignInWithCredentials,
         handleSignUpWithCredentials,
+        handleFacebookSignIn,
         isLoading
     } = useLogin();
     const { formState, handleInputChange, setInputFields, handleInputBlur } =
@@ -30,7 +28,7 @@ const Login: React.FC = () => {
 
     const {
         formIsValid,
-        inputs: { email, password }
+        inputs: { email, password, name }
     } = formState;
 
     const toggleAuthMode = () => setSignUpMode((prevState) => !prevState);
@@ -43,16 +41,16 @@ const Login: React.FC = () => {
         }
     }, [isSignUpMode, setInputFields]);
 
-    // const handleSubmit = isSignUpMode
-    //     ? (e: React.FormEvent<HTMLFormElement>) =>
-    //           handleSignUpWithCredentials(e, email, password, name)
-    //     : (e: React.FormEvent<HTMLFormElement>) =>
-    //           handleSignInWithCredentials(e, email, password);
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('state in LOGIN ', formState);
-    };
+    const handleSubmit = isSignUpMode
+        ? (e: React.FormEvent<HTMLFormElement>) =>
+              handleSignUpWithCredentials(
+                  e,
+                  email.value,
+                  password.value,
+                  name.value
+              )
+        : (e: React.FormEvent<HTMLFormElement>) =>
+              handleSignInWithCredentials(e, email.value, password.value);
 
     if (isLoading) {
         return <LoadingSpinner asOverlay />;
@@ -132,16 +130,33 @@ const Login: React.FC = () => {
                         </span>
                     </p>
 
-                    <div className="login__button-wrapper">
+                    <div className="login__provider-button">
                         <Button
                             type="button"
                             onClick={handleGoogleSignIn}
                             width="100%"
                             disabled={isLoading}
                         >
-                            <div className="login__button-icon">
-                                <span>sign in with google</span>
+                            <div className="login__provider-button-icon">
+                                <span className="login__provider-button-text">
+                                    Continue with google
+                                </span>
                                 <FcGoogle size={18} />
+                            </div>
+                        </Button>
+                    </div>
+                    <div className="login__provider-button login__provider-button--facebook">
+                        <Button
+                            type="button"
+                            onClick={handleFacebookSignIn}
+                            width="100%"
+                            disabled={isLoading}
+                        >
+                            <div className="login__provider-button-icon">
+                                <span className="login__provider-button-text">
+                                    Continue with facebook
+                                </span>
+                                <BsFacebook size={18} className="facebook" />
                             </div>
                         </Button>
                     </div>

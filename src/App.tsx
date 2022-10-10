@@ -21,6 +21,8 @@ const App = () => {
         if (user) {
             // user is logged in
 
+            console.log('user in APP', user);
+
             dispatch(
                 saveUser({
                     uid: user.uid,
@@ -62,6 +64,7 @@ export default App;
  * https://www.youtube.com/watch?v=7kNLXE0hixM ---- useEffetc Jack Harrington
  * https://www.youtube.com/watch?v=dH6i3GurZW8 ---- code splitting Jack Harrington
  * https://www.youtube.com/watch?v=QQYeipc_cik --- useEffect
+ * https://github.com/reactjs/react-transition-group
  */
 
 // redux reselect
@@ -71,5 +74,5 @@ export default App;
  * https://stackoverflow.com/questions/33424138/how-to-remove-a-div-with-fade-out-effect-in-javascript
  * https://www.geeksforgeeks.org/how-to-fade-the-removal-of-a-dom-element-using-css-and-javascript/
  * https://bitcoden.com/answers/add-animation-or-transition-to-element-when-removed-from-dom
- * https://odysee.com/@Sputnjik.Srbija:7/Od-Cetvrtka--14-Jul-2022---03-37-17--1:1
+ * https://blog.bitsrc.io/how-to-speed-up-data-heavy-react-components-afe18d17b28b
  */

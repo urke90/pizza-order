@@ -12,28 +12,37 @@ import Header from 'layout/Header';
 import Footer from 'layout/Footer';
 
 import './App.scss';
+import { useEffect } from 'react';
+import { useLogin } from 'hooks/use-login';
 
 const App = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
+    const { handleUserLogout } = useLogin();
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // user is logged in
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // user is logged i
+                console.log('user in APP', user);
 
-            console.log('user in APP', user);
+                dispatch(
+                    saveUser({
+                        uid: user.uid,
+                        isAuth: true
+                    })
+                );
+            } else {
+                // user is signed out
+                console.log('user loged out');
+                dispatch(removeUser());
+            }
+        });
 
-            dispatch(
-                saveUser({
-                    uid: user.uid,
-                    isAuth: true
-                })
-            );
-        } else {
-            // user is signed out
-            dispatch(removeUser());
-        }
-    });
+        return () => {
+            handleUserLogout();
+        };
+    }, [dispatch, handleUserLogout]);
 
     return (
         <div className="app">

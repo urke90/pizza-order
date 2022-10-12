@@ -39,9 +39,9 @@ const App = () => {
             }
         });
 
-        return () => {
-            handleUserLogout();
-        };
+        // return () => {
+        //     handleUserLogout();
+        // };
     }, [dispatch, handleUserLogout]);
 
     return (

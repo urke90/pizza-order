@@ -1,11 +1,10 @@
-// import { generateClassName } from 'util/class-generators/input';
+import { useId } from 'react';
 import { isInvalid } from 'util/className-generators';
 import './Input.scss';
 
 interface IInputProps {
     type: 'text' | 'email' | 'hidden' | 'number' | 'password';
     name: string;
-    id: string;
     label: string;
     placeholder: string;
     isTextarea?: boolean;
@@ -25,7 +24,6 @@ interface IInputProps {
 
 const Input: React.FC<IInputProps> = ({
     type,
-    id,
     label,
     name,
     placeholder = '',
@@ -39,6 +37,8 @@ const Input: React.FC<IInputProps> = ({
     errorMessage = '',
     isTouched
 }) => {
+    const id = useId();
+
     if (isTextarea) {
         return (
             <div className="input">

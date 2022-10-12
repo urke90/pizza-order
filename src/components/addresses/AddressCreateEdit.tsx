@@ -35,19 +35,18 @@ const AddressCreateEdit: React.FC<IAddressCreateEditProps> = ({
                         ({
                             type,
                             name,
-                            id,
+
                             placeholder,
                             label,
                             errorMessage
                         }) => (
                             <div
-                                key={id}
+                                key={name}
                                 className="address-create-edit__form-control"
                             >
                                 <Input
                                     type={type}
                                     name={name}
-                                    id={id}
                                     placeholder={placeholder}
                                     label={label}
                                     onChange={handleInputChange}

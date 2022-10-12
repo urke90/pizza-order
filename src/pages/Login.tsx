@@ -66,7 +66,6 @@ const Login: React.FC = () => {
                     {isSignUpMode && (
                         <div className="login__form-control">
                             <Input
-                                id="name"
                                 type="text"
                                 name="userName"
                                 label="Name"
@@ -86,7 +85,6 @@ const Login: React.FC = () => {
                     )}
                     <div className="login__form-control">
                         <Input
-                            id="email"
                             type="email"
                             name="email"
                             label="Email"
@@ -101,7 +99,6 @@ const Login: React.FC = () => {
                     </div>
                     <div className="login__form-control">
                         <Input
-                            id="password"
                             type="password"
                             name="password"
                             label="Password"

@@ -116,18 +116,19 @@ const Main: React.FC = () => {
         const convertedIngredients =
             convertIngredientsForRendering(ingredients);
 
-        let updatableIngredients: IUpdatableIngredients = {};
+        const updatableIngredients: IUpdatableIngredients =
+            convertedIngredients.reduce((acc, nextIng) => {
+                const { id, title, quantity } = nextIng;
 
-        convertedIngredients.forEach(({ id, title, quantity }) => {
-            updatableIngredients = {
-                ...updatableIngredients,
-                [id]: {
-                    id,
-                    title,
-                    quantity
-                }
-            };
-        });
+                return {
+                    ...acc,
+                    [id]: {
+                        id,
+                        title,
+                        quantity
+                    }
+                };
+            }, {});
 
         handleSetIngredients(updatableIngredients);
     }, [ingredients, handleSetIngredients]);

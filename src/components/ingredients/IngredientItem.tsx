@@ -22,8 +22,6 @@ interface IIngredientItemProps {
 }
 
 const IngredientItem: React.FC<IIngredientItemProps> = (props) => {
-    console.log('IngredientItem RENEDERED');
-
     const { id, title, quantity } = props.ingredient;
     const { ingValueConstant, onIngredientQtyChange, onIngredientRemove } =
         props;

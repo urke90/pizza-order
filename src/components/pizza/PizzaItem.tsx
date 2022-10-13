@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useAppDispatch } from 'hooks/use-redux';
 import { savePizzaId } from 'redux/reducers/pizza-reducer';
 
@@ -30,4 +31,5 @@ const PizzaItem: React.FC<IPizzaItemProps> = ({
         </li>
     );
 };
-export default PizzaItem;
+
+export default memo(PizzaItem);

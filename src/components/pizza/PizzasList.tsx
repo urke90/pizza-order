@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { useAppSelector } from 'hooks/use-redux';
 import { getPizzasToRender } from 'util/pizzas-data';
 import { isValidRecipeId } from 'util/className-generators';
@@ -39,4 +41,5 @@ const PizzasList: React.FC<IPizzaListProps> = ({ recipeId, pizzas }) => {
         </ul>
     );
 };
-export default PizzasList;
+
+export default memo(PizzasList);

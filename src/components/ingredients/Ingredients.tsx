@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, memo } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import IngredientConstValue from './IngredientConstValue';
@@ -9,7 +9,6 @@ import './Ingredients.scss';
 
 interface IIngredientsProps {
     ingredients: IUpdatableIngredients;
-    bla?: IUpdatableIngredients;
     onIngredientQtyChange: (
         id: string,
         value: number,
@@ -23,6 +22,8 @@ const Ingredients: React.FC<IIngredientsProps> = ({
     onIngredientQtyChange,
     onIngredientRemove
 }) => {
+    console.log('INGREDIENTS COMPONENT RERENDERD');
+
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
 
     // will return array [{ id, title, quantity }] for single ingredient
@@ -55,4 +56,5 @@ const Ingredients: React.FC<IIngredientsProps> = ({
         </div>
     );
 };
-export default Ingredients;
+
+export default memo(Ingredients);

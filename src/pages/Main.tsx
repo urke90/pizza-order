@@ -27,12 +27,6 @@ import Modal from 'shared/ui/Modal';
 
 import './Main.scss';
 
-/**
- * 1. add state or refHook to check if this is first render cycle for else if
- * 2. convertedIngredients ====>try with .recuce();
- * 3. show hide pizza list, ingredients etc ( REMOVE FROM DOM IF NO PIZZAS OR INGREDIENTS )
- */
-
 const Main: React.FC = () => {
     const [show, handleToggleModal] = useModal();
     const [createdPizza, setCreatedPizza] = useState<ICartItem>(emptyCartItem);

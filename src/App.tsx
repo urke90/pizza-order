@@ -24,7 +24,7 @@ const App = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // user is logged i
-                console.log('user in APP', user);
+                // console.log('user in APP', user);
 
                 dispatch(
                     saveUser({

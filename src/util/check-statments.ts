@@ -1,10 +1,6 @@
 // checks if value provided is undefined (mostly for objects)
 export const isUndefined = (value: any): boolean => value === undefined;
 
-/**
- * TODO CHECK WHAT WILL WE DO WITH THIS
- */
-
 export const isPizzaFetchedSuccessfully = (
     isLoading: boolean,
     recipeId: string,

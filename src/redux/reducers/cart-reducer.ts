@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { isUndefined } from 'util/check-statments';
+import { isUndefined, isEmptyObject } from 'util/check-statments';
 import { ICartItem } from 'ts/orders-cart';
 import type { TIngredientActionType } from 'ts/ingredients';
 
@@ -36,9 +36,7 @@ const cartSlice = createSlice({
         addPizzaToCart(state, action: PayloadAction<ICartItem>) {
             const pizza = action.payload;
 
-            const isEmptyObject = Object.keys(pizza).length === 0;
-
-            if (pizza.pizzaId && !isEmptyObject) {
+            if (pizza.pizzaId && !isEmptyObject(pizza)) {
                 state.cart[pizza.pizzaId] = pizza;
 
                 toast.success(`${pizza.title} added to cart successfully!`);
@@ -109,7 +107,7 @@ const cartSlice = createSlice({
 
             toast.success(`${ingredientTitle} removed successfully!`);
 
-            if (Object.keys(pizza.ingredients).length === 0) {
+            if (isEmptyObject(pizza.ingredients)) {
                 const pizzaTitle = pizza.title;
 
                 delete state.cart[pizzaId];

@@ -22,17 +22,15 @@ const Ingredients: React.FC<IIngredientsProps> = ({
     onIngredientQtyChange,
     onIngredientRemove
 }) => {
-    console.log('INGREDIENTS COMPONENT RERENDERD');
-
     const [ingValueConstant, setIngValueConstant] = useState<number>(0.25);
-
-    // will return array [{ id, title, quantity }] for single ingredient
-    const ingredientsToRender = Object.values(ingredients);
 
     const handleIngredientConstValueChange = useCallback(
         (value: number) => setIngValueConstant(value),
         []
     );
+
+    // will return array [{ id, title, quantity }] for single ingredient
+    const ingredientsToRender = Object.values(ingredients);
 
     return (
         <div className="ingredients">

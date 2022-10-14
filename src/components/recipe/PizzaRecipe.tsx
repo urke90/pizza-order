@@ -15,9 +15,9 @@ interface IPizzaRecipeProps {
     imageUrl: string;
     sourceUrl: string;
     ingredients: string[];
-    onAddToCart: () => void;
     pizzaQuantity: number;
     pizzaPrice: number;
+    onAddToCart: () => void;
     onChangePizzaQuantity: (type: TIngredientActionType) => void;
 }
 

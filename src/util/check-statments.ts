@@ -13,25 +13,14 @@ export const isPizzaFetchedSuccessfully = (
     sourceUrl: string,
     title: string,
     error: string | null
-): boolean => {
-    console.log('!isLoading', !isLoading);
-    console.log('!!recipeId.trim()', !recipeId.trim());
-    console.log('ingredients.length === 0', ingredients.length === 0);
-    console.log('!imageUrl.trim()', !imageUrl.trim());
-    console.log('!sourceUrl.trim()', !sourceUrl.trim());
-    console.log('!title.trim()', !title.trim());
-    console.log('!error', !error);
-    console.log(
-        '================================================================'
-    );
+): boolean =>
+    !isLoading &&
+    !!recipeId.trim() &&
+    ingredients.length > 0 &&
+    !!imageUrl.trim() &&
+    !!sourceUrl.trim() &&
+    !!title.trim() &&
+    !error;
 
-    return (
-        !isLoading &&
-        !recipeId.trim() &&
-        ingredients.length === 0 &&
-        !imageUrl.trim() &&
-        !sourceUrl.trim() &&
-        !title.trim() &&
-        !error
-    );
-};
+// checks if there is at least 1 key in the provided object
+export const isEmptyObject = (obj: object) => Object.keys(obj).length === 0;

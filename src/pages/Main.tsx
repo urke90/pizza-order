@@ -1,6 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-
 import {
     removePizzaRecipe,
     removePizzaId,
@@ -15,6 +14,10 @@ import { emptyCartItem, addPizzaToCart } from 'redux/reducers/cart-reducer';
 import { convertIngredientsForRendering } from 'util/ingredients-data';
 import { getPizzaById, getPizzas } from 'redux/actions/pizza-actions';
 import { isValidRecipeId } from 'util/className-generators';
+import {
+    isPizzaFetchedSuccessfully,
+    isEmptyObject
+} from 'util/check-statments';
 
 import Pagination from 'components/pagination/Pagination';
 import PizzasList from 'components/pizza/PizzasList';
@@ -188,28 +191,45 @@ const Main: React.FC = () => {
                             'main__recipe--display-block'
                         )}`}
                     >
-                        <PizzaRecipe
-                            ingredients={ingredients}
-                            title={title}
-                            sourceUrl={sourceUrl}
-                            imageUrl={imageUrl}
-                            onAddToCart={handleAddToCart}
-                            pizzaQuantity={pizzaQuantity}
-                            pizzaPrice={pizzaPrice}
-                            onChangePizzaQuantity={handleChangePizzaQuantity}
-                        />
+                        {isPizzaFetchedSuccessfully(
+                            isLoading,
+                            recipeId,
+                            ingredients,
+                            imageUrl,
+                            sourceUrl,
+                            title,
+                            error
+                        ) && (
+                            <PizzaRecipe
+                                ingredients={ingredients}
+                                title={title}
+                                sourceUrl={sourceUrl}
+                                imageUrl={imageUrl}
+                                onAddToCart={handleAddToCart}
+                                pizzaQuantity={pizzaQuantity}
+                                pizzaPrice={pizzaPrice}
+                                onChangePizzaQuantity={
+                                    handleChangePizzaQuantity
+                                }
+                            />
+                        )}
                     </main>
+                    {false && 'fdsafasdfasd'}
                     <div
                         className={`main__ingredients ${isValidRecipeId(
                             recipeId,
                             'main__ingredients--display-block'
                         )}`}
                     >
-                        <Ingredients
-                            ingredients={updatableIngredients}
-                            onIngredientQtyChange={handleIngredientQtyChange}
-                            onIngredientRemove={handleIngredientRemove}
-                        />
+                        {!isEmptyObject(updatableIngredients) && (
+                            <Ingredients
+                                ingredients={updatableIngredients}
+                                onIngredientQtyChange={
+                                    handleIngredientQtyChange
+                                }
+                                onIngredientRemove={handleIngredientRemove}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

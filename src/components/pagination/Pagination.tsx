@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
 import { useAppSelector, useAppDispatch } from 'hooks/use-redux';
 import {
@@ -56,4 +54,4 @@ const Pagination: React.FC = () => {
     );
 };
 
-export default memo(Pagination);
+export default Pagination;

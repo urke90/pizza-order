@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { BsFillCartPlusFill } from 'react-icons/bs';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
@@ -80,4 +78,4 @@ const PizzaRecipe: React.FC<IPizzaRecipeProps> = ({
         </div>
     );
 };
-export default memo(PizzaRecipe);
+export default PizzaRecipe;

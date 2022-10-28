@@ -31,12 +31,14 @@ const AddressItem: React.FC<IAddressItemProps> = (props) => {
     return (
         <li className="address-item">
             {addressToRender.length > 0 &&
-                addressToRender.map(([label, value]) => (
-                    <div key={label} className="address-item__data">
-                        <h5 className="address-item__title">{label}</h5>
-                        <p className="address-item__description">{value}</p>
-                    </div>
-                ))}
+                addressToRender.map(([label, value]) =>
+                    label !== 'id' ? (
+                        <div key={label} className="address-item__data">
+                            <h5 className="address-item__title">{label}:</h5>
+                            <p className="address-item__description">{value}</p>
+                        </div>
+                    ) : null
+                )}
             <div className="address-item__actions">
                 <Button
                     type="button"

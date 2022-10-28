@@ -1,4 +1,4 @@
-import { useCallback, useState, memo } from 'react';
+import { useCallback, useState } from 'react';
 import type { TIngredientActionType } from 'ts/ingredients';
 import { IUpdatableIngredients } from 'ts/ingredients';
 import IngredientConstValue from './IngredientConstValue';
@@ -55,4 +55,4 @@ const Ingredients: React.FC<IIngredientsProps> = ({
     );
 };
 
-export default memo(Ingredients);
+export default Ingredients;

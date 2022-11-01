@@ -21,7 +21,7 @@
         img {
             display: block;
             margin: auto;
-            border-radius: 50%;
+            border-radius: $border-radius-round;
             width: 80px;
             height: 80px;
             object-fit: cover;

@@ -29,7 +29,7 @@
     }
     &__item--mobile:last-child {
         button {
-            border-radius: 0;
+            border-radius: $border-radius-none;
         }
     }
 

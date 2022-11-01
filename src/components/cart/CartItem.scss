@@ -3,7 +3,7 @@
 .cart-item {
     background-color: $dark;
     padding: 10px 5px;
-    border-radius: 5px;
+    border-radius: $border-radius-5;
     border: 2px solid red;
     &__heading {
         display: flex;
@@ -16,7 +16,7 @@
         img {
             display: block;
             margin: auto;
-            border-radius: 50%;
+            border-radius: $border-radius-round;
             width: 80px;
             height: 80px;
             object-fit: cover;
@@ -40,7 +40,6 @@
     &__ingredients-title {
         margin: 0 0 10px 10px;
     }
-
     &__link {
         width: fit-content;
         margin: 0 auto;

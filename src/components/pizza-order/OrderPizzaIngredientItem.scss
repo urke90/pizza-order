@@ -5,9 +5,15 @@
     justify-content: space-between;
     background-color: $gray;
     padding: 3px 8px;
-    border-radius: 5px;
+    border-radius: $border-radius-5;
     margin: 6px auto;
     font-size: 12px;
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
     &__title {
         margin-right: 14px;
         overflow: hidden;

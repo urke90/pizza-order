@@ -17,7 +17,7 @@
         background-color: $gray;
         padding: 3px 8px;
         margin-top: 10px;
-        border-radius: 5px;
+        border-radius: $border-radius-5;
     }
     @media screen and (min-width: 481px) {
         min-width: 320px;

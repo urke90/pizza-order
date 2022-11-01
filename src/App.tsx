@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { auth } from './firebase/firebase';
+import { useLogin } from 'hooks/use-login';
 import { useAppDispatch } from 'hooks/use-redux';
 import { saveUser, removeUser } from 'redux/reducers/auth-reducer';
 import RoutesComponent from 'router/Routes';
@@ -12,8 +14,6 @@ import Header from 'layout/Header';
 import Footer from 'layout/Footer';
 
 import './App.scss';
-import { useEffect } from 'react';
-import { useLogin } from 'hooks/use-login';
 
 const App = () => {
     const { pathname } = useLocation();
@@ -84,4 +84,5 @@ export default App;
  * https://www.geeksforgeeks.org/how-to-fade-the-removal-of-a-dom-element-using-css-and-javascript/
  * https://bitcoden.com/answers/add-animation-or-transition-to-element-when-removed-from-dom
  * https://blog.bitsrc.io/how-to-speed-up-data-heavy-react-components-afe18d17b28b
+ * https://dev.to/franklin030601/dynamic-forms-with-formik-and-react-js-3no1
  */

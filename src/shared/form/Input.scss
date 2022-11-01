@@ -18,7 +18,7 @@
         color: $dark;
         padding: 8px;
         border: none;
-        border-radius: 5px;
+        border-radius: $border-radius-5;
         font-size: 12px;
         margin-bottom: 6px;
         &:focus {

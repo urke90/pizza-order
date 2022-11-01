@@ -1,3 +1,5 @@
+@import './assets/scss/colors';
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
@@ -9,4 +11,30 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+/*
+    SCROLLBAR
+*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $gray;
+    border-radius: $border-radius-5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: $border-radius-5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $scrollbar-hover;
 }

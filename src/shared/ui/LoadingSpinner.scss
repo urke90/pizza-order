@@ -1,3 +1,5 @@
+@import '../../assets/scss/colors';
+
 .loader {
     &__wrapper {
         text-align: center;
@@ -11,7 +13,6 @@
         left: 0;
         height: 100vh;
         width: 100%;
-        // background: rgba(255, 255, 255, 0.9);
         background: rgba(0, 0, 0, 1);
     }
 }
@@ -32,7 +33,7 @@
     position: absolute;
     width: 7px;
     height: 7px;
-    border-radius: 50%;
+    border-radius: $border-radius-round;
     background: red;
     margin: -4px 0 0 -4px;
 }

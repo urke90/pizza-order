@@ -1,5 +1,7 @@
 import Button from 'shared/form/Button';
 
+import './IngredientConstValue.scss';
+
 interface IIngredientConstValueProps {
     ingValueConstant: number;
     onValueChange: (value: number) => void;
@@ -11,8 +13,10 @@ const IngredientConstValue: React.FC<IIngredientConstValueProps> = ({
 }) => {
     return (
         <>
-            <h4 className="ingredients__heading">Increment or decrement by:</h4>
-            <div className="ingredients__buttons-wrapper">
+            <h4 className="ingredients-constant__heading">
+                Increment or decrement by:
+            </h4>
+            <div className="ingredients-constant__buttons">
                 <Button
                     type="button"
                     onClick={() => onValueChange(0.25)}
@@ -20,7 +24,7 @@ const IngredientConstValue: React.FC<IIngredientConstValueProps> = ({
                 >
                     0.25
                 </Button>
-                <span className="ingredients__constant-value">
+                <span className="ingredients-constant__quantity">
                     {ingValueConstant}
                 </span>
                 <Button

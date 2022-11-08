@@ -1,4 +1,4 @@
-@import '../../assets/scss/colors';
+@import '../../assets/scss/variables';
 
 .addresses-dropdown {
     position: relative;
@@ -20,11 +20,11 @@
         transition: visibility 0.2s;
     }
     &__list--slide-down {
-        animation: accordion-slide-down 0.2s linear;
+        animation: dropdown-slide-down 0.2s linear;
         visibility: visible;
     }
     &__list--slide-up {
-        animation: accordion-slide-up 0.2s linear;
+        animation: dropdown-slide-up 0.2s linear;
         visibility: hidden;
     }
     &__item {
@@ -50,7 +50,7 @@
             font-size: 20px;
         }
     }
-    @keyframes accordion-slide-down {
+    @keyframes dropdown-slide-down {
         0% {
             transform: translateY(-20%);
             opacity: 0;
@@ -60,7 +60,7 @@
             opacity: 1;
         }
     }
-    @keyframes accordion-slide-up {
+    @keyframes dropdown-slide-up {
         0% {
             transform: translateY(0);
             opacity: 1;

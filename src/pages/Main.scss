@@ -1,13 +1,10 @@
-@import '../assets/scss/colors';
+@import '../assets/scss/variables';
 
 .main {
     &__container {
-        // width: 100%;
         max-width: 1260px;
-        // margin: 0 auto;
     }
     &__heading {
-        // max-width: 1260px;
         text-align: center;
         padding: 30px 20px;
     }

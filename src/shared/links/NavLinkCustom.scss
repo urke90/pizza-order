@@ -1,4 +1,4 @@
-@import '../../assets/scss/colors';
+@import '../../assets/scss/variables';
 
 a {
     font-size: 15px;
@@ -6,4 +6,5 @@ a {
     text-decoration: none;
     color: $orange;
     text-transform: uppercase;
+    border-radius: $border-radius-5;
 }

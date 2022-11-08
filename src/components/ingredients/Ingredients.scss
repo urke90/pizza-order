@@ -1,29 +1,13 @@
-@import '../../assets/scss/colors';
+@import '../../assets/scss/variables';
 
 .ingredients {
     padding: 20px;
+    &__list {
+        max-height: 1300px;
+        overflow-y: auto;
+    }
     &__heading {
         text-align: center;
-    }
-    &__buttons-wrapper {
-        display: flex;
-        justify-content: center;
-        margin: 20px auto 40px;
-        button {
-            min-width: 52px;
-        }
-        button:first-child {
-            padding: 5px 12px;
-        }
-    }
-    &__constant-value {
-        min-width: 80px;
-        text-align: center;
-        display: inline-block;
-        padding: 5px 18px;
-        border: 2px dotted $orange;
-        border-radius: $border-radius-5;
-        margin: 0 15px;
     }
     &__list-title {
         text-align: center;
